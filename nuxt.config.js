@@ -14,7 +14,6 @@ export default {
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ['~/assets/main.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
-
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
 
@@ -116,7 +115,7 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight'],
+			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faThumbsUp', 'faLock', 'faUsers'],
 			regular: ['faClock', 'faEnvelope'],
 			light: [],
 			duotone: [],
@@ -125,7 +124,7 @@ export default {
 	},
 
 	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: [],
+	modules: ['@nuxtjs/i18n'],
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {},

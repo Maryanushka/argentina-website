@@ -33,3 +33,42 @@
 		}
 	}
 }
+
+@mixin title_with_udreline_default() {
+	text-transform: uppercase;
+	&::after {
+		content: '';
+		display: block;
+		min-width: 5rem;
+		background-color: theme('colors.blue');
+		height: 3px;
+		bottom: -2rem;
+		position: absolute;
+	}
+}
+@mixin title_with_udreline_centered() {
+	text-transform: uppercase;
+	&::after {
+		content: '';
+		display: block;
+		min-width: 5rem;
+		background-color: theme('colors.blue');
+		height: 3px;
+		bottom: -2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+	}
+}
+section {
+	h2.title {
+		@include title_with_udreline_default()
+	}
+}
+@media (max-width: theme('screens.md')) {
+	section{
+		h2.title {
+			@include title_with_udreline_centered()
+		}
+	}
+}

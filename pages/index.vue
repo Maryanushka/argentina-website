@@ -2,6 +2,7 @@
 	<main class="mt-36">
 		<Slider :list="sliderList" type="image" />
 		<ServiceCardsList :data="services" />
+		<IconList :data="iconList" />
 	</main>
 </template>
 
@@ -33,6 +34,31 @@ export default {
 					image: 'visa-application-form-on-a-wooden-table-visa-proc-2021-12-09-20-21-32-utc.jpg',
 					uid: 'poslygu',
 					title: 'Послуги',
+				},
+				{
+					image: 'buenos-aires-architecture-2021-08-26-17-13-53-utc.jpg',
+					uid: 'novunu',
+					title: 'Новини',
+				},
+			],
+		},
+		iconList: {
+			title: 'Чому Аргентина',
+			list: [
+				{
+					icon: ['fa', 'thumbs-up'],
+					listTitle: 'Перша причина',
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
+				},
+				{
+					icon: ['fa', 'users'],
+					listTitle: 'Друга причина',
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
+				},
+				{
+					icon: ['fa', 'lock'],
+					listTitle: 'Третя причина',
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
 				},
 			],
 		},
