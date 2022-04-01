@@ -57,34 +57,33 @@ export default {
 <style lang="scss" scoped>
 .input_item {
 	position: relative;
-	padding: inherit;
-	width: 100%;
-	height: 100%;
+	// width: 100%;
+	// height: 100%;
 
 	font-weight: 500;
 	input {
 		width: 100%;
-		height: 50px;
+		// height: 50px;
 		border: 0;
-		// border-bottom: 1px solid $borderInput;
+		border-bottom: 1px solid theme('colors.blue');
 		outline: 0;
 		padding-top: 20px;
 		background: transparent;
 
 		font-family: inherit;
 		font-size: 0.9rem;
-		color: $text;
+		// color: $text;
 
 		transition: border-color 0.2s;
 		&:-webkit-autofill,
 		&:-webkit-autofill:hover,
 		&:-webkit-autofill:focus {
-			-webkit-text-fill-color: $text;
+			-webkit-text-fill-color: theme('colors.black');
 			box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
 			transition: background-color 5000s ease-in-out 0s;
 		}
 		&::placeholder {
-			// color: $text;
+			color: theme('colors.black');
 			text-transform: capitalize;
 			transition: 0.2s ease;
 			font-weight: 300;
@@ -97,7 +96,7 @@ export default {
 		}
 		&:focus {
 			&::placeholder {
-				// color: $white;
+				color: theme('colors.white');
 			}
 			~ label {
 				position: absolute;
@@ -106,7 +105,7 @@ export default {
 				transition: 0.2s;
 				font-weight: 300;
 				font-size: 0.8rem;
-				// color: $text;
+				color: theme('colors.black') t;
 			}
 		}
 		/* reset input */
@@ -133,8 +132,11 @@ export default {
 		top: 0;
 		right: 0;
 		font-size: 0.8em;
-		// color: $error;
-		@include d-flex(row, center, center, initial);
+		color: rgb(255, 0, 85);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		// @include d-flex(row, center, center, initial);
 		&.invalid {
 			display: flex;
 		}

@@ -13,7 +13,7 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+	css: ['~/assets/main.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
@@ -91,6 +91,14 @@ export default {
 				ru: '/tyrizm/:tourism?',
 				ua: '/tyruzm/:tourism?',
 			},
+			'immigration/_immigration': {
+				ru: '/imigracija/:immigration?',
+				ua: '/migraciija/:immigration?',
+			},
+			'immigration/_index': {
+				ru: '/imigracija',
+				ua: '/migraciija',
+			},
 			'services/index': {
 				ru: '/uslugi',
 				ua: '/poslygu',
@@ -108,7 +116,7 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faPhone', 'faEnvelope'],
+			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight'],
 			regular: ['faClock', 'faEnvelope'],
 			light: [],
 			duotone: [],

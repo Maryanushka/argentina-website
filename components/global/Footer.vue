@@ -1,8 +1,8 @@
 <template>
 	<footer class="bg-gray-200">
-		<div class="container flex md:flex-wrap pt-16 pb-16">
-			<div class="w-full md:w-1/2">
-				<ul class="list mb-16 flex">
+		<div class="container flex flex-wrap pt-16 pb-16 px-4">
+			<div class="w-full md:w-2/3">
+				<ul class="list mb-16 flex flex-wrap">
 					<li>
 						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Почему Аргентина</a>
 					</li>
@@ -21,9 +21,9 @@
 				</ul>
 				<SubscribeForm />
 			</div>
-			<div class="w-full md:w-1/2">
-				<h4 class="text-darkBlue font-bold text-base">Мы в социальных сетях</h4>
-				<ul class="social-media flex">
+			<div class="w-full md:w-1/3 mt-12 md:mt-0">
+				<h4 class="text-darkBlue font-bold text-base mb-8">Мы в социальных сетях</h4>
+				<ul class="social-media flex mb-8">
 					<li>
 						<a href="#">
 							<font-awesome-icon class="text-darkBlue hover:text-blue pr-6 text-xl" :icon="['fab', 'facebook']" />
