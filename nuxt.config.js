@@ -115,7 +115,7 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faThumbsUp', 'faLock', 'faUsers'],
+			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV'],
 			regular: ['faClock', 'faEnvelope'],
 			light: [],
 			duotone: [],

@@ -1,5 +1,5 @@
 <template>
-	<main class="mt-36">
+	<main class="md:mt-36 mt-18">
 		<Slider :list="sliderList" type="image" />
 		<ServiceCardsList :data="services" />
 		<IconList :data="iconList" />
@@ -48,17 +48,17 @@ export default {
 				{
 					icon: ['fa', 'thumbs-up'],
 					listTitle: 'Перша причина',
-					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.',
 				},
 				{
 					icon: ['fa', 'users'],
 					listTitle: 'Друга причина',
-					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.',
 				},
 				{
 					icon: ['fa', 'lock'],
 					listTitle: 'Третя причина',
-					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.'
+					description: 'Our mission is to attract and retain customers by providing Best in Class transportation solutions and fostering a profitable, disciplined culture of safety, service, and trust.',
 				},
 			],
 		},
