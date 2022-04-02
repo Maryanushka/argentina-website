@@ -34,7 +34,7 @@
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
 						</li>
 						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Услуги</a>
+							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" to="/poslygu/">Послуги</n-link>
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
 						</li>
 						<li>
@@ -117,7 +117,6 @@ export default {
 		}
 		a {
 			display: flex;
-			justify-content: center;
 		}
 		img {
 			height: auto;
@@ -219,9 +218,9 @@ export default {
 		}
 		.logo {
 			position: fixed;
-			top: -2rem;
+			top: -2.7rem;
 			height: 20vh;
-			width: 55vw;
+			width: 20rem;
 			left: 50%;
 			transform: translateX(-50%);
 			transition: 0.3s linear;
