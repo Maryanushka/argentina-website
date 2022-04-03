@@ -15,10 +15,11 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ['~/assets/main.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: [{ src: '@/plugins/vee-validate.js' },],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
-
+	// Modules: https://go.nuxtjs.dev/config-modules
+	modules: ['@nuxtjs/i18n', '@nuxtjs/sanity/module'],
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
@@ -28,6 +29,10 @@ export default {
 		'@nuxtjs/tailwindcss',
 		'@nuxtjs/fontawesome',
 	],
+
+	router: {
+		trailingSlash: true,
+	},
 
 	image: {
 		// The screen sizes predefined by `@nuxt/image`:
@@ -74,13 +79,13 @@ export default {
 				ru: '/novosti/:article?',
 				ua: '/novunu/:article?',
 			},
-			'aboutArgentina/index': {
+			'argentina/index': {
 				ru: '/pro-argentiny',
 				ua: '/pro-argentuny',
 			},
-			'aboutArgentina/_argentina': {
-				ru: '/pro-argentiny/:argentina?',
-				ua: '/pro-argentuny/:argentina?',
+			'argentina/_argentina_slug': {
+				ru: '/pro-argentiny/:argentina_slug?',
+				ua: '/pro-argentuny/:argentina_slug?',
 			},
 			'tourism/index': {
 				ru: '/tyrizm',
@@ -106,9 +111,9 @@ export default {
 				ru: '/uslugi/:service?',
 				ua: '/poslygu/:service?',
 			},
-			_page: {
-				ru: '/:page?',
-				ua: '/:page?',
+			contacts: {
+				ru: '/kontakty',
+				ua: '/kontaktu',
 			},
 		},
 	},
@@ -123,9 +128,16 @@ export default {
 		},
 	},
 
-	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: ['@nuxtjs/i18n'],
+	sanity: {
+		projectId: '17qu8ckk',
+		minimal: true,
+		contentHepler: true,
+		apiVersion: '2021-10-21',
+		dataset: 'production',
+	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {},
+	build: {
+		transpile: ['vee-validate/dist/rules'],
+	},
 }

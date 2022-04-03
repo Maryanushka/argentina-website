@@ -4,9 +4,9 @@
 			<div v-for="(slide, i) in list" :key="slide.key + i" class="slide relative flex items-center">
 				<div class="content">
 					<picture class="w-full h-full">
-						<source media="(max-width: 799px)" srcset="photo_2022-03-15_16-56-43.jpg" />
-						<source media="(min-width: 800px)" srcset="photo_2022-03-15_16-56-24.jpg" />
-						<img class="object-cover object-center w-full h-full" src="photo_2022-03-15_16-56-24.jpg" alt="Chris standing up holding his daughter Elva" />
+						<source media="(max-width: 799px)" srcset="/photo_2022-03-15_16-56-43.jpg" />
+						<source media="(min-width: 800px)" srcset="/photo_2022-03-15_16-56-24.jpg" />
+						<img class="object-cover object-center w-full h-full" src="/photo_2022-03-15_16-56-24.jpg" alt="Chris standing up holding his daughter Elva" />
 					</picture>
 				</div>
 			</div>

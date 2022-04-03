@@ -105,4 +105,8 @@ section {
 			@include title_with_udreline_centered()
 		}
 	}
+	.top_skew, 
+	.bottom_skew {
+		display: none;
+	}
 }

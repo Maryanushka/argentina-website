@@ -3,3 +3,8 @@
 		<Intro title="Привіт ми з України :)" :crumbs="{ enabled: true, linkLabel: 'Послуги', linkName: 'service' }" />
 	</main>
 </template>
+<script>
+export default {
+	name: 'Argentina',
+}
+</script>

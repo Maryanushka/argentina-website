@@ -26,13 +26,3 @@ export default {
 	},
 }
 </script>
-<style lang="scss" scoped>
-@media (max-width: theme('screens.md')) {
-	.icon_list {
-		&::after,
-		&::before {
-			display: none;
-		}
-	}
-}
-</style>

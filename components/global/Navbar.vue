@@ -4,7 +4,7 @@
 			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
 
 			<div class="logo xl:relative xl:w-1/4 absolute h-28 w-60">
-				<n-link to="/" class="absolute z-10 h-full flex">
+				<n-link :to="localePath('index')" class="absolute z-10 h-full flex">
 					<nuxt-img src="logo_cut.png" />
 				</n-link>
 			</div>
@@ -25,28 +25,8 @@
 				</div>
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
-						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Почему Аргентина</a>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
-						</li>
-						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Иммиграция</a>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
-						</li>
-						<li>
-							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" to="/poslygu/">Послуги</n-link>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
-						</li>
-						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Туризм </a>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
-						</li>
-						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Блог</a>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
-						</li>
-						<li>
-							<a class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" href="">Контакты</a>
+						<li v-for="link in currentLocaleMenu" :key="link.uid">
+							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" :to="`${$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
 						</li>
 					</ul>
@@ -58,17 +38,29 @@
 	</header>
 </template>
 <script>
+import { menu } from '@/plugins/queries'
+
 export default {
 	data: () => ({
 		scrollPosition: null,
 		mobile: null,
 		isNavigationOpened: false,
 		isisContactBlockOpened: false,
+		navigation: null,
 	}),
+	async fetch() {
+		await this.$sanity.fetch(menu).then((data) => {
+			this.$store.dispatch('bindNavigation', data)
+		})
+	},
 	computed: {
-		// currentLocale() {
-		// 	return this.$i18n.localeProperties.code
-		// },
+		currentLocaleMenu() {
+			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'page' && el.lang === this.$i18n.localeProperties.code)
+			navigation.sort(function (a, b) {
+				return a.place - b.place
+			})
+			return navigation.slice(1)
+		},
 	},
 	watch: {
 		currentLocale(newValue, oldValue) {
@@ -81,11 +73,6 @@ export default {
 		window.addEventListener('resize', this.resize)
 	},
 	methods: {
-		// getNavbarLinks() {
-		// 	this.currentLinks = this.links.filter((el) => {
-		// 		return el.language === this.$i18n.localeProperties.code ? el.data : false
-		// 	})
-		// },
 		infoOpened() {
 			this.isisContactBlockOpened = !this.isisContactBlockOpened
 		},
@@ -164,7 +151,6 @@ export default {
 			left: -50%;
 		}
 		nav {
-			justify-content: center;
 			&::after {
 				background-color: theme('colors.blue');
 				width: 156%;

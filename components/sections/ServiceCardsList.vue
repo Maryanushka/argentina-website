@@ -7,14 +7,14 @@
 			</div>
 			<div class="grid md:grid-cols-3 grid-cols-1 gap-6">
 				<n-link v-for="service in data.links" :key="service.title" :to="`/${service.uid}/`" class="service_item relative overflow-hidden">
-					<img :src="service.image" alt="" class="w-full h-full object-cover" />
+					<img :src="`/${service.image}`" alt="" class="w-full h-full object-cover" />
 					<h5 class="bg-blue py-2 text-xl pl-8 pr-10 bottom-5 left-0 text-white absolute">
 						<font-awesome-icon class="text-white" :icon="['fa', 'arrow-right']" />
 						{{ service.title }}
 					</h5>
 				</n-link>
 			</div>
-			<n-link :to="localePath('services')" class="px-12 py-4 mt-12 text-white bg-blue hover:bg-darkBlue">Дивитись</n-link>
+			<n-link :to="localePath('argentina')" class="px-12 py-4 mt-12 text-white bg-blue hover:bg-darkBlue">Дивитись</n-link>
 		</div>
 	</section>
 </template>

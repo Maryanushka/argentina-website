@@ -1,12 +1,20 @@
 <template>
 	<main class="md:mt-36 mt-18">
-		<Slider :list="sliderList" type="image" />
+		<!-- <Slider :list="sliderList" type="image" />
 		<ServiceCardsList :data="services" />
-		<IconList :data="iconList" />
+		<IconList :data="iconList" /> -->
+		<template v-if="$fetchState.error && !data.title && !$fetchState.pending">
+			<Error />
+		</template>
+		<template v-if="!$fetchState.pending && data.title">
+			<!-- <SanityContent :blocks="data.content" class="content" :serializers="serializers" /> -->
+		</template>
 	</main>
 </template>
 
 <script>
+import { page } from '@/plugins/queries'
+// import VideoSection from '@/components/sections/VideoSection'
 export default {
 	name: 'IndexPage',
 	data: () => ({
@@ -62,6 +70,43 @@ export default {
 				},
 			],
 		},
+		data: {},
+		serializers: {
+			types: {
+				// slider: VideoSection,
+				// image: PanelImage,
+				// cta: Cta,
+				// slider_panel: PanelSlider,
+				// slider_projects: ProjectSlider,
+				// counter: Achievements,
+				// benefits: Benefits,
+				// panelImages: Partners,
+				// richText: RichText,
+				// faq: Faq,
+			},
+		},
 	}),
+	async fetch() {
+		const id = this.$i18n.localeProperties.code === 'ua' ? 'golovna' : 'domashnyaja'
+
+		await this.$sanity
+			.fetch(page, { uid: id, lang: this.$i18n.localeProperties.code })
+			.then(async (fetch) => {
+				this.data.content = fetch.content
+				await this.$store.dispatch('metaTags', {
+					type: 'index',
+					fetch,
+				})
+			})
+			.catch((error) => {
+				// set status code on server and
+				if (process.server) {
+					this.$nuxt.context.res.statusCode = 404
+				}
+				// use throw new Error()
+				throw new Error('index not found', error)
+			})
+	},
+	fetchOnServer: false,
 }
 </script>
