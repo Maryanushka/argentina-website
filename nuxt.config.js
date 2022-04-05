@@ -15,7 +15,7 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ['~/assets/main.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [{ src: '@/plugins/vee-validate.js' },],
+	plugins: [{ src: '@/plugins/vee-validate.js' }, { src: `~/plugins/lazysizes.client.js` }],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	// Modules: https://go.nuxtjs.dev/config-modules
@@ -138,6 +138,12 @@ export default {
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
+		// vee validate
 		transpile: ['vee-validate/dist/rules'],
+		// lazysizes
+		extend(config, { isClient, loaders: { vue } }) {
+			vue.transformAssetUrls.img = ['data-src', 'src']
+			vue.transformAssetUrls.source = ['data-srcset', 'srcset']
+		},
 	},
 }

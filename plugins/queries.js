@@ -93,57 +93,40 @@ export const project = groq`*[_type == "project" && uid.current == $uid][0] {
 }`
 export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 	content[] {
-		_type == 'richText' => {...},
-		_type == 'cta' => {...},
-		_type == 'counter' => {
+	_type == 'sliderImage' => {
 			...,
-			counterItems[] {
-			title,number
-			}
+			list[] {
+				...,
+				imageItem[] {
+					_type == "mobile" => {
+						_key,
+						"type": _type,
+						"image": asset._ref 
+					},
+					_type == "desktop" => {
+						_key,
+						"type": _type,
+						"image": asset._ref
+					},
+				},
+			},
 		},
-		_type == 'benefits' => {
+		_type == 'serviceList' => {
 			...,
-			benefitItems[] {
-			description, title
-			}
-		},
-		_type == 'gallery' => {
-			...,
-			imageItem[] {
-			"image": asset._ref,
-			}
-		},
-		_type == 'faq' => {
-			...,
-			faqItems[] {
-			_key, 
-			question,
-			answer
-			}
-		},
-		_type == 'slider_projects' => {
-			...,
-			projectItems[] {
-				projectItem -> {
-					"uid": uid.current, 
+			list[] -> {
+        "uid": uid.current, 
 					_id, 
 					title, 
 					"poster": poster.asset._ref
-				},
 			}, 
 		},
-		_type == 'slider_panel' => {
+		_type == 'benefits' => {...},
+		_type == 'intro' => {
 			...,
-			panelItems[] {
-				panelItem -> {
-					"uid": uid.current, 
-					_id, 
-					title, 
-					description, 
-					"poster": poster.asset._ref
-				},
-			}, 
+    	title,
+	    "poster": poster.asset._ref,
 		},
+
 	},
 	metaTags {
 		title,

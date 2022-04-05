@@ -204,15 +204,16 @@ export default {
 		}
 		.logo {
 			position: fixed;
-			top: -2.7rem;
-			height: 20vh;
-			width: 20rem;
+			top: 3px;
+			height: 4rem;
+			width: 10rem;
 			left: 50%;
 			transform: translateX(-50%);
 			transition: 0.3s linear;
 			z-index: 0;
 			img {
 				filter: initial;
+				width: 100%;
 			}
 			&::after {
 				background-color: transparent;

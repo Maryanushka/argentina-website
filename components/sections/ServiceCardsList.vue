@@ -1,13 +1,13 @@
 <template>
 	<section class="service_cards_list py-28 px-4">
 		<div class="container flex flex-wrap">
-			<h2 class="title w-full text-3xl font-bold mb-12 relative text-center md:text-left">{{ data.title }}</h2>
+			<h2 class="title w-full text-3xl font-bold mb-12 relative text-center md:text-left">{{ title }}</h2>
 			<div class="richtext mt-6 w-full md:w-2/3 mb-12 font-light text-center md:text-left">
-				<p>{{ data.richtext }}</p>
+				<SanityContent :blocks="text" />
 			</div>
 			<div class="grid md:grid-cols-3 grid-cols-1 gap-6">
-				<n-link v-for="service in data.links" :key="service.title" :to="`/${service.uid}/`" class="service_item relative overflow-hidden">
-					<img :src="`/${service.image}`" alt="" class="w-full h-full object-cover" />
+				<n-link v-for="service in list" :key="service._id" :to="`/${service.uid}/`" class="service_item relative overflow-hidden">
+					<ImageItem :image="service.poster" class="w-full h-full object-cover" />
 					<h5 class="bg-blue py-2 text-xl pl-8 pr-10 bottom-5 left-0 text-white absolute">
 						<font-awesome-icon class="text-white" :icon="['fa', 'arrow-right']" />
 						{{ service.title }}
@@ -21,8 +21,16 @@
 <script>
 export default {
 	props: {
-		data: {
-			type: Object,
+		text: {
+			type: Array,
+			required: true,
+		},
+		list: {
+			type: Array,
+			required: true,
+		},
+		title: {
+			type: String,
 			required: true,
 		},
 	},

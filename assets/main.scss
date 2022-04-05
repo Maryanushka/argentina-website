@@ -10,7 +10,6 @@
 		align-items: center;
 		button {
 			position: relative;
-			background-color: transparent;
 			-webkit-border-radius: 50%;
 			-moz-border-radius: 50%;
 			border-radius: 50%;
@@ -105,8 +104,8 @@ section {
 			@include title_with_udreline_centered()
 		}
 	}
-	.top_skew, 
-	.bottom_skew {
+	.top_skew::before,
+	.bottom_skew::after {
 		display: none;
 	}
 }

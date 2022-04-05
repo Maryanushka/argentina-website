@@ -1,12 +1,11 @@
 <template>
-	<section class="slider w-full" :class="{ image: type === 'image' }">
+	<section class="slider w-full" :class="{ image: sliderType === 'image' }">
 		<VueSlickCarousel v-bind="options">
-			<div v-for="(slide, i) in list" :key="slide.key + i" class="slide relative flex items-center">
+			<div v-for="slide in list" :key="slide.key" class="slide relative flex items-center">
 				<div class="content">
-					<picture class="w-full h-full">
-						<source media="(max-width: 799px)" srcset="/photo_2022-03-15_16-56-43.jpg" />
-						<source media="(min-width: 800px)" srcset="/photo_2022-03-15_16-56-24.jpg" />
-						<img class="object-cover object-center w-full h-full" src="/photo_2022-03-15_16-56-24.jpg" alt="Chris standing up holding his daughter Elva" />
+					<picture>
+						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" />
+						<img v-if="slide.imageItem[0].type === 'desktop'" class="object-cover object-center w-full h-full lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" />
 					</picture>
 				</div>
 			</div>
@@ -17,7 +16,6 @@
 <script>
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-
 export default {
 	name: 'Slider',
 	components: {
@@ -28,9 +26,9 @@ export default {
 			type: Array,
 			required: true,
 		},
-		type: {
+		sliderType: {
 			type: String,
-			required: true,
+			// required: true,
 			default: 'image',
 		},
 	},
@@ -40,11 +38,13 @@ export default {
 			dots: true,
 			dotsClass: 'slick-dots',
 			draggable: true,
-			infinite: true,
+			infinite: false,
 			speed: 1000,
 			autoplay: true,
 			arrows: false,
 			fade: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
 		},
 	}),
 }

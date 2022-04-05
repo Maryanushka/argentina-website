@@ -58,6 +58,7 @@ picture {
 		object-position: inherit;
 		filter: inherit;
 		display: block;
+		transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
 		&::before {
 			display: none;
 		}
@@ -67,7 +68,6 @@ picture {
 		}
 		&.lazyloaded {
 			opacity: 1;
-			transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
 		}
 	}
 }
