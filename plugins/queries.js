@@ -1,90 +1,45 @@
 import { groq } from '@nuxtjs/sanity'
 
 // by uid
-export const panel = groq`*[_type == "panel" && uid.current == $uid][0]{
-	title,
-	"poster": poster.asset._ref,
-	content[] {
-		_type == 'image' => {
-			_key, _type, "image": asset._ref, w, 
-		},
-		_type == 'richText' => {...},
-		_type == 'cta' => {...},
-		_type == 'counter' => {
-			...,
-			counterItems[] {
-				title,number
-			}
-		},
-		_type == 'benefits' => {
-			...,
-			benefitItems[] {
-			description, title
-			}
-		},
-		_type == 'faq' => {
-			...,
-			faqItems[] {
-			_key, 
-			question,
-			answer
-			}
-		},
-		_type == 'slider_projects' => {
-			...,
-			projectItems[] {
-				projectItem -> {
-					"uid": uid.current, 
-					_id, 
-					title, 
-					filter,
-					"poster": poster.asset._ref
-				},
-			}, 
-		},
-		_type == 'slider_panel' => {
-			...,
-			panelItems[] {
-				panelItem -> {
-					"uid": uid.current, 
-					_id, 
-					title, 
-					description, 
-					"poster": poster.asset._ref
-				},
-			}, 
-		},
-		_type == 'youtube' => { 
-			...,
-			"preview" : preview.asset._ref
-		},
-		_type == 'panelImages' => {
-			_key, 
-			_type, 
-			title, 
-			"galleryProperty": galleryProperty[0].value,
-			imageItem[] {
-				"image": asset._ref, 
-			},
-		},
-    },
-	metaTags{
-		title,
-		description,
-		"image": image.asset._ref
-	},
-}`
-export const project = groq`*[_type == "project" && uid.current == $uid][0] {
+
+export const aboutArgentina = groq`*[_type == "argentina" && uid.current == $uid][0] {
 	title, 
 	"poster": poster.asset._ref, 
-	"gallery": gallery[].asset._ref, 
 	_updatedAt,
 	description,
-	_type == 'youtube' => { 
-		...,
-		"preview" : preview.asset._ref
-	},
-	_id,
+	"uid": uid.current,
+	content[] {
+    ...,
+		_type == "imageText" => {
+			...,
+			text[] {  
+				_type == "blockContent" => {  ..., '_type': 'block' }
+			},
+			"poster": poster.asset._ref,
+		},
+  },
+	"lang": __i18n_lang,
+	"uid": uid.current,
+  	__i18n_lang != 'ua'  => {
+			'languages': [
+				{
+			'lang': __i18n_base -> __i18n_lang,
+			'uid': __i18n_base -> uid.current,
+				},
+				...
+				__i18n_base -> __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}, 
+			]  
+    },
+  __i18n_lang == 'ua' => {
+			'languages': [
+        {
+         'lang': __i18n_lang,
+         'uid':uid.current,
+      },
+      ...
+      __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}
+    ],
+  },
 	metaTags {
 		title,
 		description,
@@ -111,6 +66,13 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 				},
 			},
 		},
+		_type == "imageText" => {
+			...,
+			text[] {  
+				_type == "blockContent" => {  ..., '_type': 'block' }
+			},
+			"poster": poster.asset._ref,
+		},
 		_type == 'serviceList' => {
 			...,
 			list[] -> {
@@ -130,6 +92,28 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 		description,
 		"image": image.asset._ref
 	},
+	"lang": __i18n_lang,
+	"uid": uid.current,
+  	__i18n_lang != 'ua'  => {
+			'languages': [
+				{
+			'lang': __i18n_base -> __i18n_lang,
+			'uid': __i18n_base -> uid.current,
+				},
+				...
+				__i18n_base -> __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}, 
+			]  
+    },
+  __i18n_lang == 'ua' => {
+			'languages': [
+        {
+         'lang': __i18n_lang,
+         'uid':uid.current,
+      },
+      ...
+      __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}
+    ],
+  },
 }`
 
 // list

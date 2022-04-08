@@ -26,7 +26,7 @@ export default {
 		poster: {
 			type: String,
 			required: true,
-			default: '/cementerio-de-chacarita-buenos-aires-argentina-2021-08-29-04-12-40-utc.jpg',
+			default: 'image-06565e23845b7112248ae26738d733b7afd5bc23-9976x5351-jpg',
 		},
 		title: {
 			type: String,

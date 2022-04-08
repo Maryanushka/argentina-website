@@ -4,16 +4,21 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.content">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linklabel: $t('pages.home'), linkname: '/' }" />
-			<div class="container px-4">
-				<aside>
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true }" />
+			<section class="container md:px-0 px-4 py-16 flex flex-wrap">
+				<h2 class="title w-full text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ $t('pages.service.crumbsName') }}</h2>
+				<aside class="md:w-1/3 w-full md:pr-8">
 					<ul>
 						<li v-for="link in sidebar" :key="link.uid">
-							<n-link :to="localePath(link.uid)" class="text-blue py-4 px-6 flex hover:text-white hover:bg-blue text-xl">{{ link.title }}</n-link>
+							<n-link :to="`${localePath(link.type)}${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 flex hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
+								{{ link.title }}
+								<font-awesome-icon class="text-white" :icon="['fa', 'chevron-right']" />
+							</n-link>
 						</li>
 					</ul>
 				</aside>
-			</div>
+				<SanityContent class="content md:w-2/3 w-full" :blocks="data.content" :serializers="serializers" />
+			</section>
 
 			<!-- <SanityContent :blocks="data.content" class="content" :serializers="serializers" /> -->
 		</template>
@@ -21,11 +26,17 @@
 </template>
 <script>
 import { page } from '@/plugins/queries'
+import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
 	name: 'Argentina',
 	data: () => ({
 		data: {},
+		serializers: {
+			types: {
+				imageText: ImageRichText,
+			},
+		},
 	}),
 	async fetch() {
 		await this.$sanity
