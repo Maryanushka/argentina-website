@@ -1,6 +1,6 @@
 <template>
 	<div class="crumbs">
-		<n-link :to="localePath({ name: linkname })">{{ linklabel }}</n-link>
+		<n-link :to="localePath(linkname)">{{ linklabel }}</n-link>
 		<span class="text-white">
 			<font-awesome-icon class="text-white text-sm mx-4" :icon="['fa', 'long-arrow-alt-right']" />
 			{{ title }}
@@ -18,6 +18,7 @@ export default {
 		enabled: {
 			type: Boolean,
 			required: false,
+			default: false,
 		},
 		linklabel: {
 			type: String,
@@ -25,14 +26,7 @@ export default {
 		},
 		linkname: {
 			type: String,
-			default: undefined,
-		},
-	},
-	computed: {
-		link() {
-			const link = this.$route.path.split('/')
-			// if(this.$i18n.locale)
-			return link
+			default: '/',
 		},
 	},
 }
@@ -41,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .crumbs {
 	a {
-		color: theme('colors.blue');
+		color: theme('colors.yellow');
 		&::first-letter {
 			text-transform: uppercase;
 		}

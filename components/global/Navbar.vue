@@ -93,13 +93,13 @@ export default {
 	.logo {
 		&::after {
 			position: absolute;
-			width: 150%;
+			width: 250%;
 			height: 100%;
 			display: block;
 			content: '';
 			transition: width 0.3s ease-out;
-			left: -50%;
-			clip-path: polygon(0 0, 100% 0, 84% 100%, 0% 100%);
+			left: -150%;
+			clip-path: polygon(0 0, 100% 0, 91% 100%, 0% 100%);
 			background-color: theme('colors.blue');
 		}
 		a {
@@ -146,10 +146,6 @@ export default {
 }
 @media (min-width: 1228px) {
 	.header {
-		.logo::after {
-			width: 150%;
-			left: -50%;
-		}
 		nav {
 			&::after {
 				background-color: theme('colors.blue');

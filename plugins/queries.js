@@ -121,13 +121,10 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 			}, 
 		},
 		_type == 'benefits' => {...},
-		_type == 'intro' => {
-			...,
-    	title,
-	    "poster": poster.asset._ref,
-		},
 
 	},
+	title,
+	"poster": poster.asset._ref,
 	metaTags {
 		title,
 		description,
