@@ -1,9 +1,16 @@
 <template>
 	<section class="rich_text">
-		<template v-if="poster !== null">
-			<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
-		</template>
-		<SanityContent :blocks="text" />
+		<div class="container px-4 py-16">
+			<div v-if="poster !== ''" class="image">
+				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
+			</div>
+			<div class="content">
+				<h2 v-if="title !== ''" class="title w-full text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ $t('pages.service.crumbsName') }}</h2>
+
+				<SanityContent :blocks="text" />
+				<a v-if="buttonLink !== null" :href="buttonLink.href" class="mt-12 px-8 py-4 bg-blue text-white inline-flex text-lg font-semibold hover:text-yellow">{{ buttonLink.name }}</a>
+			</div>
+		</div>
 	</section>
 </template>
 
@@ -14,6 +21,14 @@ export default {
 		text: {
 			type: Array,
 			required: true,
+		},
+		buttonLink: {
+			type: Object,
+			default: null,
+		},
+		title: {
+			type: String,
+			default: '',
 		},
 		poster: {
 			type: String,

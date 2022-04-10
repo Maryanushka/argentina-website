@@ -120,8 +120,8 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV'],
-			regular: ['faClock', 'faEnvelope'],
+			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay'],
+			regular: ['faClock', 'faEnvelope', 'faPlayCircle'],
 			light: [],
 			duotone: [],
 			brands: ['faFacebook', 'faInstagram', 'faYoutube'],

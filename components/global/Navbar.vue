@@ -59,7 +59,7 @@ export default {
 			navigation.sort(function (a, b) {
 				return a.place - b.place
 			})
-			return navigation.slice(1)
+			return navigation
 		},
 	},
 	watch: {

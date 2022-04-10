@@ -1,15 +1,33 @@
 <template>
-	<section class="slider w-full" :class="{ image: sliderType === 'image' }">
-		<VueSlickCarousel v-bind="options">
-			<div v-for="slide in list" :key="slide.key" class="slide relative flex items-center">
-				<div class="content">
-					<picture>
+	<section class="slider w-full" :class="{ ' py-20 md:pt-28 md:pb-32 bg-darkBlue relative top_skew bottom_skew': type !== 'sliderImage' }">
+		<template v-if="type === 'sliderImage'">
+			<VueSlickCarousel v-bind="options">
+				<div v-for="slide in list" :key="slide._key" class="slide">
+					<!-- <div class="content"> -->
+					<picture class="object-cover object-center">
 						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" />
-						<img v-if="slide.imageItem[0].type === 'desktop'" class="object-cover object-center w-full h-full lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" />
+						<img v-if="slide.imageItem[0].type === 'desktop'" class="lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" />
 					</picture>
+					<!-- </div> -->
 				</div>
-			</div>
-		</VueSlickCarousel>
+			</VueSlickCarousel>
+		</template>
+		<template v-else>
+			<VueSlickCarousel v-bind="options">
+				<div v-for="slide in list" :key="slide._key" class="slide">
+					<div class="container">
+						<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
+						<div class="video_container w-full h-96 relative">
+							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" />
+							<div class="overlay z-10 absolute bg-black w-full h-full inset-0 bg-opacity-50 block"></div>
+							<a class="text-yellow play absolute top-2/4 left-2/4 z-20 hover:text-blue" @click="openModal({ isEnabled: true, data: slide.youtube })">
+								<font-awesome-icon class="text-6xl" :icon="['fas', 'play-circle']" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</VueSlickCarousel>
+		</template>
 	</section>
 </template>
 
@@ -26,10 +44,15 @@ export default {
 			type: Array,
 			required: true,
 		},
-		sliderType: {
+		type: {
 			type: String,
 			// required: true,
-			default: 'image',
+			default: 'sliderImage',
+		},
+		title: {
+			type: String,
+			// required: true,
+			default: '',
 		},
 	},
 	data: () => ({
@@ -37,20 +60,33 @@ export default {
 		options: {
 			dots: true,
 			dotsClass: 'slick-dots',
-			draggable: true,
-			infinite: false,
-			speed: 1000,
 			autoplay: true,
 			arrows: false,
 			fade: true,
+			edgeFriction: 0.35,
+			infinite: false,
+			speed: 500,
 			slidesToShow: 1,
 			slidesToScroll: 1,
 		},
 	}),
+	methods: {
+		imagePreview(url) {
+			return url.slice(url.length - 11, url.length)
+		},
+		openModal(value) {
+			console.log(value)
+			this.$store.dispatch('bindModal', value)
+		},
+	},
 }
 </script>
 <style lang="scss" scoped>
 .slider {
 	overflow: hidden;
+	.play {
+		transform: translate(-50%, -50%);
+		z-index: 10;
+	}
 }
 </style>

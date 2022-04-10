@@ -10,19 +10,23 @@
 </template>
 
 <script>
-import { page } from '@/plugins/queries'
+import { home } from '@/plugins/queries'
 import Slider from '@/components/global/Slider'
 import ServiceCardsList from '@/components/sections/ServiceCardsList'
 import IconList from '@/components/sections/IconList'
+import ImageRichText from '@/components/sections/ImageRichText'
+
 export default {
 	name: 'IndexPage',
 	data: () => ({
 		data: {},
 		serializers: {
 			types: {
+				imageText: ImageRichText,
 				sliderImage: Slider,
-				serviceList: ServiceCardsList,
 				benefits: IconList,
+				sliderYoutube: Slider,
+				serviceList: ServiceCardsList,
 			},
 		},
 	}),
@@ -30,7 +34,7 @@ export default {
 		const id = this.$i18n.localeProperties.code === 'ua' ? 'golovna' : 'domashnyaja'
 
 		await this.$sanity
-			.fetch(page, { uid: id, lang: this.$i18n.localeProperties.code })
+			.fetch(home, { uid: id, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data.content = fetch.content
 				await this.$store.dispatch('metaTags', {
@@ -53,3 +57,30 @@ export default {
 	},
 }
 </script>
+<style lang="scss" scoped>
+.rich_text {
+	display: flex;
+	flex-wrap: wrap;
+	.container {
+		display: flex;
+	}
+	.image {
+		margin-right: 2rem;
+	}
+	.image,
+	.content {
+		width: 50%;
+	}
+}
+@media (max-width: 768px) {
+	.rich_text {
+		.image {
+			margin-right: 0;
+		}
+		.image,
+		.content {
+			width: 100%;
+		}
+	}
+}
+</style>

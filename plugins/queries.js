@@ -291,6 +291,84 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
     ],
   },
 }`
+export const home = groq`*[_type == "home" && uid.current == $uid][0] {
+	content[] {
+	_type == 'sliderImage' => {
+		...,
+			"type" : _type,
+			list[] {
+				...,
+				imageItem[] {
+					_type == "mobile" => {
+						_key,
+						"type": _type,
+						"image": asset._ref 
+					},
+					_type == "desktop" => {
+						_key,
+						"type": _type,
+						"image": asset._ref
+					},
+				},
+			},
+		},
+		_type == "sliderYoutube" => {
+			...,
+			"type" : _type,
+			list[] {
+				..., 
+				"youtube" : youtube.url
+			}
+		},
+		_type == "imageText" => {
+			...,
+			text[] {  
+				_type == "blockContent" => {  ..., '_type': 'block' }
+			},
+			"poster": poster.asset._ref,
+		},
+		_type == 'serviceList' => {
+			...,
+			list[] -> {
+        "uid": uid.current, 
+					_id, 
+					title, 
+					"poster": poster.asset._ref
+			}, 
+		},
+		_type == 'benefits' => {...},
+
+	},
+	title,
+	"poster": poster.asset._ref,
+	metaTags {
+		title,
+		description,
+		"image": image.asset._ref
+	},
+	"lang": __i18n_lang,
+	"uid": uid.current,
+  	__i18n_lang != 'ua'  => {
+			'languages': [
+				{
+			'lang': __i18n_base -> __i18n_lang,
+			'uid': __i18n_base -> uid.current,
+				},
+				...
+				__i18n_base -> __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}, 
+			]  
+    },
+  __i18n_lang == 'ua' => {
+			'languages': [
+        {
+         'lang': __i18n_lang,
+         'uid':uid.current,
+      },
+      ...
+      __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}
+    ],
+  },
+}`
 
 // list
 export const panelList = groq`*[_type == "panel"]{

@@ -5,12 +5,7 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.parentTitle">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: data.parentTitle }" />
-			<section v-for="item in data.content" :key="item._key" class="container px-4 py-16">
-				<template v-if="item.poster !== null">
-					<ImageItem :image="item.poster" class="w-full h-full object-cover mb-8 flex" />
-				</template>
-				<SanityContent :blocks="item.text" class="content text-lg" />
-			</section>
+			<SanityContent class="content" :blocks="data.content" :serializers="serializers" />
 		</template>
 	</main>
 </template>

@@ -5,16 +5,13 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.parentTitle">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: data.parentTitle }" />
-			<section v-for="item in data.content" :key="item._key" class="container px-4 py-16">
-				<ImageItem :image="item.poster" class="w-full h-full object-cover mb-8 flex" />
-				<SanityContent :blocks="item.text" class="content text-lg" />
-			</section>
+			<SanityContent class="content" :blocks="data.content" :serializers="serializers" />
 		</template>
 	</main>
 </template>
 <script>
 import { aboutArgentina } from '@/plugins/queries'
-// import ImageRichText from '@/components/sections/ImageRichText'
+import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
 	name: 'ArgeninaSlug',
@@ -22,7 +19,7 @@ export default {
 		data: {},
 		serializers: {
 			types: {
-				// imageText: ImageRichText,
+				imageText: ImageRichText,
 			},
 		},
 	}),
@@ -47,6 +44,7 @@ export default {
 				throw new Error('aboutArgentina not found', error)
 			})
 	},
+	fetchOnServer: false,
 	head() {
 		return this.$store.getters.metaHead
 	},

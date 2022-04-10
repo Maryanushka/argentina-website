@@ -1,5 +1,5 @@
 <template>
-	<div class="video_wrapper">
+	<div class="video_wrapper w-full h-full">
 		<client-only>
 			<LazyYoutube :src="url" :autoplay="true" />
 		</client-only>
@@ -28,6 +28,7 @@ export default {
 	width: 100%;
 	.ipOhDr {
 		max-width: 100%;
+		height: 100%;
 	}
 }
 
