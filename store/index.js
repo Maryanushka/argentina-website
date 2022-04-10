@@ -2,12 +2,16 @@ export const state = (context) => ({
 	domain: 'http://localhost:3000',
 	projectId: '17qu8ckk',
 	navigation: {},
+	modalVideo: {},
+
 	metaHead: null,
 })
 
 export const getters = {
 	metaHead: (state) => state.metaHead,
 	navigation: (state) => state.navigation,
+	modalVideo: (state) => state.modalVideo,
+
 }
 
 export const mutations = {
@@ -17,11 +21,20 @@ export const mutations = {
 	setNavigation(state, payload) {
 		state.navigation = payload
 	},
+	setModalVideo(state, value) {
+		state.modalVideo = {
+			open: value.open,
+			data: value.data,
+		}
+	},
 }
 
 export const actions = {
 	bindNavigation(context, payload) {
 		context.commit('setNavigation', payload)
+	},
+	bindModalVideo(context, value) {
+		context.commit('setModalVideo', value)
 	},
 	async metaTags({ state, commit, app }, { type, fetch }) {
 		const metaData = await fetch.metaTags

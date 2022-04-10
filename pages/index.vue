@@ -48,5 +48,8 @@ export default {
 			})
 	},
 	fetchOnServer: false,
+	head() {
+		return this.$store.getters.metaHead
+	},
 }
 </script>

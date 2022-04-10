@@ -4,20 +4,22 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.parentTitle">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: data.parentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'tourism', linklabel: data.parentTitle }" />
 			<section v-for="item in data.content" :key="item._key" class="container px-4 py-16">
-				<ImageItem :image="item.poster" class="w-full h-full object-cover mb-8 flex" />
+				<template v-if="item.poster !== null">
+					<ImageItem :image="item.poster" class="w-full h-full object-cover mb-8 flex" />
+				</template>
 				<SanityContent :blocks="item.text" class="content text-lg" />
 			</section>
 		</template>
 	</main>
 </template>
 <script>
-import { aboutArgentina } from '@/plugins/queries'
+import { tourism } from '@/plugins/queries'
 // import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
-	name: 'ArgeninaSlug',
+	name: 'TourismSlug',
 	data: () => ({
 		data: {},
 		serializers: {
@@ -28,13 +30,13 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(aboutArgentina, { uid: this.$route.params.argentina_slug })
+			.fetch(tourism, { uid: this.$route.params.tourism_slug })
 			.then((fetch) => {
 				this.data = fetch
-				const parentSlug = this.$store.getters.navigation.filter((el) => el.uid === this.localePath('argentina').slice(1, -1) && el.type === 'page')
+				const parentSlug = this.$store.getters.navigation.filter((el) => el.uid === this.localePath('tourism').slice(1, -1) && el.type === 'page')
 				this.data.parentTitle = parentSlug[0].title
 				this.$store.dispatch('metaTags', {
-					type: 'argentina',
+					type: 'tourism',
 					fetch,
 				})
 			})
@@ -44,7 +46,7 @@ export default {
 					this.$nuxt.context.res.statusCode = 404
 				}
 				// use throw new Error()
-				throw new Error('aboutArgentina not found', error)
+				throw new Error('tourism not found', error)
 			})
 	},
 	head() {

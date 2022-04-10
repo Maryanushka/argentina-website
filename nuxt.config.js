@@ -75,9 +75,9 @@ export default {
 				ru: '/novosti',
 				ua: '/novunu',
 			},
-			'blog/_article': {
-				ru: '/novosti/:article?',
-				ua: '/novunu/:article?',
+			'blog/_article_slug': {
+				ru: '/novosti/:article_slug?',
+				ua: '/novunu/:article_slug?',
 			},
 			'argentina/index': {
 				ru: '/pro-argentiny',
@@ -91,25 +91,25 @@ export default {
 				ru: '/tyrizm',
 				ua: '/tyruzm',
 			},
-			'tourism/_index': {
-				ru: '/tyrizm/:tourism?',
-				ua: '/tyruzm/:tourism?',
+			'tourism/_tourism_slug': {
+				ru: '/tyrizm/:tourism_slug?',
+				ua: '/tyruzm/:tourism_slug?',
 			},
-			'immigration/_immigration': {
-				ru: '/imigracija/:immigration?',
-				ua: '/migraciija/:immigration?',
-			},
-			'immigration/_index': {
+			'migration/index': {
 				ru: '/imigracija',
 				ua: '/migraciija',
+			},
+			'migration/_migration_slug': {
+				ru: '/imigracija/:migration_slug?',
+				ua: '/migraciija/:migration_slug?',
 			},
 			'services/index': {
 				ru: '/uslugi',
 				ua: '/poslygu',
 			},
-			'services/_service': {
-				ru: '/uslugi/:service?',
-				ua: '/poslygu/:service?',
+			'services/_service_slug': {
+				ru: '/uslugi/:service_slug?',
+				ua: '/poslygu/:service_slug?',
 			},
 			contacts: {
 				ru: '/kontakty',

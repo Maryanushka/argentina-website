@@ -10,7 +10,7 @@
 				<aside class="md:w-1/3 w-full md:pr-8">
 					<ul>
 						<li v-for="link in sidebar" :key="link.uid">
-							<n-link :to="`${localePath(link.type)}${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 flex hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
+							<n-link :to="`/${$route.path.slice(1, -1)}/${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 flex hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
 								{{ link.title }}
 								<font-awesome-icon class="text-white" :icon="['fa', 'chevron-right']" />
 							</n-link>
@@ -29,7 +29,7 @@ import { page } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
-	name: 'Argentina',
+	name: 'Migration',
 	data: () => ({
 		data: {},
 		serializers: {
@@ -44,7 +44,7 @@ export default {
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {
-					type: 'page',
+					type: 'migration',
 					fetch,
 				})
 			})
@@ -54,7 +54,7 @@ export default {
 					this.$nuxt.context.res.statusCode = 404
 				}
 				// use throw new Error()
-				throw new Error('service not found', error)
+				throw new Error('migration not found', error)
 			})
 	},
 	fetchOnServer: false,
@@ -63,7 +63,7 @@ export default {
 	},
 	computed: {
 		sidebar() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'argentina' && el.lang === this.$i18n.localeProperties.code)
+			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'migration' && el.lang === this.$i18n.localeProperties.code)
 			return navigation
 		},
 	},
