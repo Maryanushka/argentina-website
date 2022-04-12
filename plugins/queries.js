@@ -371,12 +371,12 @@ export const home = groq`*[_type == "home" && uid.current == $uid][0] {
 }`
 
 // list
-export const panelList = groq`*[_type == "panel"]{
+export const innerPagesList = groq`*[_type == $type && __i18n_lang == $lang]{
 	title,
 	"poster": poster.asset._ref,
 	"uid": uid.current,
+  description,
 	_id,
-	_updatedAt
 }`
 export const projectsList = groq`*[_type == "project"] | order(_updatedAt desc) {
 	"uid": uid.current, 

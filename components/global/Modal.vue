@@ -27,29 +27,9 @@ export default {
 	will-change: opacity;
 	will-change: transform;
 
-	// width: 100%;
-	// height: 100vh;
-	// opacity: 1;
-	// z-index: 31;
-	// position: fixed;
-	// top: 0;
-	// left: 0;
-
-	// display: flex;
-	// align-items: center;
-	// justify-content: center;
-	// background: theme('colors.gray.900');
-
 	.close {
-		// position: fixed;
-		// top: 25px;
-		// right: 25px;
-		// fill: theme('colors.white');
 		transition: all 0.2s ease;
 		cursor: pointer;
-		// &:hover {
-			// opacity: 0.5;
-		// }
 	}
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<main class="md:mt-36 mt-18">
+	<main class="md:mt-36 mt-18 min-h-screen">
 		<template v-if="$fetchState.error || (data == undefined && !$fetchState.pending)">
 			<Error />
 		</template>
@@ -10,7 +10,7 @@
 	</main>
 </template>
 <script>
-import { aboutArgentina } from '@/plugins/queries'
+import { aboutArgentina, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
@@ -42,6 +42,15 @@ export default {
 				}
 				// use throw new Error()
 				throw new Error('aboutArgentina not found', error)
+			})
+
+		await this.$sanity
+			.fetch(innerPagesList, { type: 'argentina', lang: this.$i18n.localeProperties.code })
+			.then((pagesList) => {
+				this.data.pageList = pagesList
+			})
+			.catch((error) => {
+				throw new Error('Inner pages query', error)
 			})
 	},
 	fetchOnServer: false,
