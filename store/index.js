@@ -1,3 +1,5 @@
+import { menu } from '@/plugins/queries'
+
 export const state = (context) => ({
 	domain: 'http://localhost:3000',
 	projectId: '17qu8ckk',
@@ -32,8 +34,15 @@ export const mutations = {
 }
 
 export const actions = {
-	bindNavigation(context, payload) {
-		context.commit('setNavigation', payload)
+	async nuxtServerInit({ commit }) {
+		await this.$sanity
+			.fetch(menu)
+			.then((data) => {
+				commit('setNavigation', data)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 	},
 	bindModal(context, value) {
 		context.commit('setModal', value)

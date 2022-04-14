@@ -1,6 +1,6 @@
 <template>
 	<section class="rich_text">
-		<div class="container px-4 py-16">
+		<div class="container">
 			<div v-if="poster !== ''" class="image">
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
@@ -38,3 +38,21 @@ export default {
 	},
 }
 </script>
+<style lang="scss" scoped>
+.home {
+	.rich_text {
+		.container {
+			padding: 4rem 1rem;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.content {
+			padding-left: 2rem;
+		}
+		.image,
+		.content {
+			width: 50%;
+		}
+	}
+}
+</style>

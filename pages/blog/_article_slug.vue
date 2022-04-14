@@ -5,7 +5,7 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.parentTitle">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'blog', linklabel: data.parentTitle }" />
-			<SanityContent class="content" :blocks="data.content" :serializers="serializers" />
+			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
 		</template>
 	</main>
 </template>

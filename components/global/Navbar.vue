@@ -1,7 +1,7 @@
 <template>
 	<header class="header overflow-x-hidden fixed w-full top-0 z-20 bg-white" :class="{ fill: scrollPosition > 500 && mobile > 768 }">
 		<div class="container flex relative">
-			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
+			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30 h-4 w-4" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
 
 			<div class="logo xl:relative xl:w-1/4 absolute h-28 w-60">
 				<n-link :to="localePath('index')" class="absolute z-10 h-full flex">
@@ -9,57 +9,50 @@
 				</n-link>
 			</div>
 			<div class="flex flex-col xl:w-3/4 w-full items-end relative z-10 wrapper">
-				<div class="info flex justify-end md:items-center items-start w-full px-4 py-4" :class="{ isContactBlockOpened: isisContactBlockOpened && mobile < 768 }">
-					<a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="mailto:info@demolink.org">
-						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['far', 'envelope']" />
-						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">info@demolink.org</span>
+				<div class="info flex justify-end md:items-center items-start w-full px-4 pl-4 pr-32" :class="{ isContactBlockOpened: isContactBlockOpened && mobile < 768 }">
+					<a class="md:my-8 md:ml-12 my-2 w-full md:w-auto" href="mailto:dnevnikargentina@gmail.com">
+						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'envelope']" />
+						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">dnevnikargentina@gmail.com</span>
 					</a>
-					<span class="schedule md:my-4 md:ml-12 my-2 w-full md:w-auto">
-						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['far', 'clock']" />
+					<span class="schedule md:my-8 md:ml-12 my-2 w-full md:w-auto">
+						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'clock']" />
 						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Mon–Sat: 7:00–19:00</span>
 					</span>
-					<a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:1-800-1234-567">
+					<!-- <a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:1-800-1234-567">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['fa', 'phone']" />
 						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">1-800-1234-567</span>
-					</a>
+					</a> -->
+					<LangSwitcher />
 				</div>
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
-						<li v-for="link in currentLocaleMenu" :key="link.uid">
-							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" :to="`${$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'}${link.uid}/`">{{ link.title }}</n-link>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden" :icon="['fa', 'chevron-right']" />
+						<li v-for="link in getNavigation" :key="link.uid">
+							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
+							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden h-4 w-4" :icon="['fa', 'chevron-right']" />
 						</li>
 					</ul>
 				</nav>
 			</div>
 
-			<font-awesome-icon class="text-darkBlue md:hidden text-2xl z-30" :icon="isisContactBlockOpened ? ['fa', 'times'] : ['fa', 'ellipsis-v']" @click="infoOpened" />
+			<font-awesome-icon class="text-darkBlue md:hidden text-2xl z-30 h-4 w-4" :icon="isContactBlockOpened ? ['fa', 'times'] : ['fa', 'ellipsis-v']" @click="infoOpened" />
 		</div>
 	</header>
 </template>
 <script>
-import { menu } from '@/plugins/queries'
-
 export default {
 	data: () => ({
 		scrollPosition: null,
 		mobile: null,
 		isNavigationOpened: false,
-		isisContactBlockOpened: false,
-		navigation: null,
+		isContactBlockOpened: false,
+		pageType: 'page',
 	}),
-	async fetch() {
-		await this.$sanity.fetch(menu).then((data) => {
-			this.$store.dispatch('bindNavigation', data)
-		})
-	},
 	computed: {
-		currentLocaleMenu() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'page' && el.lang === this.$i18n.localeProperties.code)
-			navigation.sort(function (a, b) {
-				return a.place - b.place
-			})
-			return navigation
+		getNavigation() {
+			return this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		},
+		normalizedLocale() {
+			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
 	},
 	watch: {
@@ -74,7 +67,7 @@ export default {
 	},
 	methods: {
 		infoOpened() {
-			this.isisContactBlockOpened = !this.isisContactBlockOpened
+			this.isContactBlockOpened = !this.isContactBlockOpened
 		},
 		updateScroll() {
 			this.scrollPosition = window.scrollY

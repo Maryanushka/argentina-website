@@ -1,5 +1,5 @@
 <template>
-	<main class="md:mt-36 mt-18 min-h-screen">
+	<main class="md:mt-36 mt-18 min-h-screen home">
 		<template v-if="$fetchState.error && !data.title && !$fetchState.pending">
 			<Error />
 		</template>
@@ -59,10 +59,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .rich_text {
-	display: flex;
-	flex-wrap: wrap;
 	.container {
 		display: flex;
+		flex-wrap: wrap;
 	}
 	.image {
 		margin-right: 2rem;

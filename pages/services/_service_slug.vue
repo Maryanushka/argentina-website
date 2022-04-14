@@ -5,13 +5,13 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.parentTitle">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'service', linklabel: data.parentTitle }" />
-			<SanityContent class="content" :blocks="data.content" :serializers="serializers" />
+			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
 		</template>
 	</main>
 </template>
 <script>
 import { service } from '@/plugins/queries'
-// import ImageRichText from '@/components/sections/ImageRichText'
+import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
 	name: 'ServiceSlug',
@@ -19,7 +19,7 @@ export default {
 		data: {},
 		serializers: {
 			types: {
-				// imageText: ImageRichText,
+				imageText: ImageRichText,
 			},
 		},
 	}),
