@@ -1,7 +1,7 @@
 import { menu } from '@/plugins/queries'
 
 export const state = (context) => ({
-	domain: 'http://localhost:3000',
+	domain: 'https://argentinadiary.com',
 	projectId: '17qu8ckk',
 	navigation: {},
 	modal: {
@@ -16,6 +16,7 @@ export const getters = {
 	metaHead: (state) => state.metaHead,
 	navigation: (state) => state.navigation,
 	modal: (state) => state.modal,
+	domain: (state) => state.domain,
 }
 
 export const mutations = {

@@ -3,26 +3,14 @@
 		<div class="container flex flex-wrap pt-16 pb-16 px-4">
 			<div class="w-full md:w-2/3">
 				<ul class="list mb-16 flex flex-wrap">
-					<li>
-						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Почему Аргентина</a>
-					</li>
-					<li>
-						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Иммиграция</a>
-					</li>
-					<li>
-						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Услуги</a>
-					</li>
-					<li>
-						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Туризм </a>
-					</li>
-					<li>
-						<a class="text-darkBlue hover:text-blue font-bold pr-8 text-base" href="">Блог</a>
+					<li v-for="link in getNavigation" :key="link.uid">
+						<n-link class="text-darkBlue hover:text-blue font-bold pr-8 text-base" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 					</li>
 				</ul>
 				<SubscribeForm />
 			</div>
 			<div class="w-full md:w-1/3 mt-12 md:mt-0">
-				<h4 class="text-darkBlue font-bold text-base mb-8">Мы в социальных сетях</h4>
+				<h4 class="text-darkBlue font-bold text-base mb-8">{{ $t('pages.contact.socialMediaTitle') }}</h4>
 				<ul class="social-media flex mb-8">
 					<li>
 						<a href="#">
@@ -40,7 +28,7 @@
 						</a>
 					</li>
 				</ul>
-				<span class="text-darkBlue">Domen.com © {{ getYear }} All rights reserved </span>
+				<span class="text-darkBlue">{{ getDomain }} © {{ getYear }} All rights reserved </span>
 			</div>
 		</div>
 	</footer>
@@ -48,10 +36,22 @@
 <script>
 export default {
 	name: 'Footer',
+	data: () => ({
+		pageType: 'page',
+	}),
 	computed: {
 		getYear() {
 			const today = new Date()
 			return today.getFullYear()
+		},
+		getDomain() {
+			return this.$store.getters.domain.slice(8)
+		},
+		getNavigation() {
+			return this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		},
+		normalizedLocale() {
+			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
 	},
 }

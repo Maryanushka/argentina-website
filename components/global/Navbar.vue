@@ -1,6 +1,6 @@
 <template>
 	<header class="header overflow-x-hidden fixed w-full top-0 z-20 bg-white" :class="{ fill: scrollPosition > 500 && mobile > 768 }">
-		<div class="container flex relative h-full">
+		<div class="container flex relative h-full items-center md:items-start">
 			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30 h-4 w-4" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
 
 			<div class="logo xl:relative xl:w-1/4 absolute h-28 w-60">

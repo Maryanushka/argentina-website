@@ -11,11 +11,15 @@ export default {
 			number: 'Телефон',
 			message: 'Сообщение',
 			button: 'Отправить',
+			form_title: 'Ми допоможемо',
+			socialMediaTitle: 'Мы в социальных сетях',
+			successMessage: 'Спасибо за сообщение! Ми мы уже звоним',
+			errorMessage: 'Ой что-то пошло не так! Пожалуйста попробуйсте снова',
 		},
 		service: {
 			crumbsName: 'Услуги',
 			read_more: 'Подробнее',
-			relatedServices: 'ЧТо почитать по теме',
+			relatedServices: 'Что почитать по теме',
 		},
 		f0f: {
 			gotohome: 'На главную',

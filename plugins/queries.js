@@ -249,6 +249,12 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 			},
 			"poster": poster.asset._ref,
 		},
+		_type == "titleText" => {
+			...,
+			text[] {  
+				_type == "blockContent" => {  ..., '_type': 'block' }
+			},
+		},
 		_type == 'serviceList' => {
 			...,
 			list[] -> {

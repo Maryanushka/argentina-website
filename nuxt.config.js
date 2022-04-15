@@ -1,7 +1,7 @@
 export default {
 	// Target: https://go.nuxtjs.dev/config-target
 	target: 'static',
-	components: ['~/components/forms', '~/components/global', '~/components/items', '~/components/local', '~/components/sections'],
+	components: ['~/components/forms', '~/components/global', '~/components/items', '~/components/sections'],
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'argentina',
@@ -49,7 +49,7 @@ export default {
 
 	i18n: {
 		defaultLocale: 'ua',
-		baseUrl: 'localhost:3000',
+		baseUrl: 'https://argentinadiary.com',
 		lazy: true,
 		langDir: 'i18n/',
 		detectBrowserLanguage: false,
@@ -120,11 +120,11 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins'],
+			solid: ['faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart'],
 			regular: ['faClock', 'faEnvelope', 'faPlayCircle'],
 			light: [],
 			duotone: [],
-			brands: ['faFacebook', 'faInstagram', 'faYoutube'],
+			brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faGratipay'],
 		},
 	},
 

@@ -1,57 +1,74 @@
 <template>
 	<div class="subscribe">
 		<form ref="subscribe_form" autocomplete="off" @submit.prevent="subscribe()">
-			<ValidationObserver v-if="!message" ref="subscribe" tag="div">
-				<InputItem id="email" label="email" rules="email|required" class="w-80 mr-4" @getValue="storeValue" />
+			<div v-if="message.isActive">
+				<p class="result_message text-lg mt-4" :class="[message.class]">{{ message.text }} 🤓</p>
+			</div>
+			<ValidationObserver ref="subscribe" tag="div">
+				<InputItem id="email" label="email" rules="email|required" class="w-80 mr-8" />
 
-				<button class="flex items-end hover:text-blue" @click="Submit()">
-					Subscribe
-					<font-awesome-icon class="text-blue text-base ml-4 mb-1" :icon="['fa', 'long-arrow-alt-right']" />
+				<button class="flex items-end text-blue font-semibold hover:text-darkBlue py-4" @click="Submit()">
+					{{ $t('pages.contact.button') }}
+					<font-awesome-icon class="text-base ml-4 mb-1 -4 h-4" :icon="['fa', 'long-arrow-alt-right']" />
 				</button>
 			</ValidationObserver>
-			<div v-else class="message">
-				<h5>Мы уже звоним !</h5>
-				<!-- <n-link :to="'/'">На главную</n-link> -->
-			</div>
 		</form>
 	</div>
 </template>
 
 <script>
 import { ValidationObserver } from 'vee-validate'
+// import * as emailjs from '@emailjs/browser'
 
 export default {
 	components: {
 		ValidationObserver,
 	},
 	data: () => ({
-		message: false,
+		isMessageActive: false,
+		messageText: '',
 		loading: false,
-		form: {
-			email: '',
-			action: 'cta',
+		message: {
+			isActive: false,
+			text: '',
+			class: '',
 		},
 	}),
 	methods: {
-		storeValue(input) {
-			this.form.email = input.value
-			// if (input.name === 'name') this.form.name = input.value
-			// else if (input.name === 'number') this.form.number = input.value
-			// else if (input.name === 'email') this.form.email = input.value
-			// else if (input.name === 'message') this.form.message = input.value
-		},
-
 		async Submit() {
 			const isValid = await this.$refs.subscribe.validate()
 			// validation
 			if (!isValid) return
 
-			this.loading = true
-			console.log('loading')
+			// emailjs.sendForm('service_hmxxn2q', 'template_v1siuzg', this.$refs.contact_form, 'JOPo-OQYnguYIDcB3').then(
+			// 	(result) => {
+			// 		console.log('SUCCESS!', result.text)
+			// 		this.message.isActive = true
+			// 		this.message.class = 'success'
+			// 		this.message.text = this.$t('pages.contact.successMessage')
+			// 		setTimeout(() => {
+			// 			this.$refs.contact_form.reset()
+			// 			this.message.isActive = false
+			// 			this.message.text = ''
+			// 			this.message.class = ''
+			// 		}, 3500)
+			// 	},
+			// 	(error) => {
+			// 		console.log('FAILED...', error.text)
+			// 		this.message.isActive = true
+			// 		this.message.class = 'error'
+			// 		this.message.text = this.$t('pages.contact.errorMessage')
+			// 		setTimeout(() => {
+			// 			this.$refs.contact_form.reset()
+			// 			this.message.isActive = false
+			// 			this.message.text = ''
+			// 			this.message.class = ''
+			// 		}, 3500)
+			// 	},
+			// )
 
-			// this.loading = false
-			// console.log('submited')
-			// this.message = !this.message
+			this.loading = false
+			console.log('submited')
 		},
 	},
 }

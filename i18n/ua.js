@@ -11,6 +11,10 @@ export default {
 			number: 'Телефон',
 			message: 'Сообщение',
 			button: 'Отправить',
+			form_title: 'Ми допоможемо',
+			socialMediaTitle: 'Ми в соціальних мережах',
+			successMessage: "Дякуємо що зв'язалися з нами! Ми вже двонимо",
+			errorMessage: 'Ой щось пішло не так! Будь ласка спробуйте знову',
 		},
 		service: {
 			crumbsName: 'Услуги',
