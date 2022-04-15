@@ -5,13 +5,15 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: getParentTitle }" />
-			<SanityContent v-if="data.content" class="content py-20" :blocks="data.content" :serializers="serializers" />
+			<SanityContent v-if="data.content" class="content" :blocks="data.content" :serializers="serializers" />
+			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
 	</main>
 </template>
 <script>
 import { aboutArgentina, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
+import IconList from '@/components/sections/IconList'
 
 export default {
 	name: 'ArgeninaSlug',
@@ -20,6 +22,7 @@ export default {
 		serializers: {
 			types: {
 				imageText: ImageRichText,
+				benefits: IconList,
 			},
 		},
 	}),
@@ -49,7 +52,7 @@ export default {
 		await this.$sanity
 			.fetch(innerPagesList, { type: 'argentina', lang: this.$i18n.localeProperties.code })
 			.then((pagesList) => {
-				this.data.pageList = pagesList
+				this.data.relatedServices = pagesList
 			})
 			.catch((error) => {
 				throw new Error('Inner pages query', error)
@@ -61,7 +64,10 @@ export default {
 	},
 	computed: {
 		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.localePath('argentina').slice(1, -1) && el.type === 'page')[0].title
+			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		},
+		normalizedParentUid() {
+			return this.localePath('argentina').split('/').slice(1, -1).pop()
 		},
 	},
 }

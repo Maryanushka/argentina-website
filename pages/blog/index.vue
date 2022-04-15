@@ -38,7 +38,6 @@ export default {
 	}),
 	async fetch() {
 		const id = this.$route.path.split('/').slice(1, -1).pop()
-
 		await this.$sanity
 			.fetch(page, { uid: id, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
@@ -54,7 +53,7 @@ export default {
 					this.$nuxt.context.res.statusCode = 404
 				}
 				// use throw new Error()
-				throw new Error('service not found', error)
+				throw new Error('blog not found', error)
 			})
 	},
 	fetchOnServer: false,
@@ -66,7 +65,6 @@ export default {
 			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'article' && el.lang === this.$i18n.localeProperties.code)
 			return navigation
 		},
-		
 	},
 }
 </script>

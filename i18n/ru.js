@@ -12,19 +12,10 @@ export default {
 			message: 'Сообщение',
 			button: 'Отправить',
 		},
-		project: {
-			crumbsName: 'Проекты',
-			infotable: {
-				total_space: 'Общая площадь',
-				space: 'Жилая площадь',
-				rooms: 'Колличество комнат',
-				bathrooms: 'Колличество санузлов',
-				architect: 'Архитектор',
-			},
-		},
 		service: {
 			crumbsName: 'Услуги',
 			read_more: 'Подробнее',
+			relatedServices: 'ЧТо почитать по теме',
 		},
 		f0f: {
 			gotohome: 'На главную',
