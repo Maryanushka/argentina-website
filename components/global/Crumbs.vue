@@ -1,10 +1,10 @@
 <template>
-	<div class="crumbs">
+	<div class="crumbs flex items-center">
 		<n-link :to="localePath('/')">{{ $t('pages.home') }}</n-link>
 		<font-awesome-icon class="text-white text-sm mx-4" :icon="['fa', 'long-arrow-alt-right']" />
 
 		<n-link v-if="linklabel !== undefined" :to="localePath(linkname)">{{ linklabel }}</n-link>
-		<font-awesome-icon v-if="linklabel !== undefined" class="text-white text-sm mx-4" :icon="['fa', 'long-arrow-alt-right']" />
+		<font-awesome-icon v-if="linklabel !== undefined" class="text-white text-sm mx-4 w-4 h-4" :icon="['fa', 'long-arrow-alt-right']" />
 		<span class="text-white">
 			{{ title }}
 		</span>

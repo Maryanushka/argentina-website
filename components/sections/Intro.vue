@@ -1,6 +1,6 @@
 <template>
 	<section class="intro md:h-80 overflow-hidden relative bottom_skew">
-		<ImageItem :image="poster" w="1920" h="1080" class="h-full w-full absolute object-cover" />
+		<ImageItem v-if="poster" :image="poster" w="1920" h="1080" class="h-full w-full absolute object-cover" />
 		<div class="container px-4 flex flex-col justify-between h-full relative z-10">
 			<h1 class="md:text-5xl text-white mt-32 font-bold">
 				{{ title }}
@@ -25,7 +25,7 @@ export default {
 		},
 		poster: {
 			type: String,
-			required: true,
+			// required: true,
 			default: 'image-06565e23845b7112248ae26738d733b7afd5bc23-9976x5351-jpg',
 		},
 		title: {

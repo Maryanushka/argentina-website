@@ -3,9 +3,9 @@
 		<template v-if="$fetchState.error || (data == undefined && !$fetchState.pending)">
 			<Error />
 		</template>
-		<template v-if="!$fetchState.pending && data.parentTitle">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: data.parentTitle }" />
-			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
+		<template v-if="!$fetchState.pending && data.title">
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: getParentTitle }" />
+			<SanityContent v-if="data.content" class="content py-20" :blocks="data.content" :serializers="serializers" />
 		</template>
 	</main>
 </template>
@@ -28,11 +28,13 @@ export default {
 			.fetch(aboutArgentina, { uid: this.$route.params.argentina_slug })
 			.then((fetch) => {
 				this.data = fetch
-				const parentSlug = this.$store.getters.navigation.filter((el) => el.uid === this.localePath('argentina').slice(1, -1) && el.type === 'page')
-				this.data.parentTitle = parentSlug[0].title
 				this.$store.dispatch('metaTags', {
 					type: 'argentina',
 					fetch,
+				})
+				this.$store.dispatch('setLaguageSwitcher', {
+					type: 'argentina_slug',
+					langs: fetch.languages,
 				})
 			})
 			.catch((error) => {
@@ -56,6 +58,11 @@ export default {
 	fetchOnServer: false,
 	head() {
 		return this.$store.getters.metaHead
+	},
+	computed: {
+		getParentTitle() {
+			return this.$store.getters.navigation.filter((el) => el.uid === this.localePath('argentina').slice(1, -1) && el.type === 'page')[0].title
+		},
 	},
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<section class="rich_text">
 		<div class="container">
-			<div v-if="poster !== ''" class="image">
+			<div v-if="poster" class="image">
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
 			<div class="content">
@@ -32,7 +32,7 @@ export default {
 		},
 		poster: {
 			type: String,
-			required: true,
+			// required: true,
 			default: 'image-bab23c6fe03fb3543f286f59bb9a5b5853a802f8-6000x4000-jpg',
 		},
 	},

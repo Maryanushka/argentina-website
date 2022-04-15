@@ -102,4 +102,10 @@ export const actions = {
 		)
 		await commit('setMeta', head)
 	},
+	setLaguageSwitcher({ dispatch }, { type, langs }) {
+		dispatch('i18n/setRouteParams', {
+			ru: { [type]: langs.filter((el) => el.lang === 'ru')[0].uid },
+			ua: { [type]: langs.filter((el) => el.lang === 'ua')[0].uid },
+		})
+	},
 }

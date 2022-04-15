@@ -49,7 +49,7 @@ export default {
 
 	i18n: {
 		defaultLocale: 'ua',
-		baseUrl: 'localhost:3000/',
+		baseUrl: 'localhost:3000',
 		lazy: true,
 		langDir: 'i18n/',
 		detectBrowserLanguage: false,

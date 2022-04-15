@@ -6,21 +6,19 @@
 		<template v-if="!$fetchState.pending && data.content">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true }" />
 			<section class="container md:px-0 px-4 py-16 flex flex-wrap">
-				<h2 class="title w-full text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ $t('pages.service.crumbsName') }}</h2>
+				<h2 class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ $t('pages.service.crumbsName') }}</h2>
 				<aside class="md:w-1/3 w-full md:pr-8">
 					<ul>
 						<li v-for="link in sidebar" :key="link.uid">
-							<n-link :to="`${localePath(link.type)}${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 flex hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
+							<n-link :to="`${localePath(link.type)}${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
 								{{ link.title }}
-								<font-awesome-icon class="text-white" :icon="['fa', 'chevron-right']" />
+								<font-awesome-icon class="text-white w-4 h-4" :icon="['fa', 'chevron-right']" />
 							</n-link>
 						</li>
 					</ul>
 				</aside>
 				<SanityContent class="content md:w-2/3 w-full" :blocks="data.content" :serializers="serializers" />
 			</section>
-
-			<!-- <SanityContent :blocks="data.content" class="content" :serializers="serializers" /> -->
 		</template>
 	</main>
 </template>
@@ -39,8 +37,10 @@ export default {
 		},
 	}),
 	async fetch() {
+		const id = this.$route.path.split('/').slice(1, -1).pop()
+
 		await this.$sanity
-			.fetch(page, { uid: this.$route.path.slice(1, -1), lang: this.$i18n.localeProperties.code })
+			.fetch(page, { uid: id, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {
