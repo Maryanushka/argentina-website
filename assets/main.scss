@@ -65,6 +65,32 @@ section {
 	}
 }
 
+.rich_text {
+	h4 {
+		font-size: 1.1rem;
+	}
+	h5 {
+		font-size: 1.25rem;
+	}
+	h6 {
+		font-size: 1.4rem;
+	}
+	h4, h5 , h6 {
+		font-weight: bold;
+		margin: 1rem 0;
+	}
+	p {
+		margin-bottom: 5px;
+	}
+	ul { 
+		padding-left: 1rem;
+		li {
+			list-style-type: disc;
+		}
+	}
+	a {color: theme('colors.blue')}
+}
+
 .top_skew {
 	&::before {
 		top: -1px;

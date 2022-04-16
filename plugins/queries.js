@@ -184,6 +184,7 @@ export const article = groq`*[_type == "article" && uid.current == $uid][0] {
 	_updatedAt,
 	description,
 	"uid": uid.current,
+  tags,
 	content[] {
     ...,
 		_type == "imageText" => {
@@ -192,6 +193,12 @@ export const article = groq`*[_type == "article" && uid.current == $uid][0] {
 				_type == "blockContent" => {  ..., '_type': 'block' }
 			},
 			"poster": poster.asset._ref,
+		},
+    _type == "titleText" => {
+			...,
+			text[] {  
+				_type == "blockContent" => {  ..., '_type': 'block' }
+			},
 		},
   },
 	"lang": __i18n_lang,
@@ -384,11 +391,12 @@ export const innerPagesList = groq`*[_type == $type && __i18n_lang == $lang]{
   description,
 	_id,
 }`
-export const projectsList = groq`*[_type == "project"] | order(_updatedAt desc) {
+export const articleList = groq`*[_type == "article"] | order(_updatedAt desc) {
 	"uid": uid.current, 
 	title, 
 	"poster": poster.asset._ref, 
 	"tags": tags[].value,
+	"updated": _updatedAt,
 }`
 
 export const sitemapData = groq`*[_type in ["project", "panel", "page"]] {"uid": uid.current, "type":  _type, "updated": _updatedAt}`
@@ -398,6 +406,7 @@ export const menu = groq`*[_type in ["page", "argentina", "service", "article", 
 	"type": _type,
 	"place": place,
   "lang": __i18n_lang,
+	"tags": tags[].value,
 	"uid": uid.current,
   	__i18n_lang != 'ua'  => {
 			'languages': [

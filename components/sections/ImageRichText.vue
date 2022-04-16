@@ -2,10 +2,10 @@
 	<section class="rich_text pt-16 pb-16">
 		<div class="container flex flex-col md:flex-row flex-wrap px-4">
 			<h2 v-if="title !== ''" class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ title }}</h2>
-			<div v-if="poster" class="image md:w-1/2 md:pr-4 w-full">
+			<div v-if="poster" class="image md:w-1/3 w-full">
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
-			<div class="content md:w-1/2 pr-4 w-full">
+			<div class="content md:w-2/3 pl-8 w-full">
 				<SanityContent :blocks="text" />
 				<a v-if="buttonLink !== null" :href="buttonLink.href" class="mt-12 px-8 py-4 bg-blue text-white inline-flex text-lg font-semibold hover:text-yellow">{{ buttonLink.name }}</a>
 			</div>
@@ -51,11 +51,13 @@ export default {
 		}
 	}
 }
-.page {
+.page,
+.article {
 	.rich_text {
 		padding: 0;
 		.container {
 			flex-direction: column;
+			padding: 0;
 		}
 		.image,
 		.content {

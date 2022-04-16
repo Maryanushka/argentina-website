@@ -29,7 +29,10 @@ import ImageRichText from '@/components/sections/ImageRichText'
 export default {
 	name: 'Services',
 	data: () => ({
-		data: {},
+		data: {
+			filter: '',
+			page: 1,
+		},
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -37,9 +40,8 @@ export default {
 		},
 	}),
 	async fetch() {
-		const id = this.$route.path.split('/').slice(1, -1).pop()
 		await this.$sanity
-			.fetch(page, { uid: id, lang: this.$i18n.localeProperties.code })
+			.fetch(page, { uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {
@@ -61,10 +63,53 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
+		normalizedParentUid() {
+			return this.$route.path.split('/').slice(1, -1).pop()
+		},
 		sidebar() {
 			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'article' && el.lang === this.$i18n.localeProperties.code)
 			return navigation
 		},
+		startIndex() {
+			return (this.page - 1) * 2
+		},
+
+		endIndex() {
+			return this.page * 2
+		},
+
+		paginatedArticles() {
+			return this.sidebar.slice(this.startIndex, this.endIndex)
+		},
+
+		hasNextPage() {
+			return this.sidebar.length > this.endIndex
+		},
+	},
+	watch: {
+		paginatedArticles() {
+			if (this.paginatedTickers.length === 0 && this.page > 1) {
+				this.page -= 1
+			}
+		},
+
+		filter() {
+			this.page = 1
+		},
+
+		pageStateOptions(value) {
+			window.history.pushState(null, document.title, `${window.location.pathname}?filter=${value.filter}&page=${value.page}`)
+		},
+	},
+	beforeMount() {
+		const windowData = Object.fromEntries(new URL(window.location).searchParams.entries())
+		const VALID_KEYS = ['filter', 'page']
+
+		VALID_KEYS.forEach((key) => {
+			if (windowData[key]) {
+				this[key] = windowData[key]
+			}
+		})
 	},
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<section class="rich_text">
-		<div class="flex flex-col md:flex-row flex-wrap">
+		<div class="flex flex-col md:flex-row flex-wrap container px-4">
 			<h2 v-if="title !== ''" class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ title }}</h2>
 			<div class="content w-full">
 				<SanityContent :blocks="text" />
@@ -37,20 +37,19 @@ export default {
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.content {
-			padding-left: 2rem;
-		}
 		.image,
 		.content {
 			width: 50%;
 		}
 	}
 }
-.page {
+.page,
+.article {
 	.rich_text {
 		padding: 0;
 		.container {
 			flex-direction: column;
+			padding: 0;
 		}
 		.image,
 		.content {
