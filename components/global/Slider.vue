@@ -17,7 +17,7 @@
 				<div v-for="slide in list" :key="slide._key" class="slide">
 					<div class="container">
 						<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
-						<div class="video_container w-full h-96 relative">
+						<div class="video_container w-full md:h-96 h-56 relative">
 							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" />
 							<div class="overlay z-10 absolute bg-black w-full h-full inset-0 bg-opacity-50 block"></div>
 							<a class="text-yellow play w-16 h-16 absolute top-2/4 left-2/4 z-20 hover:text-blue" @click="openModal({ isEnabled: true, data: slide.youtube })">

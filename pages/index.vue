@@ -1,5 +1,5 @@
 <template>
-	<main class="md:mt-36 mt-18 min-h-screen home">
+	<main class="md:mt-36 mt-20 min-h-screen home">
 		<template v-if="$fetchState.error && !data.title && !$fetchState.pending">
 			<Error />
 		</template>

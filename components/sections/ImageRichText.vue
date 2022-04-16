@@ -2,7 +2,7 @@
 	<section class="rich_text pt-16 pb-16">
 		<div class="container flex flex-col md:flex-row flex-wrap px-4">
 			<h2 v-if="title !== ''" class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ title }}</h2>
-			<div v-if="poster" class="image md:w-1/2 pr-4 w-full">
+			<div v-if="poster" class="image md:w-1/2 md:pr-4 w-full">
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
 			<div class="content md:w-1/2 pr-4 w-full">
@@ -46,7 +46,7 @@ export default {
 			flex-wrap: wrap;
 		}
 		.content {
-			padding-left: 2rem;
+			// padding-left: 2rem;
 		}
 		.image,
 		.content {
@@ -64,6 +64,16 @@ export default {
 		.content {
 			width: 100%;
 			padding: 0;
+		}
+	}
+}
+@media (max-width: 768px) {
+	.home {
+		.rich_text {
+			.image,
+			.content {
+				width: 100%;
+			}
 		}
 	}
 }

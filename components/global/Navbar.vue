@@ -9,7 +9,7 @@
 				</n-link>
 			</div>
 			<div class="flex flex-col xl:w-3/4 w-full items-end relative z-10 wrapper h-full justify-between">
-				<div class="info flex justify-end md:items-center items-start w-full px-4 pl-4 pr-32" :class="{ isContactBlockOpened: isContactBlockOpened && mobile < 768 }">
+				<div class="info flex justify-end md:items-center items-start w-full px-4 pl-4 md:pr-32" :class="{ isContactBlockOpened: isContactBlockOpened && mobile < 768 }">
 					<a class="md:my-9 md:ml-12 my-2 w-full md:w-auto flex items-center" href="mailto:dnevnikargentina@gmail.com">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'envelope']" />
 						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">dnevnikargentina@gmail.com</span>
@@ -170,9 +170,14 @@ export default {
 		align-items: center;
 		display: flex;
 		padding: 1rem;
+		.lang {
+			position: fixed;
+			top: -7.5vh;
+			right: 3rem;
+		}
 		.info {
 			position: fixed;
-			width: 55vw;
+			width: 65vw;
 			right: 0;
 			background-color: theme('colors.white');
 			flex-direction: column;
@@ -182,14 +187,6 @@ export default {
 			&.isContactBlockOpened {
 				transform: scale(1);
 			}
-			// a {
-			// 	margin: 0;
-			// 	width: 100%;
-			// }
-			// span {
-			// 	margin: 0;
-			// 	width: 100%;
-			// }
 		}
 		.logo {
 			position: fixed;
@@ -212,8 +209,9 @@ export default {
 		nav {
 			position: fixed;
 			width: 100vw;
-			height: 90vh;
+			height: 90.3vh;
 			bottom: 0;
+			top: 9.9vh;
 			left: -100vw;
 			transition: 0.1s ease-in;
 			&::after {
@@ -228,9 +226,11 @@ export default {
 					width: 100%;
 					display: flex;
 					justify-content: space-between;
+					padding: 0.5rem 1rem;
 					a {
 						// width: 100%;
 						display: flex;
+						font-size: 1.2rem;
 						align-items: center;
 					}
 					svg {

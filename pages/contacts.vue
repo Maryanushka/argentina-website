@@ -1,5 +1,5 @@
 <template>
-	<main class="md:mt-36 mt-18 min-h-screen">
+	<main class="md:mt-36 mt-18 contact_page">
 		<template v-if="$fetchState.error && !data.title && !$fetchState.pending">
 			<Error />
 		</template>
@@ -11,7 +11,7 @@
 						<SanityContent v-if="data.content" class="content" :blocks="data.content" :serializers="serializers" />
 						<ContactForm />
 					</div>
-					<div class="right md:w-1/3 w-full">
+					<div class="right md:w-1/3 w-full mt-8 md:mt-0">
 						<iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12162928.01572986!2d-68.22691664111744!3d-36.25299904207079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccaf5f5fdc667%3A0x3d2f77992af00fa8!2sArgentina!5e0!3m2!1sen!2smk!4v1650062192677!5m2!1sen!2smk" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</div>
 				</div>
@@ -59,3 +59,8 @@ export default {
 	},
 }
 </script>
+<style lang="scss" scoped>
+.contact_page {
+	min-height: 75vh;
+}
+</style>

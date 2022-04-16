@@ -35,6 +35,11 @@ export default {
 @media (max-width: 900px) {
 	.video_wrapper {
 		width: 100%;
+		display: flex;
+		align-items: center;
+		.ipOhDr {
+			height: auto;
+		}
 	}
 }
 </style>

@@ -7,9 +7,9 @@
 			<ValidationObserver ref="subscribe" tag="div">
 				<InputItem id="email" label="email" rules="email|required" class="w-80 mr-8" />
 
-				<button class="flex items-end text-blue font-semibold hover:text-darkBlue py-4" @click="Submit()">
-					{{ $t('pages.contact.button') }}
-					<font-awesome-icon class="text-base ml-4 mb-1 -4 h-4" :icon="['fa', 'long-arrow-alt-right']" />
+				<button class="flex md:items-end md:text-blue md:bg-transparent bg-blue text-white font-semibold hover:text-darkBlue py-4 px-4" @click="Submit()">
+					<span class="hidden md:block">{{ $t('pages.contact.button') }}</span>
+					<font-awesome-icon class="text-base md:ml-4 md:mb-1 w-4 h-4" :icon="['fa', 'long-arrow-alt-right']" />
 				</button>
 			</ValidationObserver>
 		</form>
