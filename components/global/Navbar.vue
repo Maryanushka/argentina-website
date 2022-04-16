@@ -22,8 +22,9 @@
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['fa', 'phone']" />
 						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">1-800-1234-567</span>
 					</a> -->
-					<LangSwitcher />
+					<LangSwitcher v-if="mobile > 768" />
 				</div>
+				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
 						<li v-for="link in getNavigation" :key="link.uid">
@@ -172,7 +173,7 @@ export default {
 		padding: 1rem;
 		.lang {
 			position: fixed;
-			top: -7.5vh;
+			top: 3vh;
 			right: 3rem;
 		}
 		.info {

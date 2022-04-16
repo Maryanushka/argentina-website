@@ -45,9 +45,6 @@ export default {
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.content {
-			// padding-left: 2rem;
-		}
 		.image,
 		.content {
 			width: 50%;

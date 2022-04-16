@@ -57,6 +57,14 @@ export default {
 	head() {
 		return this.$store.getters.metaHead
 	},
+	computed: {
+		getParentTitle() {
+			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		},
+		normalizedParentUid() {
+			return this.localePath('contacts').split('/').slice(1, -1).pop()
+		},
+	},
 }
 </script>
 <style lang="scss" scoped>

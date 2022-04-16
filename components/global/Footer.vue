@@ -13,18 +13,18 @@
 				<h4 class="text-darkBlue font-bold text-base mb-8">{{ $t('pages.contact.socialMediaTitle') }}</h4>
 				<ul class="social-media flex mb-8">
 					<li>
-						<a href="#">
-							<font-awesome-icon class="text-darkBlue hover:text-blue pr-6 text-xl" :icon="['fab', 'facebook']" />
+						<a href="#" class="text-darkBlue hover:text-blue pr-6 text-xl w-5 h-5">
+							<font-awesome-icon :icon="['fab', 'facebook']" />
 						</a>
 					</li>
 					<li>
-						<a href="#">
-							<font-awesome-icon class="text-darkBlue hover:text-blue pr-6 text-xl" :icon="['fab', 'instagram']" />
+						<a href="#" class="text-darkBlue hover:text-blue pr-6 text-xl w-5 h-5">
+							<font-awesome-icon :icon="['fab', 'instagram']" />
 						</a>
 					</li>
 					<li>
-						<a href="#">
-							<font-awesome-icon class="text-darkBlue hover:text-blue pr-6 text-xl" :icon="['fab', 'youtube']" />
+						<a href="#" class="text-darkBlue hover:text-blue pr-6 text-xl w-5 h-5">
+							<font-awesome-icon :icon="['fab', 'youtube']" />
 						</a>
 					</li>
 				</ul>
