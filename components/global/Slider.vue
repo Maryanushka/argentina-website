@@ -20,8 +20,8 @@
 						<div class="video_container w-full h-96 relative">
 							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" />
 							<div class="overlay z-10 absolute bg-black w-full h-full inset-0 bg-opacity-50 block"></div>
-							<a class="text-yellow play absolute top-2/4 left-2/4 z-20 hover:text-blue" @click="openModal({ isEnabled: true, data: slide.youtube })">
-								<font-awesome-icon class="text-6xl" :icon="['fas', 'play-circle']" />
+							<a class="text-yellow play w-16 h-16 absolute top-2/4 left-2/4 z-20 hover:text-blue" @click="openModal({ isEnabled: true, data: slide.youtube })">
+								<font-awesome-icon class="text-6xl w-16 h-16" :icon="['fas', 'play-circle']" />
 							</a>
 						</div>
 					</div>

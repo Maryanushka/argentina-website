@@ -5,7 +5,7 @@
 			<div class="grid grid-cols-1 gap-6 mt-10" :class="{ 'md:grid-cols-2': benefitItems.length % 2 == 0, 'md:grid-cols-3': benefitItems.length % 3 == 0 }">
 				<figure v-for="(item, i) in benefitItems" :key="item._key" class="item relative flex mt-8 flex-col md:flex-row justify-center md:items-start items-center">
 					<div class="icon rounded-full bg-blue px-4 py-4 md:mr-6 w-20 h-20 flex justify-center items-center mb-8">
-						<font-awesome-icon class="text-white text-3xl" :icon="preparedIcons[i]" />
+						<font-awesome-icon class="text-white text-3xl w-8 h-8" :icon="preparedIcons[i]" />
 					</div>
 					<div class="content md:w-3/4 w-full">
 						<h5 class="pb-4 text-xl text-white font-bold text-center md:text-left">{{ item.title }}</h5>
