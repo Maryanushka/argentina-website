@@ -231,24 +231,6 @@ export const article = groq`*[_type == "article" && uid.current == $uid][0] {
 }`
 export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 	content[] {
-	_type == 'sliderImage' => {
-			...,
-			list[] {
-				...,
-				imageItem[] {
-					_type == "mobile" => {
-						_key,
-						"type": _type,
-						"image": asset._ref 
-					},
-					_type == "desktop" => {
-						_key,
-						"type": _type,
-						"image": asset._ref
-					},
-				},
-			},
-		},
 		_type == "imageText" => {
 			...,
 			text[] {  
@@ -391,12 +373,14 @@ export const innerPagesList = groq`*[_type == $type && __i18n_lang == $lang]{
   description,
 	_id,
 }`
-export const articleList = groq`*[_type == "article"] | order(_updatedAt desc) {
+export const articleList = groq`*[_type == "article" && __i18n_lang == $lang] | order(_updatedAt desc) {
 	"uid": uid.current, 
 	title, 
 	"poster": poster.asset._ref, 
 	"tags": tags[].value,
 	"updated": _updatedAt,
+	description,
+	_id,
 }`
 
 export const sitemapData = groq`*[_type in ["project", "panel", "page"]] {"uid": uid.current, "type":  _type, "updated": _updatedAt}`
@@ -408,21 +392,21 @@ export const menu = groq`*[_type in ["page", "argentina", "service", "article", 
   "lang": __i18n_lang,
 	"tags": tags[].value,
 	"uid": uid.current,
-  	__i18n_lang != 'ua'  => {
-			'languages': [
-				{
-			'lang': __i18n_base -> __i18n_lang,
-			'uid': __i18n_base -> uid.current,
-				},
-				...
-				__i18n_base -> __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}, 
-			]  
-    },
+	__i18n_lang != 'ua'  => {
+		'languages': [
+			{
+		'lang': __i18n_base -> __i18n_lang,
+		'uid': __i18n_base -> uid.current,
+			},
+			...
+			__i18n_base -> __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}, 
+		]  
+	},
   __i18n_lang == 'ua' => {
-			'languages': [
-        {
-         'lang': __i18n_lang,
-         'uid':uid.current,
+		'languages': [
+			{
+				'lang': __i18n_lang,
+				'uid':uid.current,
       },
       ...
       __i18n_refs[] -> {'lang': __i18n_lang,'uid':uid.current}

@@ -6,12 +6,15 @@
 		<template v-if="!$fetchState.pending && data.title">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'services', linklabel: getParentTitle }" />
 			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
+			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
 	</main>
 </template>
 <script>
 import { service } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
+import TitleRichText from '@/components/sections/TitleRichText'
+import IconList from '@/components/sections/IconList'
 
 export default {
 	name: 'ServiceSlug',
@@ -20,6 +23,8 @@ export default {
 		serializers: {
 			types: {
 				imageText: ImageRichText,
+				benefits: IconList,
+				titleText: TitleRichText,
 			},
 		},
 	}),
@@ -52,7 +57,10 @@ export default {
 	},
 	computed: {
 		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.localePath('services').slice(1, -1) && el.type === 'page')[0].title
+			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		},
+		normalizedParentUid() {
+			return this.localePath('services').split('/').slice(1, -1).pop()
 		},
 	},
 }

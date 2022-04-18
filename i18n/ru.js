@@ -4,6 +4,13 @@ export default {
 		blog: {
 			crumbsName: 'Новости',
 			read_more: 'Читать',
+			categories: 'Категории',
+			tags: {
+				all: 'Все',
+				life: 'Життя',
+				health: "Здоров'я",
+				argentina: 'Аргентина',
+			},
 		},
 		contact: {
 			fullName: 'Имя',

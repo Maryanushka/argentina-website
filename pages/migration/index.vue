@@ -10,7 +10,7 @@
 				<aside class="md:w-1/3 w-full md:pr-8">
 					<ul>
 						<li v-for="link in sidebar" :key="link.uid">
-							<n-link :to="`/${normalizedParentUid}/${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
+							<n-link :to="`${normalizedLocale}${normalizedParentUid}/${link.uid}/`" class="border-b border-solid border-gray-200 text-blue py-4 px-6 hover:text-white hover:bg-blue text-xl flex justify-between w-full items-center">
 								{{ link.title }}
 								<font-awesome-icon class="text-white w-4 h-4" :icon="['fa', 'chevron-right']" />
 							</n-link>
@@ -63,6 +63,9 @@ export default {
 		sidebar() {
 			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'migration' && el.lang === this.$i18n.localeProperties.code)
 			return navigation
+		},
+		normalizedLocale() {
+			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
 		normalizedParentUid() {
 			return this.$route.path.split('/').slice(1, -1).pop()

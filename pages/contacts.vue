@@ -36,7 +36,7 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(page, { uid: this.localePath('contacts').slice(1, -1), lang: this.$i18n.localeProperties.code })
+			.fetch(page, { uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {
