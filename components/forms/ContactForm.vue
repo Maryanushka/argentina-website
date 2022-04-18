@@ -1,7 +1,7 @@
 <template>
 	<div class="contact_form w-full">
 		<h4 class="font-semibold mt-6 mb-8 text-xl text-blue">{{ $t('pages.contact.form_title') }}</h4>
-		<form ref="contact_form flex flex-col" autocomplete="off" @submit.prevent="Submit()">
+		<form ref="contact_form" class="flex flex-col" autocomplete="off" @submit.prevent="Submit()">
 			<div v-if="message.isActive">
 				<p class="result_message text-lg mt-4" :class="[message.class]">{{ message.text }} 🤓</p>
 			</div>
@@ -18,16 +18,13 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate'
-// import * as emailjs from '@emailjs/browser'
+import * as emailjs from '@emailjs/browser'
 export default {
 	name: 'ContactForm',
 	components: {
 		ValidationObserver,
 	},
 	data: () => ({
-		isMessageActive: false,
-		messageText: '',
-		loading: false,
 		message: {
 			isActive: false,
 			text: '',
@@ -40,35 +37,32 @@ export default {
 			// validation
 			if (!isValid) return
 
-			// emailjs.sendForm('service_hmxxn2q', 'template_v1siuzg', this.$refs.contact_form, 'JOPo-OQYnguYIDcB3').then(
-			// 	(result) => {
-			// 		console.log('SUCCESS!', result.text)
-			// 		this.message.isActive = true
-			// 		this.message.class = 'success'
-			// 		this.message.text = this.$t('pages.contact.successMessage')
-			// 		setTimeout(() => {
-			// 			this.$refs.contact_form.reset()
-			// 			this.message.isActive = false
-			// 			this.message.text = ''
-			// 			this.message.class = ''
-			// 		}, 3500)
-			// 	},
-			// 	(error) => {
-			// 		console.log('FAILED...', error.text)
-			// 		this.message.isActive = true
-			// 		this.message.class = 'error'
-			// 		this.message.text = this.$t('pages.contact.errorMessage')
-			// 		setTimeout(() => {
-			// 			this.$refs.contact_form.reset()
-			// 			this.message.isActive = false
-			// 			this.message.text = ''
-			// 			this.message.class = ''
-			// 		}, 3500)
-			// 	},
-			// )
-
-			this.loading = false
-			console.log('submited')
+			emailjs.sendForm('service_8uy13y2', 'template_f65bfq4', this.$refs.contact_form, 'g2tfembFIFfl4YT5E').then(
+				(result) => {
+					this.message.isActive = true
+					this.message.class = 'success'
+					this.message.text = this.$t('pages.contact.successMessage')
+					console.log('SUCCESS!', result.text)
+					setTimeout(() => {
+						this.$refs.contact_form.reset()
+						this.message.isActive = false
+						this.message.text = ''
+						this.message.class = ''
+					}, 3500)
+				},
+				(error) => {
+					console.log('FAILED...', error.text)
+					this.message.isActive = true
+					this.message.class = 'error'
+					this.message.text = this.$t('pages.contact.errorMessage')
+					setTimeout(() => {
+						this.$refs.contact_form.reset()
+						this.message.isActive = false
+						this.message.text = ''
+						this.message.class = ''
+					}, 3500)
+				},
+			)
 		},
 	},
 }

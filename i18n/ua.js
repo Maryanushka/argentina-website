@@ -20,7 +20,7 @@ export default {
 			button: 'Відправити',
 			form_title: 'Ми допоможемо',
 			socialMediaTitle: 'Ми в соціальних мережах',
-			successMessage: "Дякуємо що зв'язалися з нами! Ми вже двонимо",
+			successMessage: "Дякуємо що зв'язалися з нами! Ми вже дзвонимо",
 			errorMessage: 'Ой щось пішло не так! Будь ласка спробуйте знову',
 		},
 		service: {

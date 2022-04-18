@@ -122,8 +122,6 @@ export default {
 		icons: {
 			solid: ['faAngleRight', 'faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart'],
 			regular: ['faClock', 'faEnvelope', 'faPlayCircle'],
-			light: [],
-			duotone: [],
 			brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faGratipay'],
 		},
 	},

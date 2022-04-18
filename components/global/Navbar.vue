@@ -128,9 +128,12 @@ export default {
 		}
 		.wrapper {
 			width: 100%;
-			nav::after {
-				width: 200%;
-				right: -50%;
+			nav {
+				justify-content: center;
+				&::after {
+					width: 200%;
+					right: -50%;
+				}
 			}
 			.info {
 				display: none;

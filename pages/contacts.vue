@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'tourism', linklabel: getParentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true }" />
 			<section class="py-16">
 				<div class="container px-4 flex flex-wrap items-stretch">
 					<div class="left md:w-2/3 w-full md:pr-32">

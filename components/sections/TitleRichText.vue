@@ -44,7 +44,8 @@ export default {
 	}
 }
 .page,
-.article {
+.article,
+.contact_page {
 	.rich_text {
 		padding: 0;
 		.container {
