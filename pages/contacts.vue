@@ -12,7 +12,7 @@
 						<ContactForm />
 					</div>
 					<div class="right md:w-1/3 w-full mt-8 md:mt-0">
-						<iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12162928.01572986!2d-68.22691664111744!3d-36.25299904207079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccaf5f5fdc667%3A0x3d2f77992af00fa8!2sArgentina!5e0!3m2!1sen!2smk!4v1650062192677!5m2!1sen!2smk" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						<iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.4213845305517!2d-58.66965868492503!3d-34.416050080508526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca1609a00ea1d%3A0x116955deba492b5!2sBarrio%20Las%20Glorietas!5e0!3m2!1sen!2smk!4v1650391245946!5m2!1sen!2smk" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</div>
 				</div>
 			</section>
@@ -36,7 +36,7 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(page, { uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
+			.fetch(page, { type: 'page', uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {

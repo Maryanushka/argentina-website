@@ -29,7 +29,6 @@
 					<PageIconList v-if="section._type === 'benefits'" :key="section._key" :data="section" />
 				</template>
 			</section>
-			<!-- <SanityContent v-if="data.content" class="content md:w-2/3 w-full" :blocks="data.content" :serializers="serializers" /> -->
 		</template>
 	</main>
 </template>
@@ -75,9 +74,3 @@ export default {
 	},
 }
 </script>
-<style lang="scss">
-// .wrapper {
-// 	max-width: 1280px;
-// 	margin: 0 auto;
-// }
-</style>
