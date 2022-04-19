@@ -40,7 +40,7 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(page, { uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
+			.fetch(page, { type: 'page', uid: this.normalizedParentUid, lang: this.$i18n.localeProperties.code })
 			.then(async (fetch) => {
 				this.data = fetch
 				await this.$store.dispatch('metaTags', {

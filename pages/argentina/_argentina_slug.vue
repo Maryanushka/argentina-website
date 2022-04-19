@@ -13,6 +13,7 @@
 <script>
 import { aboutArgentina, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
+import TitleRichText from '@/components/sections/TitleRichText'
 import IconList from '@/components/sections/IconList'
 
 export default {
@@ -22,6 +23,7 @@ export default {
 		serializers: {
 			types: {
 				imageText: ImageRichText,
+				titleText: TitleRichText,
 				benefits: IconList,
 			},
 		},

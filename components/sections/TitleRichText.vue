@@ -4,7 +4,7 @@
 			<h2 v-if="title !== ''" class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ title }}</h2>
 			<div class="content w-full">
 				<SanityContent :blocks="text" />
-				<a v-if="buttonLink !== null" :href="buttonLink.href" class="mt-12 px-8 py-4 bg-blue text-white inline-flex text-lg font-semibold hover:text-yellow">{{ buttonLink.name }}</a>
+				<a v-if="buttonLink !== null" :href="buttonLink.href" class="button mt-12 px-8 py-4 bg-blue text-white inline-flex text-lg font-semibold hover:bg-yellow hover:text-darkBlue">{{ buttonLink.name }}</a>
 			</div>
 		</div>
 	</section>

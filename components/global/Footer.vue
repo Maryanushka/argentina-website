@@ -1,5 +1,5 @@
 <template>
-	<footer class="bg-gray-200">
+	<footer class="bg-gray-200 relative bottom_skew">
 		<div class="container flex flex-wrap pt-16 pb-16 px-4">
 			<div class="w-full md:w-2/3">
 				<ul class="list mb-16 flex flex-wrap">
@@ -56,3 +56,12 @@ export default {
 	},
 }
 </script>
+<style lang="scss">
+footer {
+	&.bottom_skew::after {
+		top: -29px;
+		z-index: 30;
+		background-color: theme('colors.gray.200');
+	}
+}
+</style>

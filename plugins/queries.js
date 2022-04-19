@@ -229,7 +229,7 @@ export const article = groq`*[_type == "article" && uid.current == $uid][0] {
 		"image": image.asset._ref
 	},
 }`
-export const page = groq`*[_type == "page" && uid.current == $uid][0] {
+export const page = groq`*[_type == $type && uid.current == $uid][0] {
 	content[] {
 		_type == "imageText" => {
 			...,
@@ -244,6 +244,7 @@ export const page = groq`*[_type == "page" && uid.current == $uid][0] {
 				_type == "blockContent" => {  ..., '_type': 'block' }
 			},
 		},
+		_type == 'cta' => {...},
 		_type == 'serviceList' => {
 			...,
 			list[] -> {

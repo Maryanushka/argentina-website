@@ -18,10 +18,10 @@
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'clock']" />
 						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Mon–Sat: 7:00–19:00</span>
 					</span>
-					<!-- <a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:1-800-1234-567">
+					<a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:+5491125767302">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['fa', 'phone']" />
-						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">1-800-1234-567</span>
-					</a> -->
+						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">+549 11 2576-7302</span>
+					</a>
 					<LangSwitcher v-if="mobile > 768" />
 				</div>
 				<LangSwitcher v-if="mobile < 768" />
