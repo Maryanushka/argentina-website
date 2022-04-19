@@ -50,6 +50,8 @@ picture {
 	width: 100%;
 	height: 100%;
 	z-index: 3;
+	transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
+
 	img {
 		width: inherit;
 		height: inherit;

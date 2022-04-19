@@ -3,24 +3,24 @@
 		<div class="container flex relative h-full items-center md:items-start">
 			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30 h-4 w-4" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
 
-			<div class="logo xl:relative xl:w-1/4 absolute h-28 w-60">
-				<n-link :to="localePath('index')" class="absolute z-10 h-full flex">
+			<div class="logo md:relative xl:w-1/4 absolute h-28">
+				<n-link :to="localePath('index')" class="absolute z-30 h-full flex">
 					<nuxt-img src="logo_cut.png" />
 				</n-link>
 			</div>
 			<div class="flex flex-col xl:w-3/4 w-full items-end relative z-10 wrapper h-full justify-between">
-				<div class="info flex justify-end md:items-center items-start w-full px-4 pl-4 md:pr-32" :class="{ isContactBlockOpened: isContactBlockOpened && mobile < 768 }">
-					<a class="md:my-9 md:ml-12 my-2 w-full md:w-auto flex items-center" href="mailto:dnevnikargentina@gmail.com">
+				<div class="info flex flex-wrap justify-end md:items-center items-start w-full px-4 pl-4 md:pr-16 lg:pr-32" :class="{ isContactBlockOpened: isContactBlockOpened && mobile < 768 }">
+					<a class="xl:my-9 xl:ml-12 my-2 w-full md:w-auto flex items-center" href="mailto:dnevnikargentina@gmail.com">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'envelope']" />
 						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">dnevnikargentina@gmail.com</span>
 					</a>
-					<span class="schedule md:my-9 md:ml-12 my-2 w-full md:w-auto flex items-center">
+					<span class="xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto flex items-center">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'clock']" />
 						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Mon–Sat: 7:00–19:00</span>
 					</span>
-					<a class="md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:+5491125767302">
+					<a class="xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto" href="tel:+54 11 6750-2877">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue" :icon="['fa', 'phone']" />
-						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">+549 11 2576-7302</span>
+						<span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">+54 11 6750-2877</span>
 					</a>
 					<LangSwitcher v-if="mobile > 768" />
 				</div>
@@ -97,6 +97,7 @@ export default {
 			background-color: theme('colors.blue');
 		}
 		a {
+			min-width: 15rem;
 			display: flex;
 		}
 		img {
@@ -121,6 +122,9 @@ export default {
 			clip-path: polygon(2.4% 0%, 100% 0, 100% 100%, 0% 100%);
 			background-color: theme('colors.blue');
 		}
+	}
+	.info {
+		width: 90%;
 	}
 	&.fill {
 		.logo {
@@ -166,6 +170,9 @@ export default {
 				width: 200%;
 			}
 		}
+		.info {
+			width: calc(100% - 15rem);
+		}
 	}
 }
 @media (max-width: 768px) {
@@ -194,7 +201,7 @@ export default {
 		}
 		.logo {
 			position: fixed;
-			top: 3px;
+			top: 0;
 			height: 4rem;
 			width: 10rem;
 			left: 50%;
@@ -208,6 +215,10 @@ export default {
 			&::after {
 				background-color: transparent;
 				clip-path: initial;
+			}
+			a {
+				min-width: initial;
+				width: 100%;
 			}
 		}
 		nav {
