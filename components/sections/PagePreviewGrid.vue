@@ -1,7 +1,7 @@
 <template>
 	<section class="page_preview-list py-16">
 		<div class="container flex flex-wrap px-4">
-			<h2 class="title w-full text-3xl font-bold mb-12 relative text-center md:text-left">{{ $t('pages.service.relatedServices') }}</h2>
+			<h2 class="title w-full text-3xl font-bold mb-12 relative text-center md:text-left">{{ title }}</h2>
 			<div class="grid md:grid-cols-3 grid-cols-1 gap-6">
 				<n-link v-for="page in pages" :key="page._id" :to="`${normalizedLocale}${parentuid}/${page.uid}/`" class="page_item relative overflow-hidden mt-4">
 					<ImageItem :image="page.poster" class="w-full h-64 object-cover" />
@@ -28,10 +28,17 @@ export default {
 			type: String,
 			required: true,
 		},
+		title: {
+			type: String,
+			default: '',
+		},
 	},
 	computed: {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
+		},
+		sectionTitle() {
+			return this.$t('pages.service.relatedServices')
 		},
 	},
 }

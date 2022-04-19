@@ -383,6 +383,16 @@ export const articleList = groq`*[_type == "article" && __i18n_lang == $lang] | 
 	description,
 	_id,
 }`
+export const articleLatest = groq`*[_type == "article" && __i18n_lang == $lang][$from...$to] | order(_updatedAt desc) {
+	"uid": uid.current, 
+	title, 
+	"poster": poster.asset._ref, 
+	"tags": tags[].value,
+	"updated": _updatedAt,
+	description,
+	_type,
+	_id,
+}`
 
 export const sitemapData = groq`*[_type in ["project", "panel", "page"]] {"uid": uid.current, "type":  _type, "updated": _updatedAt}`
 

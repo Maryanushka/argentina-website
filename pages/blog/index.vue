@@ -35,7 +35,7 @@
 						</h3>
 						<div class="date_tags text-gray-400 flex justify-between">
 							<span class="date">
-								{{ blogCard.updated }}
+								{{ formatDate(blogCard.updated.slice(0, -1)) }}
 							</span>
 							<div class="tags">
 								<n-link v-for="tag in blogCard.tags" :key="tag" :to="`${normalizedLocale}${normalizedParentUid}/?filter=${tag}`" class="text-gray-400 ml-3 hover:text-blue"> #{{ tag }} </n-link>
@@ -151,6 +151,13 @@ export default {
 	},
 	fetchOnServer: false,
 	methods: {
+		formatDate(time) {
+			const date = new Date(time)
+			const options = { year: 'numeric', month: 'long', day: 'numeric' }
+			// Then specify how you want your dates to be formatted
+			const updatedFormat = new Intl.DateTimeFormat(this.$i18n.localeProperties.iso, options).format(date)
+			return updatedFormat
+		},
 		paginatedArticles(arr) {
 			console.log(arr)
 			this.filteredArticles = arr.slice(this.startIndex, this.endIndex)
