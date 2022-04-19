@@ -16,7 +16,7 @@
 					</a>
 					<span class="xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto flex items-center">
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'clock']" />
-						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Mon–Sat: 7:00–19:00</span>
+						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Пн–Сб: 7:00–19:00</span>
 					</span>
 					<div class="phones xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto">
 						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="tel:+54 11 6750-2877">
@@ -35,7 +35,7 @@
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
-						<li v-for="link in getNavigation" :key="link.uid">
+						<li v-for="link in navigationList" :key="link.uid">
 							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden h-4 w-4" :icon="['fa', 'chevron-right']" />
 						</li>
@@ -55,11 +55,10 @@ export default {
 		isNavigationOpened: false,
 		isContactBlockOpened: false,
 		pageType: 'page',
+		navigationList: [],
+		// getNavigation: [],
 	}),
 	computed: {
-		getNavigation() {
-			return this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
-		},
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
@@ -73,8 +72,16 @@ export default {
 		this.mobile = window.innerWidth
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
+
+		// if (this.$store.getters.navigation) {
+		// 	this.getNavigation = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		// }
+		this.getNavigation()
 	},
 	methods: {
+		async getNavigation() {
+			this.navigationList = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		},
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened
 		},

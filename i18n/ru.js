@@ -18,6 +18,8 @@ export default {
 			number: 'Телефон',
 			message: 'Сообщение',
 			button: 'Отправить',
+			address: 'Адреса',
+			open_hours: 'Час роботи',
 			form_title: 'Ми допоможемо',
 			socialMediaTitle: 'Мы в социальных сетях',
 			successMessage: 'Спасибо за сообщение! Мы уже звоним',

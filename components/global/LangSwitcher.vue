@@ -1,5 +1,5 @@
 <template>
-	<div class="lang w-10 h-8 flex ml-6 text-sm bg-yellow text-darkBlue overflow-hidden absolute right-0" :class="{ opened: showLocales }">
+	<div class="lang w-11 h-8 flex ml-6 text-base font-bold bg-yellow text-darkBlue overflow-hidden absolute right-0" :class="{ opened: showLocales }">
 		<span class="current_locale px-3 flex items-center" @click="showLocales = !showLocales">
 			{{ currentLocale }}
 		</span>
@@ -29,7 +29,7 @@ export default {
 .lang {
 	transition: width 0.3s linear;
 	&.opened {
-		width: 5rem;
+		width: 5.5rem;
 	}
 	.current_locale {
 		z-index: 2;
