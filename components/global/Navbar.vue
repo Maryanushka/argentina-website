@@ -1,5 +1,5 @@
 <template>
-	<header class="header overflow-x-hidden fixed w-full top-0 z-20 bg-white" :class="{ fill: scrollPosition > 500 && mobile > 768 }">
+	<header class="header fixed w-full top-0 z-20 bg-white" :class="{ fill: scrollPosition > 500 && mobile > 768 }">
 		<div class="container flex relative h-full items-center md:items-start">
 			<font-awesome-icon class="text-darkBlue md:hidden text-xl z-30 h-4 w-4" :icon="isNavigationOpened ? ['fa', 'arrow-left'] : ['fa', 'bars']" @click="openMenu" />
 
@@ -18,7 +18,7 @@
 						<font-awesome-icon class="xl:text-blue md:text-yellow text-blue h-4 w-4" :icon="['far', 'clock']" />
 						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Пн–Сб: 7:00–19:00</span>
 					</span>
-					<div class="phones xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto">
+					<div class="phones xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto flex">
 						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="tel:+54 11 6750-2877">
 							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fa', 'phone']" />
 							<!-- <span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">+54 11 6750-2877</span> -->
@@ -35,9 +35,16 @@
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
-						<li v-for="link in navigationList" :key="link.uid">
+						<li v-for="link in navigationList.first_lvl" :key="link.uid" class="relative" @mouseover="hover = true" @mouseleave="hover = false">
 							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden h-4 w-4" :icon="['fa', 'chevron-right']" />
+							<template v-if="navigationList.argentina_lvl && link.place === 1">
+								<ul class="absolute bg-white top-10 py-2 second_lvl" :class="{ 'opacity': hover }">
+									<li v-for="argentinaLink in navigationList.argentina_lvl" :key="argentinaLink.uid">
+										<n-link class="md:text-blue text-darkBlue hover:text-darkBlue px-6 py-3 flex whitespace-nowrap" :to="`${normalizedLocale}${localePath('argentina').slice(1, -1)}${argentinaLink.uid}/`">{{ argentinaLink.title }}</n-link>
+									</li>
+								</ul>
+							</template>
 						</li>
 					</ul>
 				</nav>
@@ -55,12 +62,26 @@ export default {
 		isNavigationOpened: false,
 		isContactBlockOpened: false,
 		pageType: 'page',
-		navigationList: [],
+		hover: false,
+		navigationList: {
+			first_lvl: [],
+			argentina_lvl: [],
+			migration_lvl: [],
+			tourism_lvl: [],
+			services_lvl: [],
+		},
 		// getNavigation: [],
 	}),
 	computed: {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
+		},
+		menuHover() {
+			if (this.hover === true) {
+				return this.pictureGif
+			} else {
+				return this.pictureStatic
+			}
 		},
 	},
 	watch: {
@@ -77,10 +98,26 @@ export default {
 		// 	this.getNavigation = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		// }
 		this.getNavigation()
+		this.getArgentinaLinks()
+		this.getMigrationLinks()
+		this.getTourismLinks()
+		this.getServicesLinks()
 	},
 	methods: {
 		async getNavigation() {
-			this.navigationList = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+			this.navigationList.first_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		},
+		async getArgentinaLinks() {
+			this.navigationList.argentina_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
+		},
+		async getMigrationLinks() {
+			this.navigationList.migration_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
+		},
+		async getTourismLinks() {
+			this.navigationList.tourism_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
+		},
+		async getServicesLinks() {
+			this.navigationList.services_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
 		},
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened
@@ -136,6 +173,10 @@ export default {
 			transition: width 0.3s ease-in;
 			clip-path: polygon(2.4% 0%, 100% 0, 100% 100%, 0% 100%);
 			background-color: theme('colors.blue');
+		}
+		.second_lvl {
+			left: 50%;
+			transform: translateX(-50%);
 		}
 	}
 	.info {
