@@ -1,5 +1,5 @@
 <template>
-	<div class="lang w-11 h-8 flex ml-6 text-base font-bold bg-yellow text-darkBlue overflow-hidden absolute right-0" :class="{ opened: showLocales }">
+	<div class="lang w-11 h-8 flex ml-6 text-base font-bold md:bg-yellow text-darkBlue overflow-hidden absolute right-0" :class="{ opened: showLocales }">
 		<span class="current_locale px-3 flex items-center" @click="showLocales = !showLocales">
 			{{ currentLocale }}
 		</span>

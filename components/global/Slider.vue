@@ -14,7 +14,7 @@
 		</template>
 		<template v-else>
 			<VueSlickCarousel v-bind="options">
-				<div v-for="slide in list" :key="slide._key" class="slide">
+				<div v-for="slide in list" :key="slide._key" class="slide md:mb-0 mb-24">
 					<div class="container">
 						<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
 						<div class="video_container w-full md:h-96 h-56 relative">

@@ -34,17 +34,42 @@
 				</div>
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
-					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col py-4 divide-x divide-solid divide-gray-100 divide-opacity-50">
-						<li v-for="link in navigationList.first_lvl" :key="link.uid" class="relative" @mouseover="hover = true" @mouseleave="hover = false">
+					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col">
+						<li v-for="(link, i) in navigationList.first_lvl" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }">
 							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
-							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden h-4 w-4" :icon="['fa', 'chevron-right']" />
-							<!-- <template v-if="navigationList.argentina_lvl && link.place === 1">
-								<ul class="absolute bg-white top-10 py-2 second_lvl" :class="{ 'opacity': hover }">
-									<li v-for="argentinaLink in navigationList.argentina_lvl" :key="argentinaLink.uid">
-										<n-link class="md:text-blue text-darkBlue hover:text-darkBlue px-6 py-3 flex whitespace-nowrap" :to="`${normalizedLocale}${localePath('argentina').slice(1, -1)}${argentinaLink.uid}/`">{{ argentinaLink.title }}</n-link>
+							<font-awesome-icon v-if="i !== navigationList.first_lvl.length - 1 && i !== navigationList.first_lvl.length - 2" class="text-darkBlue hover:text-yellow md:hidden h-4 w-4 transition-all transform" :icon="['fa', 'chevron-right']" :class="{ 'rotate-90': activeSecondLvl && activeSecondPlace === link.place }" @click="openSecondLvl(link.place)" />
+							<!-- second lvl argentina -->
+							<template v-if="navigationList.argentina_lvl && link.place === 1">
+								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
+									<li v-for="argentinaLink in navigationList.argentina_lvl" :key="argentinaLink.uid" class="flex">
+										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('argentina')}${argentinaLink.uid}/`">{{ argentinaLink.title }}</n-link>
 									</li>
 								</ul>
-							</template> -->
+							</template>
+							<!-- second lvl migration -->
+							<template v-if="navigationList.migration_lvl && link.place === 2">
+								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
+									<li v-for="migrationLink in navigationList.migration_lvl" :key="migrationLink.uid" class="flex">
+										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('migration')}${migrationLink.uid}/`">{{ migrationLink.title }}</n-link>
+									</li>
+								</ul>
+							</template>
+							<!-- second lvl service -->
+							<template v-if="navigationList.services_lvl && link.place === 3">
+								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
+									<li v-for="serviceLink in navigationList.services_lvl" :key="serviceLink.uid" class="flex">
+										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('services')}${serviceLink.uid}/`">{{ serviceLink.title }}</n-link>
+									</li>
+								</ul>
+							</template>
+							<!-- second lvl service -->
+							<template v-if="navigationList.tourism_lvl && link.place === 4">
+								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
+									<li v-for="tourismLink in navigationList.tourism_lvl" :key="tourismLink.uid" class="flex">
+										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('tourism')}${tourismLink.uid}/`">{{ tourismLink.title }}</n-link>
+									</li>
+								</ul>
+							</template>
 						</li>
 					</ul>
 				</nav>
@@ -62,7 +87,8 @@ export default {
 		isNavigationOpened: false,
 		isContactBlockOpened: false,
 		pageType: 'page',
-		hover: false,
+		activeSecondLvl: false,
+		activeSecondPlace: 0,
 		navigationList: {
 			first_lvl: [],
 			argentina_lvl: [],
@@ -76,17 +102,15 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
-		menuHover() {
-			if (this.hover === true) {
-				return this.pictureGif
-			} else {
-				return this.pictureStatic
-			}
-		},
 	},
 	watch: {
-		currentLocale(newValue, oldValue) {
+		$route(newValue, oldValue) {
 			console.log('currentLocale changed')
+			this.getNavigation()
+			this.getArgentinaLinks()
+			this.getMigrationLinks()
+			this.getTourismLinks()
+			this.getServicesLinks()
 		},
 	},
 	mounted() {
@@ -94,9 +118,6 @@ export default {
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
 
-		// if (this.$store.getters.navigation) {
-		// 	this.getNavigation = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
-		// }
 		this.getNavigation()
 		this.getArgentinaLinks()
 		this.getMigrationLinks()
@@ -130,6 +151,10 @@ export default {
 		},
 		openMenu() {
 			if (window.innerWidth < 768) this.isNavigationOpened = !this.isNavigationOpened
+		},
+		openSecondLvl(place) {
+			this.activeSecondLvl = !this.activeSecondLvl
+			this.activeSecondPlace = place
 		},
 	},
 }
@@ -177,6 +202,34 @@ export default {
 		.second_lvl {
 			left: 50%;
 			transform: translateX(-50%);
+			opacity: 0;
+			height: 0;
+		}
+		ul {
+			li {
+				overflow: hidden;
+				&::after {
+					content: '';
+					width: 1px;
+					background-color: theme('colors.gray.200');
+					height: 15px;
+					top: 50%;
+					position: absolute;
+					right: 0;
+					transform: translateY(-50%);
+				}
+				&:last-child {
+					&::after {
+						display: none;
+					}
+				}
+				&:hover {
+					overflow: visible;
+					.second_lvl {
+						animation: open_second_lvl 0.2s ease-in 1 forwards;
+					}
+				}
+			}
 		}
 	}
 	.info {
@@ -239,7 +292,7 @@ export default {
 		padding: 1rem;
 		.lang {
 			position: fixed;
-			top: 3vh;
+			top: 1rem;
 			right: 3rem;
 		}
 		.info {
@@ -263,7 +316,7 @@ export default {
 			left: 50%;
 			transform: translateX(-50%);
 			transition: 0.3s linear;
-			z-index: 0;
+			z-index: 25;
 			img {
 				filter: initial;
 				width: 100%;
@@ -298,6 +351,9 @@ export default {
 					display: flex;
 					justify-content: space-between;
 					padding: 0.5rem 1rem;
+					&::after {
+						display: none;
+					}
 					a {
 						// width: 100%;
 						display: flex;
@@ -307,12 +363,64 @@ export default {
 					svg {
 						padding: 0.5rem 1rem;
 					}
+					.second_lvl {
+						left: initial;
+						transform: initial;
+						height: 0;
+						opacity: 0;
+						padding-left: 2rem;
+						li {
+							padding: 0;
+							position: relative;
+							display: flex;
+							justify-content: flex-start;
+							align-items: center;
+							&::before {
+								content: '';
+								width: 7px;
+								height: 5px;
+								border-radius: 40%;
+								background-color: theme('colors.blue');
+							}
+							&:first-child {
+								margin-top: 1rem;
+							}
+							&:last-child {
+								margin-bottom: 1rem;
+							}
+							a {
+								font-size: inherit;
+								padding: 0.5rem 1rem;
+							}
+						}
+					}
+					&.active_second_l {
+						.second_lvl {
+							animation: open_second_lvl 0.2s ease-in 1 forwards;
+							// height: auto;
+							// opacity: 1;
+						}
+					}
 				}
 			}
 			&.navigation_opened {
 				left: 0;
 			}
 		}
+	}
+}
+@keyframes open_second_lvl {
+	0% {
+		height: 0;
+		opacity: 0;
+	}
+	1% {
+		height: 100%;
+		opacity: 0;
+	}
+	100% {
+		height: 100%;
+		opacity: 1;
 	}
 }
 </style>

@@ -5,7 +5,7 @@
 			<div v-if="poster" class="image md:w-1/3 w-full">
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
-			<div class="content md:w-2/3 pl-8 w-full">
+			<div class="content md:w-2/3 md:pl-8 w-full">
 				<SanityContent :blocks="text" />
 				<a v-if="buttonLink !== null" :href="buttonLink.href" class="button mt-12 px-8 py-4 hover:bg-blue hover:text-white inline-flex text-lg font-semibold bg-yellow text-darkBlue">{{ buttonLink.name }}</a>
 			</div>
