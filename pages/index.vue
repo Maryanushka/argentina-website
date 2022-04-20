@@ -9,7 +9,7 @@
 			<!-- <PagePreviewGrid v-if="data.latestArticles" :pages="data.latestArticles" :parentuid="parentUId" :title="parentTitle" /> -->
 			<section v-if="data.latestArticles" class="latestArticles py-16">
 				<div class="container flex flex-wrap px-4">
-					<h2 class="title w-full text-3xl font-bold mb-12 relative text-center md:text-left">{{ parentTitle }}</h2>
+					<h2 class="title w-full text-3xl font-bold mb-20 relative text-center md:text-left">{{ parentTitle }}</h2>
 					<div class="grid md:grid-cols-3 grid-cols-1 gap-6">
 						<article v-for="blogCard in data.latestArticles" :key="blogCard._id" class="blog_card flex flex-col mb-8">
 							<ImageItem :image="blogCard.poster" w="500" h="400" class="h-72 object-cover" />
@@ -106,7 +106,6 @@ export default {
 	},
 	methods: {
 		formatDate(time) {
-			console.log(time)
 			const date = new Date(time)
 			const options = { year: 'numeric', month: 'long', day: 'numeric' }
 			// Then specify how you want your dates to be formatted

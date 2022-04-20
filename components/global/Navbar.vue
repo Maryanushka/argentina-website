@@ -38,13 +38,13 @@
 						<li v-for="link in navigationList.first_lvl" :key="link.uid" class="relative" @mouseover="hover = true" @mouseleave="hover = false">
 							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon class="text-darkBlue hover:text-yellow md:hidden h-4 w-4" :icon="['fa', 'chevron-right']" />
-							<template v-if="navigationList.argentina_lvl && link.place === 1">
+							<!-- <template v-if="navigationList.argentina_lvl && link.place === 1">
 								<ul class="absolute bg-white top-10 py-2 second_lvl" :class="{ 'opacity': hover }">
 									<li v-for="argentinaLink in navigationList.argentina_lvl" :key="argentinaLink.uid">
 										<n-link class="md:text-blue text-darkBlue hover:text-darkBlue px-6 py-3 flex whitespace-nowrap" :to="`${normalizedLocale}${localePath('argentina').slice(1, -1)}${argentinaLink.uid}/`">{{ argentinaLink.title }}</n-link>
 									</li>
 								</ul>
-							</template>
+							</template> -->
 						</li>
 					</ul>
 				</nav>
