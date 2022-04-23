@@ -72,5 +72,11 @@ export default {
 			return this.localePath('tourism').split('/').slice(1, -1).pop()
 		},
 	},
+	watch: {
+		$route(newValue, oldValue) {
+			console.log(this.$route.path, 'currentLocale changed')
+			this.$fetch()
+		},
+	},
 }
 </script>

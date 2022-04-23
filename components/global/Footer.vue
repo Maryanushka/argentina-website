@@ -52,12 +52,18 @@ export default {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
 	},
+	watch: {
+		$route(newValue, oldValue) {
+			// console.log('currentLocale changed')
+			this.getNavigation()
+		},
+	},
 	mounted() {
 		this.getNavigation()
 	},
 	methods: {
-		getNavigation() {
-			this.menu = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		async getNavigation() {
+			this.menu = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
 	},
 }

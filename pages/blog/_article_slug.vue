@@ -85,6 +85,12 @@ export default {
 			return uniqueTags
 		},
 	},
+	watch: {
+		$route(newValue, oldValue) {
+			console.log(this.$route.path, 'currentLocale changed')
+			this.$fetch()
+		},
+	},
 }
 </script>
 <style lang="scss" scoped>

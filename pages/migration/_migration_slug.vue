@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: getParentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: parentTitle }" />
 			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -21,6 +21,7 @@ export default {
 	name: 'MigrationSlug',
 	data: () => ({
 		data: {},
+		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -31,6 +32,7 @@ export default {
 		},
 	}),
 	async fetch() {
+		// console.log(msg)
 		await this.$sanity
 			.fetch(page, { type: 'migration', uid: this.$route.params.migration_slug })
 			.then((fetch) => {
@@ -67,11 +69,23 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
-		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
 		normalizedParentUid() {
 			return this.localePath('migration').split('/').slice(1, -1).pop()
+		},
+	},
+	watch: {
+		$route(newValue, oldValue) {
+			console.log('currentLocale changed')
+			this.getParentTitle()
+			this.$fetch()
+		},
+	},
+	mounted() {
+		this.getParentTitle()
+	},
+	methods: {
+		getParentTitle() {
+			this.parentTitle = this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
 }

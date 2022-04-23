@@ -11,7 +11,7 @@
 	</main>
 </template>
 <script>
-import { service } from '@/plugins/queries'
+import { page, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
 import TitleRichText from '@/components/sections/TitleRichText'
 import IconList from '@/components/sections/IconList'
@@ -30,7 +30,7 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(service, { uid: this.$route.params.service_slug })
+			.fetch(page, { type: 'service', uid: this.$route.params.service_slug })
 			.then((fetch) => {
 				this.data = fetch
 				this.$store.dispatch('metaTags', {
@@ -50,6 +50,15 @@ export default {
 				// use throw new Error()
 				throw new Error('service not found', error)
 			})
+
+		await this.$sanity
+			.fetch(innerPagesList, { type: 'service', lang: this.$i18n.localeProperties.code })
+			.then((pagesList) => {
+				this.data.relatedServices = pagesList
+			})
+			.catch((error) => {
+				throw new Error('Inner pages query', error)
+			})
 	},
 	fetchOnServer: false,
 	head() {
@@ -60,7 +69,7 @@ export default {
 			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 		normalizedParentUid() {
-			return this.localePath('services').split('/').slice(1, -1).pop()
+			return this.$route.path.split('/').slice(1, -2).pop()
 		},
 	},
 }

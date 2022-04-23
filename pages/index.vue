@@ -104,6 +104,12 @@ export default {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
 	},
+	watch: {
+		$route(newValue, oldValue) {
+			console.log(this.$route.path, 'currentLocale changed')
+			this.$fetch()
+		},
+	},
 	methods: {
 		formatDate(time) {
 			const date = new Date(time)

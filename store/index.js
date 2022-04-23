@@ -1,4 +1,4 @@
-import { menu } from '@/plugins/queries'
+// import { menu } from '@/plugins/queries'
 
 export const state = (context) => ({
 	domain: 'https://argentinadiary.com',
@@ -35,16 +35,16 @@ export const mutations = {
 }
 
 export const actions = {
-	async nuxtServerInit({ commit }) {
-		await this.$sanity
-			.fetch(menu)
-			.then((data) => {
-				commit('setNavigation', data)
-			})
-			.catch((err) => {
-				console.log(err)
-			})
-	},
+	// async nuxtServerInit({ commit }) {
+	// 	await this.$sanity
+	// 		.fetch(menu)
+	// 		.then((data) => {
+	// 			commit('setNavigation', data)
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err)
+	// 		})
+	// },
 	bindModal(context, value) {
 		context.commit('setModal', value)
 	},

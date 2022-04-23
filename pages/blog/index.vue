@@ -137,6 +137,10 @@ export default {
 		},
 	},
 	watch: {
+		$route(newValue, oldValue) {
+			console.log(this.$route.path, 'currentLocale changed')
+			this.$fetch()
+		},
 		pageStateOptions(value) {
 			window.history.pushState(null, document.title, `${window.location.pathname}?filter=${value.filter}`)
 		},
