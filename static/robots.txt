@@ -1,2 +1,5 @@
 User-agent: *
-Disallow: /
+Allow: /
+# Disallow: _nuxt/
+
+# Sitemap: https://argentinadiary.com/sitemap.xml
