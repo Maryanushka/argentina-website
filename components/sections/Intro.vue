@@ -1,6 +1,6 @@
 <template>
 	<section class="intro md:h-80 overflow-hidden relative bottom_skew w-full">
-		<ImageItem v-if="poster" :image="poster" w="1920" h="1080" class="h-full w-full absolute object-cover" />
+		<ImageItem v-if="poster" :image="poster" w="1920" h="400" class="h-full w-full absolute object-cover" />
 		<div class="container px-4 flex flex-col justify-between h-full relative z-10">
 			<h1 class="md:text-5xl text-xl text-white mt-32 font-bold mb-8">
 				{{ title }}

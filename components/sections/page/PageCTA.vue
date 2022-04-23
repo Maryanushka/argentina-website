@@ -22,16 +22,6 @@ export default {
 			},
 		},
 	},
-	computed: {
-		preparedIcons() {
-			const icons = this.benefitItems.map((el) => {
-				const iconsArray = el.icon.split('-')
-
-				return [iconsArray[0], iconsArray.slice(1).join('-')]
-			})
-			return icons
-		},
-	},
 	methods: {
 		openModal(value) {
 			console.log(value)

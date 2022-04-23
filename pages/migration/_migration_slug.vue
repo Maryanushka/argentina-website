@@ -11,10 +11,11 @@
 	</main>
 </template>
 <script>
-import { migration, innerPagesList } from '@/plugins/queries'
+import { page, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
 import TitleRichText from '@/components/sections/TitleRichText'
 import IconList from '@/components/sections/IconList'
+import CTA from '@/components/sections/CTA'
 
 export default {
 	name: 'MigrationSlug',
@@ -25,12 +26,13 @@ export default {
 				imageText: ImageRichText,
 				benefits: IconList,
 				titleText: TitleRichText,
+				cta: CTA,
 			},
 		},
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(migration, { uid: this.$route.params.migration_slug })
+			.fetch(page, { type: 'migration', uid: this.$route.params.migration_slug })
 			.then((fetch) => {
 				this.data = fetch
 				this.$store.dispatch('metaTags', {

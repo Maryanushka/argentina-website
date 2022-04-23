@@ -34,17 +34,11 @@
 </template>
 <script>
 import { page } from '@/plugins/queries'
-import ImageRichText from '@/components/sections/ImageRichText'
 
 export default {
 	name: 'Migration',
 	data: () => ({
 		data: {},
-		serializers: {
-			types: {
-				imageText: ImageRichText,
-			},
-		},
 	}),
 	async fetch() {
 		await this.$sanity
