@@ -34,7 +34,7 @@
 				</div>
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
-					<ul class="flex md:justify-items-end md:items-center md:flex-row flex-col">
+					<ul v-if="navigationList.first_lvl" class="flex md:justify-items-end md:items-center md:flex-row flex-col">
 						<li v-for="(link, i) in navigationList.first_lvl" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }">
 							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon v-if="i !== navigationList.first_lvl.length - 1 && i !== navigationList.first_lvl.length - 2" class="text-darkBlue hover:text-yellow md:hidden h-4 w-4 transition-all transform" :icon="['fa', 'chevron-right']" :class="{ 'rotate-90': activeSecondLvl && activeSecondPlace === link.place }" @click="openSecondLvl(link.place)" />
@@ -80,6 +80,8 @@
 	</header>
 </template>
 <script>
+import { menu } from '@/plugins/queries'
+
 export default {
 	data: () => ({
 		scrollPosition: null,
@@ -98,6 +100,16 @@ export default {
 		},
 		// getNavigation: [],
 	}),
+	async fetch() {
+		await this.$sanity
+			.fetch(menu)
+			.then((data) => {
+				this.$store.commit('setNavigation', data)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	},
 	computed: {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
@@ -106,6 +118,7 @@ export default {
 	watch: {
 		$route(newValue, oldValue) {
 			console.log('currentLocale changed')
+			this.$fetch()
 			this.getNavigation()
 			this.getArgentinaLinks()
 			this.getMigrationLinks()
@@ -118,6 +131,7 @@ export default {
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
 
+		this.setLocalStorage()
 		this.getNavigation()
 		this.getArgentinaLinks()
 		this.getMigrationLinks()
@@ -125,20 +139,20 @@ export default {
 		this.getServicesLinks()
 	},
 	methods: {
-		async getNavigation() {
-			this.navigationList.first_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		getNavigation() {
+			this.navigationList.first_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
-		async getArgentinaLinks() {
-			this.navigationList.argentina_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
+		getArgentinaLinks() {
+			this.navigationList.argentina_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
 		},
-		async getMigrationLinks() {
-			this.navigationList.migration_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
+		getMigrationLinks() {
+			this.navigationList.migration_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
 		},
-		async getTourismLinks() {
-			this.navigationList.tourism_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
+		getTourismLinks() {
+			this.navigationList.tourism_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
 		},
-		async getServicesLinks() {
-			this.navigationList.services_lvl = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
+		getServicesLinks() {
+			this.navigationList.services_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
 		},
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened
@@ -155,6 +169,10 @@ export default {
 		openSecondLvl(place) {
 			this.activeSecondLvl = !this.activeSecondLvl
 			this.activeSecondPlace = place
+		},
+		setLocalStorage() {
+			window.localStorage.setItem('navigation', JSON.stringify(this.$store.getters.navigation))
+			console.log('stored')
 		},
 	},
 }

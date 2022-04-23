@@ -1,5 +1,3 @@
-// import { menu } from '@/plugins/queries'
-
 export const state = (context) => ({
 	domain: 'https://argentinadiary.com',
 	projectId: '17qu8ckk',
@@ -35,23 +33,13 @@ export const mutations = {
 }
 
 export const actions = {
-	// async nuxtServerInit({ commit }) {
-	// 	await this.$sanity
-	// 		.fetch(menu)
-	// 		.then((data) => {
-	// 			commit('setNavigation', data)
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err)
-	// 		})
-	// },
 	bindModal(context, value) {
 		context.commit('setModal', value)
 	},
 	async metaTags({ state, commit, app }, { type, fetch }) {
 		const metaData = await fetch.metaTags
 		const lang = this.$i18n.localeProperties.code
-		const image = `https://cdn.sanity.io/images/${state.projectId}/production/${metaData.image === undefined ? '' : metaData.image.slice(6)}?auto=metaData`
+		const image = `https://cdn.sanity.io/images/${state.projectId}/production/${metaData.image === undefined ? '' : metaData.image.slice(6, metaData.image.length - 4)}.jpg?auto=metaData`
 		const head = {
 			htmlAttrs: { lang },
 			title: metaData.title,
@@ -80,7 +68,7 @@ export const actions = {
 			canonical = `${state.domain}${this.localePath(type, 'ua')}${fetch.languages.filter((el) => el.lang === 'ua')[0].uid}/`
 			head.link.push(
 				...[
-					{ hid: 'alternate', rel: 'alternate', href: `${state.domain}/ru${this.localePath(type, 'ru')}${fetch.languages.filter((el) => el.lang === 'ru')[0].uid}/`, hreflang: 'ru' },
+					{ hid: 'alternate', rel: 'alternate', href: `${state.domain}${this.localePath(type, 'ru')}${fetch.languages.filter((el) => el.lang === 'ru')[0].uid}/`, hreflang: 'ru' },
 					{ hid: 'alternate', rel: 'alternate', href: `${state.domain}${this.localePath(type, 'ua')}${fetch.languages.filter((el) => el.lang === 'ua')[0].uid}/`, hreflang: 'x-default' },
 				],
 			)

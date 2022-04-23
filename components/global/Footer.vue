@@ -3,7 +3,7 @@
 		<div class="container flex flex-wrap pt-16 pb-16 px-4">
 			<div class="w-full md:w-2/3">
 				<ul class="list mb-16 flex flex-wrap">
-					<li v-for="link in menu" :key="link.uid">
+					<li v-for="link in menu" :key="link.uid + link.place">
 						<n-link class="text-darkBlue hover:text-blue font-bold pr-8 text-base" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 					</li>
 				</ul>
@@ -62,8 +62,8 @@ export default {
 		this.getNavigation()
 	},
 	methods: {
-		async getNavigation() {
-			this.menu = await this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		getNavigation() {
+			this.menu = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
 	},
 }
