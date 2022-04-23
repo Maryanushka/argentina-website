@@ -34,6 +34,12 @@ export default {
 		trailingSlash: true,
 	},
 
+	vue: {
+		config: {
+			devtools: true,
+		},
+	},
+
 	image: {
 		// The screen sizes predefined by `@nuxt/image`:
 		screens: {
