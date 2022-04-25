@@ -22,11 +22,13 @@
 						<PageIndexIntro :data="data.content[0]" />
 					</template>
 				</div>
-				<template v-for="(section, i) in data.content">
-					<PageImgText v-if="section._type === 'imageText' && i !== 0" :key="section._key" :data="section" />
-					<PageTitleRichText v-if="section._type === 'titleText'" :key="section._key" :data="section" />
-					<PageCTA v-if="section._type === 'cta'" :key="section._key" :data="section" />
-					<PageIconList v-if="section._type === 'benefits'" :key="section._key" :data="section" />
+				<template v-if="data.content">
+					<template v-for="(section, i) in data.content">
+						<PageImgText v-if="section._type === 'imageText' && i !== 0" :key="section._key" :data="section" />
+						<PageTitleRichText v-if="section._type === 'titleText'" :key="section._key" :data="section" />
+						<PageCTA v-if="section._type === 'cta'" :key="section._key" :data="section" />
+						<PageIconList v-if="section._type === 'benefits'" :key="section._key" :data="section" />
+					</template>
 				</template>
 			</section>
 		</template>
@@ -39,6 +41,7 @@ export default {
 	name: 'Tourism',
 	data: () => ({
 		data: {},
+		sidebar: null,
 	}),
 	async fetch() {
 		await this.$sanity
@@ -70,15 +73,23 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
-		sidebar() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'tourism' && el.lang === this.$i18n.localeProperties.code)
-			return navigation
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
 		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
+		},
+	},
+	mounted() {
+		if (this.getNavigationFromStore) {
+			this.filterSidebar(this.getNavigationFromStore)
+		}
+	},
+	methods: {
+		filterSidebar(navigation) {
+			this.sidebar = navigation.filter((el) => el.type === 'tourism' && el.lang === this.$i18n.localeProperties.code)
 		},
 	},
 }

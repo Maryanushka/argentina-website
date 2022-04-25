@@ -106,7 +106,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
 		},
 	},

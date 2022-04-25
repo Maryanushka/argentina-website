@@ -66,7 +66,7 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
-		getNavigation() {
+		getNavigationFromStore() {
 			return this.$store.getters.navigation
 		},
 		normalizedParentUid() {
@@ -75,17 +75,15 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
 		},
-		getNavigation(oldValue, newValue) {
-			console.log(oldValue, newValue)
-			this.getParentTitle(this.getNavigation)
+		getNavigationFromStore(oldValue, newValue) {
+			this.getParentTitle(this.getNavigationFromStore)
 		},
 	},
 	mounted() {
-		if (this.getNavigation) {
-			this.getParentTitle(this.getNavigation)
+		if (this.getNavigationFromStore) {
+			this.getParentTitle(this.getNavigationFromStore)
 		}
 	},
 	methods: {

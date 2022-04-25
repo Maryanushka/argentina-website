@@ -18,11 +18,11 @@
 							</li>
 						</ul>
 					</aside>
-					<template v-if="data.content !== null && data.content[0]._type === 'imageText'">
+					<template v-if="data.content && data.content[0]._type === 'imageText'">
 						<PageIndexIntro :data="data.content[0]" />
 					</template>
 				</div>
-				<template v-if="data.content !== null">
+				<template v-if="data.content">
 					<template v-for="(section, i) in data.content">
 						<PageImgText v-if="section._type === 'imageText' && i !== 0" :key="section._key" :data="section" />
 						<PageTitleRichText v-if="section._type === 'titleText'" :key="section._key" :data="section" />
@@ -69,6 +69,7 @@ export default {
 		normalizedParentUid() {
 			return this.$route.path.split('/').slice(1, -1).pop()
 		},
+
 		sidebar() {
 			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'argentina' && el.lang === this.$i18n.localeProperties.code)
 			return navigation
@@ -76,7 +77,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
 		},
 	},

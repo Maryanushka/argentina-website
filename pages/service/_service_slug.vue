@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'services', linklabel: getParentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'service', linklabel: parentTitle }" />
 			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -20,6 +20,7 @@ export default {
 	name: 'ServiceSlug',
 	data: () => ({
 		data: {},
+		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -65,11 +66,21 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
-		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
 		normalizedParentUid() {
 			return this.$route.path.split('/').slice(1, -2).pop()
+		},
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
+	},
+	mounted() {
+		if (this.getNavigationFromStore) {
+			this.getParentTitle(this.getNavigationFromStore)
+		}
+	},
+	methods: {
+		getParentTitle(navigation) {
+			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
 }

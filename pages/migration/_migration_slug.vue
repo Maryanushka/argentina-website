@@ -32,7 +32,6 @@ export default {
 		},
 	}),
 	async fetch() {
-		// console.log(msg)
 		await this.$sanity
 			.fetch(page, { type: 'migration', uid: this.$route.params.migration_slug })
 			.then((fetch) => {
@@ -72,20 +71,24 @@ export default {
 		normalizedParentUid() {
 			return this.localePath('migration').split('/').slice(1, -1).pop()
 		},
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log('currentLocale changed')
-			this.getParentTitle()
 			this.$fetch()
+			this.getParentTitle(this.getNavigationFromStore)
 		},
 	},
 	mounted() {
-		this.getParentTitle()
+		if (this.getNavigationFromStore) {
+			this.getParentTitle(this.getNavigationFromStore)
+		}
 	},
 	methods: {
-		getParentTitle() {
-			this.parentTitle = this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		getParentTitle(navigation) {
+			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
 }

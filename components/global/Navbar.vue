@@ -58,7 +58,7 @@
 							<template v-if="navigationList.services_lvl && link.place === 3">
 								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
 									<li v-for="serviceLink in navigationList.services_lvl" :key="serviceLink.uid" class="flex">
-										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('services')}${serviceLink.uid}/`">{{ serviceLink.title }}</n-link>
+										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('service')}${serviceLink.uid}/`">{{ serviceLink.title }}</n-link>
 									</li>
 								</ul>
 							</template>
@@ -120,7 +120,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log('currentLocale changed')
 			this.$fetch()
 			// this.setLocalStorage(this.getNavigationFormStore)
 			this.getNavigation(this.getNavigationFormStore)
@@ -146,7 +145,6 @@ export default {
 	},
 	methods: {
 		getNavigation(navigation) {
-			console.log('navigation', navigation)
 			this.navigationList.first_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
 		getArgentinaLinks(navigation) {
@@ -179,7 +177,6 @@ export default {
 		},
 		setLocalStorage() {
 			window.localStorage.setItem('navigation', JSON.stringify(this.$store.getters.navigation))
-			console.log('stored')
 		},
 	},
 }

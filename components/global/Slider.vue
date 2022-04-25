@@ -75,7 +75,6 @@ export default {
 			return url.slice(url.length - 11, url.length)
 		},
 		openModal(value) {
-			console.log(value)
 			this.$store.dispatch('bindModal', value)
 		},
 	},

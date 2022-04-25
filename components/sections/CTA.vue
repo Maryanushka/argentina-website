@@ -24,7 +24,6 @@ export default {
 	},
 	methods: {
 		openModal(value) {
-			console.log(value)
 			this.$store.dispatch('bindModal', value)
 		},
 	},

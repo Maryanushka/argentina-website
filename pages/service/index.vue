@@ -36,7 +36,7 @@
 import { page } from '@/plugins/queries'
 
 export default {
-	name: 'Services',
+	name: 'Service',
 	data: () => ({
 		data: {},
 	}),
@@ -77,7 +77,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
 		},
 	},

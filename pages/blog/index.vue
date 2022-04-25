@@ -138,7 +138,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
 		},
 		pageStateOptions(value) {
@@ -163,7 +162,6 @@ export default {
 			return updatedFormat
 		},
 		paginatedArticles(arr) {
-			console.log(arr)
 			this.filteredArticles = arr.slice(this.startIndex, this.endIndex)
 			if (arr.length > 1) {
 				this.data.pageNumber = Math.floor(arr.length / this.articlesPerPage)
@@ -172,7 +170,6 @@ export default {
 			this.data.pageNumber = 1
 		},
 		filterArticles(tag) {
-			// console.log(typeof tag, 'tag' + tag.length)
 			if (tag === 'all' || tag.length === 0) {
 				this.active_filter = ''
 				this.paginatedArticles(this.data.blogList)

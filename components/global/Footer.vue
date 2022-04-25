@@ -57,7 +57,6 @@ export default {
 	},
 	watch: {
 		$route(newValue, oldValue) {
-			// console.log('currentLocale changed')
 			this.createFirstLvlNavigation(this.getNavigationFromStore)
 		},
 		getNavigationFromStore() {

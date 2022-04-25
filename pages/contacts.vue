@@ -72,6 +72,7 @@ export default {
 	name: 'Contacts',
 	data: () => ({
 		data: {},
+		parentTitle: '',
 		serializers: {
 			types: {
 				titleText: TitleRichText,
@@ -102,11 +103,29 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
-		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
 		},
 		normalizedParentUid() {
 			return this.localePath('contacts').split('/').slice(1, -1).pop()
+		},
+	},
+	watch: {
+		$route(newValue, oldValue) {
+			this.$fetch()
+		},
+		getNavigationFromStore(oldValue, newValue) {
+			this.getParentTitle(this.getNavigationFromStore)
+		},
+	},
+	mounted() {
+		if (this.getNavigationFromStore) {
+			this.getParentTitle(this.getNavigationFromStore)
+		}
+	},
+	methods: {
+		getParentTitle(navigation) {
+			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
 }

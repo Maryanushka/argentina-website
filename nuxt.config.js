@@ -109,11 +109,11 @@ export default {
 				ru: '/imigracija/:migration_slug?',
 				ua: '/migraciija/:migration_slug?',
 			},
-			'services/index': {
+			'service/index': {
 				ru: '/uslugi',
 				ua: '/poslygu',
 			},
-			'services/_service_slug': {
+			'service/_service_slug': {
 				ru: '/uslugi/:service_slug?',
 				ua: '/poslygu/:service_slug?',
 			},
