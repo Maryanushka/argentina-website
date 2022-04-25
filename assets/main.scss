@@ -84,15 +84,22 @@ section {
 		margin: 1rem 0;
 	}
 	p {
-		margin-bottom: 5px;
+		margin-bottom: 15px;
 	}
 	ul { 
 		padding-left: 1rem;
+		margin-bottom: 15px;
 		li {
 			list-style-type: disc;
 		}
 	}
 	a:not(.button) {color: theme('colors.blue')}
+}
+
+.rich_text ~ .icon_list, 
+.rich_text ~ .cta, 
+.icon_list ~ .rich_text {
+	margin-top: 4rem;
 }
 
 .top_skew {

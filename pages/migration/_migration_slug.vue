@@ -5,7 +5,7 @@
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: parentTitle }" />
-			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
+			<SanityContent class="content pt-20" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
 	</main>

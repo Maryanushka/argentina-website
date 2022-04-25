@@ -21,13 +21,13 @@
 									{{ formatDate(blogCard.updated.slice(0, -1)) }}
 								</span>
 								<div class="tags">
-									<n-link v-for="tag in blogCard.tags" :key="tag" :to="`${normalizedLocale}${parentUId}/?filter=${tag}`" class="text-gray-400 ml-3 hover:text-blue"> #{{ tag }} </n-link>
+									<n-link v-for="tag in blogCard.tags" :key="tag" :to="`/${parentUId}/?filter=${tag}`" class="text-gray-400 ml-3 hover:text-blue"> #{{ tag }} </n-link>
 								</div>
 							</div>
 							<p class="description my-4 overflow-hidden h-36">
 								{{ blogCard.description }}
 							</p>
-							<n-link :to="`${normalizedLocale}${parentUId}/${blogCard.uid}/`" class="text-white font-bold bg-blue px-8 py-3 text-lg inline-block w-min hover:bg-darkBlue">
+							<n-link :to="`/${parentUId}/${blogCard.uid}/`" class="text-white font-bold bg-blue px-8 py-3 text-lg inline-block w-min hover:bg-darkBlue">
 								{{ $t('pages.blog.read_more') }}
 							</n-link>
 						</article>

@@ -11,10 +11,11 @@
 	</main>
 </template>
 <script>
-import { aboutArgentina, innerPagesList } from '@/plugins/queries'
+import { page, innerPagesList } from '@/plugins/queries'
 import ImageRichText from '@/components/sections/ImageRichText'
 import TitleRichText from '@/components/sections/TitleRichText'
 import IconList from '@/components/sections/IconList'
+import CTA from '@/components/sections/CTA'
 
 export default {
 	name: 'ArgeninaSlug',
@@ -26,12 +27,13 @@ export default {
 				imageText: ImageRichText,
 				titleText: TitleRichText,
 				benefits: IconList,
+				cta: CTA,
 			},
 		},
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(aboutArgentina, { uid: this.$route.params.argentina_slug })
+			.fetch(page, {type: 'argentina', uid: this.$route.params.argentina_slug })
 			.then((fetch) => {
 				this.data = fetch
 				this.$store.dispatch('metaTags', {

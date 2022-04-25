@@ -6,7 +6,7 @@
 				<ImageItem :image="data.poster" w="1000" class="w-full object-cover mb-4 flex h-full" />
 			</div>
 			<div class="content w-full mt-4">
-				<SanityContent :blocks="data.text" />
+				<SanityContent :blocks="data.text" class="rich_text" />
 				<a v-if="data.buttonLink !== undefined" :href="data.buttonLink.href" class="button mt-12 px-8 py-4 hover:bg-blue hover:text-white inline-flex text-lg font-semibold bg-yellow text-darkBlue">{{ data.buttonLink.name }}</a>
 			</div>
 		</div>
@@ -41,43 +41,3 @@ export default {
 	},
 }
 </script>
-<style lang="scss" scoped>
-// .home {
-// 	.image_rich_text {
-// 		.container {
-// 			padding: 4rem 1rem;
-// 			display: flex;
-// 			flex-wrap: wrap;
-// 		}
-// 		.image,
-// 		.content {
-// 			width: 50%;
-// 		}
-// 	}
-// }
-// .page,
-// .article {
-// 	.image_rich_text {
-// 		padding: 0;
-// 		.container {
-// 			flex-direction: column;
-// 			padding: 0;
-// 		}
-// 		.image,
-// 		.content {
-// 			width: 100%;
-// 			padding: 0;
-// 		}
-// 	}
-// }
-// @media (max-width: 768px) {
-// 	.home {
-// 		.image_rich_text {
-// 			.image,
-// 			.content {
-// 				width: 100%;
-// 			}
-// 		}
-// 	}
-// }
-</style>

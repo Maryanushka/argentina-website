@@ -6,7 +6,7 @@
 				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
 			</div>
 			<div class="content md:w-2/3 md:pl-8 w-full">
-				<SanityContent :blocks="text" />
+				<SanityContent :blocks="text" class="rich_text" />
 				<a v-if="buttonLink !== null" :href="buttonLink.href" class="button mt-12 px-8 py-4 hover:bg-blue hover:text-white inline-flex text-lg font-semibold bg-yellow text-darkBlue">{{ buttonLink.name }}</a>
 			</div>
 		</div>
@@ -51,10 +51,22 @@ export default {
 		}
 	}
 }
-.page,
-.article {
+.page {
 	.image_rich_text {
 		padding: 0;
+		.container {
+			flex-direction: column;
+			padding: 0;
+		}
+		.image,
+		.content {
+			width: 100%;
+			padding: 0;
+		}
+	}
+}
+.article {
+	.image_rich_text {
 		.container {
 			flex-direction: column;
 			padding: 0;
