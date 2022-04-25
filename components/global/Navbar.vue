@@ -133,7 +133,7 @@ export default {
 		this.mobile = window.innerWidth
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
-
+		console.log(this.getNavigationFormStore)
 		if (this.getNavigationFormStore) {
 			// this.setLocalStorage(this.getNavigationFormStore)
 			this.getNavigation(this.getNavigationFormStore)
