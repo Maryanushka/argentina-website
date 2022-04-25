@@ -18,15 +18,17 @@
 							</li>
 						</ul>
 					</aside>
-					<template v-if="data.content[0]._type === 'imageText'">
+					<template v-if="data.content !== null && data.content[0]._type === 'imageText'">
 						<PageIndexIntro :data="data.content[0]" />
 					</template>
 				</div>
-				<template v-for="(section, i) in data.content">
-					<PageImgText v-if="section._type === 'imageText' && i !== 0" :key="section._key" :data="section" />
-					<PageTitleRichText v-if="section._type === 'titleText'" :key="section._key" :data="section" />
-					<PageCTA v-if="section._type === 'cta'" :key="section._key" :data="section" />
-					<PageIconList v-if="section._type === 'benefits'" :key="section._key" :data="section" />
+				<template v-if="data.content !== null">
+					<template v-for="(section, i) in data.content">
+						<PageImgText v-if="section._type === 'imageText' && i !== 0" :key="section._key" :data="section" />
+						<PageTitleRichText v-if="section._type === 'titleText'" :key="section._key" :data="section" />
+						<PageCTA v-if="section._type === 'cta'" :key="section._key" :data="section" />
+						<PageIconList v-if="section._type === 'benefits'" :key="section._key" :data="section" />
+					</template>
 				</template>
 			</section>
 		</template>

@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: getParentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: parentTitle }" />
 			<SanityContent v-if="data.content" class="content" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -20,6 +20,7 @@ export default {
 	name: 'ArgeninaSlug',
 	data: () => ({
 		data: {},
+		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -65,8 +66,8 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
-		getParentTitle() {
-			return this.$store.getters.navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		getNavigation() {
+			return this.$store.getters.navigation
 		},
 		normalizedParentUid() {
 			return this.localePath('argentina').split('/').slice(1, -1).pop()
@@ -76,6 +77,20 @@ export default {
 		$route(newValue, oldValue) {
 			console.log(this.$route.path, 'currentLocale changed')
 			this.$fetch()
+		},
+		getNavigation(oldValue, newValue) {
+			console.log(oldValue, newValue)
+			this.getParentTitle(this.getNavigation)
+		},
+	},
+	mounted() {
+		if (this.getNavigation) {
+			this.getParentTitle(this.getNavigation)
+		}
+	},
+	methods: {
+		getParentTitle(navigation) {
+			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
 }

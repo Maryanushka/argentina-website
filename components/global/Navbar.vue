@@ -114,16 +114,20 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
+		getNavigationFormStore() {
+			return this.$store.getters.navigation
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
 			console.log('currentLocale changed')
 			this.$fetch()
-			this.getNavigation()
-			this.getArgentinaLinks()
-			this.getMigrationLinks()
-			this.getTourismLinks()
-			this.getServicesLinks()
+			// this.setLocalStorage(this.getNavigationFormStore)
+			this.getNavigation(this.getNavigationFormStore)
+			this.getArgentinaLinks(this.getNavigationFormStore)
+			this.getMigrationLinks(this.getNavigationFormStore)
+			this.getTourismLinks(this.getNavigationFormStore)
+			this.getServicesLinks(this.getNavigationFormStore)
 		},
 	},
 	mounted() {
@@ -131,28 +135,31 @@ export default {
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
 
-		this.setLocalStorage()
-		this.getNavigation()
-		this.getArgentinaLinks()
-		this.getMigrationLinks()
-		this.getTourismLinks()
-		this.getServicesLinks()
+		if (this.getNavigationFormStore) {
+			// this.setLocalStorage(this.getNavigationFormStore)
+			this.getNavigation(this.getNavigationFormStore)
+			this.getArgentinaLinks(this.getNavigationFormStore)
+			this.getMigrationLinks(this.getNavigationFormStore)
+			this.getTourismLinks(this.getNavigationFormStore)
+			this.getServicesLinks(this.getNavigationFormStore)
+		}
 	},
 	methods: {
-		getNavigation() {
-			this.navigationList.first_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		getNavigation(navigation) {
+			console.log('navigation', navigation)
+			this.navigationList.first_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
-		getArgentinaLinks() {
-			this.navigationList.argentina_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
+		getArgentinaLinks(navigation) {
+			this.navigationList.argentina_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
 		},
-		getMigrationLinks() {
-			this.navigationList.migration_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
+		getMigrationLinks(navigation) {
+			this.navigationList.migration_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
 		},
-		getTourismLinks() {
-			this.navigationList.tourism_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
+		getTourismLinks(navigation) {
+			this.navigationList.tourism_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
 		},
-		getServicesLinks() {
-			this.navigationList.services_lvl = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
+		getServicesLinks(navigation) {
+			this.navigationList.services_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
 		},
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened

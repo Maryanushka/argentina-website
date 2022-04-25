@@ -51,19 +51,27 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
 			// console.log('currentLocale changed')
-			this.getNavigation()
+			this.createFirstLvlNavigation(this.getNavigationFromStore)
+		},
+		getNavigationFromStore() {
+			this.createFirstLvlNavigation(this.getNavigationFromStore)
 		},
 	},
 	mounted() {
-		this.getNavigation()
+		if (this.getNavigationFromStore) {
+			this.createFirstLvlNavigation(this.getNavigationFromStore)
+		}
 	},
 	methods: {
-		getNavigation() {
-			this.menu = this.$store.getters.navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		createFirstLvlNavigation(navigation) {
+			this.menu = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
 	},
 }
