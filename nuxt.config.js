@@ -126,7 +126,7 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faAngleRight', 'faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart', 'faGlobeAmericas', 'faSun', 'faMapMarkerAlt'],
+			solid: ['faAngleRight', 'faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart', 'faGlobeAmericas', 'faSun', 'faMapMarkerAlt', 'faBaby', 'faUserShield'],
 			regular: ['faClock', 'faEnvelope', 'faPlayCircle'],
 			brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faGratipay', 'faTelegram', 'faWhatsapp'],
 		},
