@@ -26,7 +26,7 @@
 						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://t.me/Viktor_arg" target="_blank">
 							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'telegram']" />
 						</a>
-						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://api.whatsapp.com/send?phone=+541167502877" target="_blank">
+						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://api.whatsapp.com/send/?phone=541167502877" target="_blank">
 							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'whatsapp']" />
 						</a>
 					</div>
@@ -34,38 +34,38 @@
 				</div>
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
-					<ul v-if="navigationList.first_lvl" class="flex md:justify-items-end md:items-center md:flex-row flex-col">
-						<li v-for="(link, i) in navigationList.first_lvl" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }">
-							<n-link class="md:text-white text-darkBlue hover:text-darkBlue font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
-							<font-awesome-icon v-if="i !== navigationList.first_lvl.length - 1 && i !== navigationList.first_lvl.length - 2" class="text-darkBlue hover:text-yellow md:hidden h-4 w-4 transition-all transform" :icon="['fa', 'chevron-right']" :class="{ 'rotate-90': activeSecondLvl && activeSecondPlace === link.place }" @click="openSecondLvl(link.place)" />
+					<ul v-if="getNavigation" class="flex md:justify-items-end md:items-center md:flex-row flex-col">
+						<li v-for="(link, i) in getNavigation" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }">
+							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
+							<font-awesome-icon v-if="i !== getNavigation - 1 && i !== getNavigation - 2" class="text-darkBlue hover:text-yellow md:hidden h-4 w-4 transition-all transform" :icon="['fa', 'chevron-right']" :class="{ 'rotate-90': activeSecondLvl && activeSecondPlace === link.place }" @click="openSecondLvl(link.place)" />
 							<!-- second lvl argentina -->
-							<template v-if="navigationList.argentina_lvl && link.place === 1">
+							<template v-if="getArgentinaLinks && link.place === 1">
 								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
-									<li v-for="argentinaLink in navigationList.argentina_lvl" :key="argentinaLink.uid" class="flex">
+									<li v-for="argentinaLink in getArgentinaLinks" :key="argentinaLink.uid" class="flex">
 										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('argentina')}${argentinaLink.uid}/`">{{ argentinaLink.title }}</n-link>
 									</li>
 								</ul>
 							</template>
 							<!-- second lvl migration -->
-							<template v-if="navigationList.migration_lvl && link.place === 2">
+							<template v-if="getMigrationLinks && link.place === 2">
 								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
-									<li v-for="migrationLink in navigationList.migration_lvl" :key="migrationLink.uid" class="flex">
+									<li v-for="migrationLink in getMigrationLinks" :key="migrationLink.uid" class="flex">
 										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('migration')}${migrationLink.uid}/`">{{ migrationLink.title }}</n-link>
 									</li>
 								</ul>
 							</template>
 							<!-- second lvl service -->
-							<template v-if="navigationList.services_lvl && link.place === 3">
+							<template v-if="getServicesLinks && link.place === 3">
 								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
-									<li v-for="serviceLink in navigationList.services_lvl" :key="serviceLink.uid" class="flex">
+									<li v-for="serviceLink in getServicesLinks" :key="serviceLink.uid" class="flex">
 										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('service')}${serviceLink.uid}/`">{{ serviceLink.title }}</n-link>
 									</li>
 								</ul>
 							</template>
 							<!-- second lvl service -->
-							<template v-if="navigationList.tourism_lvl && link.place === 4">
+							<template v-if="getTourismLinks && link.place === 4">
 								<ul class="md:absolute md:top-14 md:mt-0 second_lvl">
-									<li v-for="tourismLink in navigationList.tourism_lvl" :key="tourismLink.uid" class="flex">
+									<li v-for="tourismLink in getTourismLinks" :key="tourismLink.uid" class="flex">
 										<n-link class="md:text-blue md:bg-white w-full text-darkBlue hover:text-darkBlue px-6 md:py-4 whitespace-nowrap md:text-base" :to="`${localePath('tourism')}${tourismLink.uid}/`">{{ tourismLink.title }}</n-link>
 									</li>
 								</ul>
@@ -117,48 +117,63 @@ export default {
 		getNavigationFormStore() {
 			return this.$store.getters.navigation
 		},
+		getNavigation() {
+			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		},
+		getArgentinaLinks() {
+			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
+		},
+		getMigrationLinks() {
+			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
+		},
+		getTourismLinks() {
+			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
+		},
+		getServicesLinks() {
+			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
 			this.$fetch()
 			// this.setLocalStorage(this.getNavigationFormStore)
-			this.getNavigation(this.getNavigationFormStore)
-			this.getArgentinaLinks(this.getNavigationFormStore)
-			this.getMigrationLinks(this.getNavigationFormStore)
-			this.getTourismLinks(this.getNavigationFormStore)
-			this.getServicesLinks(this.getNavigationFormStore)
+			// this.getNavigation(this.getNavigationFormStore)
+			// this.getArgentinaLinks(this.getNavigationFormStore)
+			// this.getMigrationLinks(this.getNavigationFormStore)
+			// this.getTourismLinks(this.getNavigationFormStore)
+			// this.getServicesLinks(this.getNavigationFormStore)
 		},
 	},
 	mounted() {
 		this.mobile = window.innerWidth
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
-		console.log(this.getNavigationFormStore)
-		if (this.getNavigationFormStore) {
-			// this.setLocalStorage(this.getNavigationFormStore)
-			this.getNavigation(this.getNavigationFormStore)
-			this.getArgentinaLinks(this.getNavigationFormStore)
-			this.getMigrationLinks(this.getNavigationFormStore)
-			this.getTourismLinks(this.getNavigationFormStore)
-			this.getServicesLinks(this.getNavigationFormStore)
-		}
+		// console.log(this.getNavigationFormStore)
+		// if (this.getNavigationFormStore) {
+		// 	// this.setLocalStorage(this.getNavigationFormStore)
+		// 	this.getNavigation(this.getNavigationFormStore)
+		// 	this.getArgentinaLinks(this.getNavigationFormStore)
+		// 	this.getMigrationLinks(this.getNavigationFormStore)
+		// 	this.getTourismLinks(this.getNavigationFormStore)
+		// 	this.getServicesLinks(this.getNavigationFormStore)
+		// }
 	},
 	methods: {
-		getNavigation(navigation) {
-			this.navigationList.first_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
-		},
-		getArgentinaLinks(navigation) {
-			this.navigationList.argentina_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
-		},
-		getMigrationLinks(navigation) {
-			this.navigationList.migration_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
-		},
-		getTourismLinks(navigation) {
-			this.navigationList.tourism_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
-		},
-		getServicesLinks(navigation) {
-			this.navigationList.services_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
-		},
+		// getNavigation(navigation) {
+		// 	this.navigationList.first_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+		// },
+		// getArgentinaLinks(navigation) {
+		// 	this.navigationList.argentina_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
+		// },
+		// getMigrationLinks(navigation) {
+		// 	this.navigationList.migration_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
+		// },
+		// getTourismLinks(navigation) {
+		// 	this.navigationList.tourism_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
+		// },
+		// getServicesLinks(navigation) {
+		// 	this.navigationList.services_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
+		// },
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened
 		},

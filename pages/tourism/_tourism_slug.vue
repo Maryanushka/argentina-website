@@ -72,24 +72,27 @@ export default {
 		normalizedParentUid() {
 			return this.localePath('tourism').split('/').slice(1, -1).pop()
 		},
-	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-		},
-		getNavigationFromStore(oldValue, newValue) {
-			this.getParentTitle(this.getNavigationFromStore)
+		getParentTitle() {
+			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.getParentTitle(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		getParentTitle(navigation) {
-			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
-	},
+	// watch: {
+	// 	$route(newValue, oldValue) {
+	// 		this.$fetch()
+	// 	},
+	// 	getNavigationFromStore(oldValue, newValue) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	},
+	// },
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	getParentTitle(navigation) {
+	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+	// 	},
+	// },
 }
 </script>

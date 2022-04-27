@@ -74,22 +74,25 @@ export default {
 		getNavigationFromStore() {
 			return this.$store.getters.navigation
 		},
-	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-			this.getParentTitle(this.getNavigationFromStore)
+		getParentTitle() {
+			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.getParentTitle(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		getParentTitle(navigation) {
-			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
-	},
+	// watch: {
+	// 	$route(newValue, oldValue) {
+	// 		this.$fetch()
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	},
+	// },
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	getParentTitle(navigation) {
+	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+	// 	},
+	// },
 }
 </script>

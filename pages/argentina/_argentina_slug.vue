@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: parentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'argentina', linklabel: getParentTitle }" />
 			<SanityContent v-if="data.content" class="content" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -33,7 +33,7 @@ export default {
 	}),
 	async fetch() {
 		await this.$sanity
-			.fetch(page, {type: 'argentina', uid: this.$route.params.argentina_slug })
+			.fetch(page, { type: 'argentina', uid: this.$route.params.argentina_slug })
 			.then((fetch) => {
 				this.data = fetch
 				this.$store.dispatch('metaTags', {
@@ -74,24 +74,27 @@ export default {
 		normalizedParentUid() {
 			return this.localePath('argentina').split('/').slice(1, -1).pop()
 		},
+		getParentTitle() {
+			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
 			this.$fetch()
 		},
-		getNavigationFromStore(oldValue, newValue) {
-			this.getParentTitle(this.getNavigationFromStore)
-		},
+		// getNavigationFromStore(oldValue, newValue) {
+		// 	this.getParentTitle(this.getNavigationFromStore)
+		// },
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.getParentTitle(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		getParentTitle(navigation) {
-			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
-	},
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	getParentTitle(navigation) {
+	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+	// 	},
+	// },
 }
 </script>

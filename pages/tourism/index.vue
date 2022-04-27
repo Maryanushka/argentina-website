@@ -41,7 +41,7 @@ export default {
 	name: 'Tourism',
 	data: () => ({
 		data: {},
-		sidebar: null,
+		// sidebar: null,
 	}),
 	async fetch() {
 		await this.$sanity
@@ -76,21 +76,24 @@ export default {
 		getNavigationFromStore() {
 			return this.$store.getters.navigation
 		},
-	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
+		sidebar() {
+			return this.getNavigationFromStore.filter((el) => el.type === 'tourism' && el.lang === this.$i18n.localeProperties.code)
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.filterSidebar(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		filterSidebar(navigation) {
-			this.sidebar = navigation.filter((el) => el.type === 'tourism' && el.lang === this.$i18n.localeProperties.code)
-		},
-	},
+	// 	watch: {
+	// 		$route(newValue, oldValue) {
+	// 			this.$fetch()
+	// 		},
+	// 	},
+	// 	mounted() {
+	// 		if (this.getNavigationFromStore) {
+	// 			this.filterSidebar(this.getNavigationFromStore)
+	// 		}
+	// 	},
+	// 	methods: {
+	// 		filterSidebar(navigation) {
+	// 			this.sidebar = navigation.filter((el) => el.type === 'tourism' && el.lang === this.$i18n.localeProperties.code)
+	// 		},
+	// 	},
 }
 </script>

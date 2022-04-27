@@ -64,9 +64,11 @@ export default {
 		return this.$store.getters.metaHead
 	},
 	computed: {
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
 		sidebar() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'migration' && el.lang === this.$i18n.localeProperties.code)
-			return navigation
+			return this.getNavigationFromStore.filter((el) => el.type === 'migration' && el.lang === this.$i18n.localeProperties.code)
 		},
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
@@ -75,10 +77,10 @@ export default {
 			return this.$route.path.split('/').slice(1, -1).pop()
 		},
 	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-		},
-	},
+	// watch: {
+	// 	$route(newValue, oldValue) {
+	// 		this.$fetch()
+	// 	},
+	// },
 }
 </script>

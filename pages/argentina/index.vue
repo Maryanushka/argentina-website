@@ -69,10 +69,11 @@ export default {
 		normalizedParentUid() {
 			return this.$route.path.split('/').slice(1, -1).pop()
 		},
-
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
 		sidebar() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'argentina' && el.lang === this.$i18n.localeProperties.code)
-			return navigation
+			return this.getNavigationFromStore.filter((el) => el.type === 'argentina' && el.lang === this.$i18n.localeProperties.code)
 		},
 	},
 	watch: {

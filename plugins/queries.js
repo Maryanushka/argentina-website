@@ -217,7 +217,7 @@ export const articleLatest = groq`*[_type == "article" && __i18n_lang == $lang][
 	_id,
 }`
 
-export const sitemapData = groq`*[_type in ["project", "panel", "page"]] {"uid": uid.current, "type":  _type, "updated": _updatedAt}`
+export const sitemapData = groq`*[_type in ["page", "argentina", "service", "article", "migration", "tourism"]] {"uid": uid.current, "type":  _type, "updated": _updatedAt, "lang": __i18n_lang,}`
 
 export const menu = groq`*[_type in ["page", "argentina", "service", "article", "migration", "tourism"] ]{
 	title,

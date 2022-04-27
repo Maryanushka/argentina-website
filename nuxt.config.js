@@ -1,3 +1,149 @@
+import { createClient } from '@nuxtjs/sanity'
+import fetch from 'node-fetch'
+import { sitemapData } from './plugins/queries'
+
+if (!globalThis.fetch) {
+	globalThis.fetch = fetch
+}
+const configSanity = {
+	projectId: '17qu8ckk',
+	minimal: true,
+	contentHepler: true,
+	apiVersion: '2021-10-21',
+	dataset: 'production',
+}
+
+const client = createClient(configSanity)
+
+const sitemapGenerator = async function () {
+	let data
+	await client
+		.fetch(sitemapData)
+		.then((results) => {
+			data = results
+		})
+		.catch((error) => {
+			console.log('log error', error)
+		})
+	const sitemaproute = []
+	data.forEach((doc) => {
+		switch (doc.type) {
+			case 'page':
+				sitemaproute.push({
+					url: `/${doc.uid}/`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+
+			default:
+				break
+		}
+
+		switch (doc.type) {
+			case 'page':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.uid}/`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'argentina':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'pro-argentuny/' : 'pro-argentiny/'}${doc.uid}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'artcile':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'novunu/' : 'novosti/'}${doc.uid}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'tourism':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'tyruzm/' : 'tyrizm/'}${doc.uid}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'migration':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'migraciija/' : 'imigracija/'}${doc.uid}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'service':
+				sitemaproute.push({
+					url: `${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'poslygu/' : 'uslugi/'}${doc.uid}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+			case 'home':
+				sitemaproute.push({
+					url: `${doc.lang}`,
+					changefreq: 'monthly',
+					priority: 1,
+					lastmod: doc.updated,
+				})
+				break
+		}
+	})
+
+	return sitemaproute
+}
+const routeGenerator = async function () {
+	const route = []
+	let data
+	await client
+		.fetch(sitemapData)
+		.then((results) => {
+			data = results
+		})
+		.catch((error) => {
+			console.log('log error', error)
+		})
+
+	console.log(data)
+	data.forEach((doc) => {
+		switch (doc.type) {
+			case 'page':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.uid}/`)
+				break
+			case 'argentina':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'pro-argentuny/' : 'pro-argentiny/'}${doc.uid}`)
+				break
+			case 'article':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'novunu/' : 'novosti/'}${doc.uid}`)
+				break
+			case 'tourism':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'tyruzm/' : 'tyrizm/'}${doc.uid}`)
+				break
+			case 'migration':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'migraciija/' : 'imigracija/'}${doc.uid}`)
+				break
+			case 'service':
+				route.push(`${doc.lang === 'ua' ? '/' : '/ru/'}${doc.lang === 'ua' ? 'poslygu/' : 'uslugi/'}${doc.uid}`)
+				break
+			case 'home':
+				route.push(`${doc.lang}`)
+				break
+		}
+	})
+	// console.log('route', route)
+	return route
+}
 export default {
 	// Target: https://go.nuxtjs.dev/config-target
 	target: 'static',
@@ -19,7 +165,8 @@ export default {
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: ['@nuxtjs/i18n', '@nuxtjs/sanity/module'],
+	// modules: ['@nuxtjs/i18n', '@nuxtjs/sanity/module'],
+	modules: ['@nuxtjs/i18n', '@nuxtjs/sanity/module', '@nuxtjs/sitemap'],
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
@@ -138,6 +285,26 @@ export default {
 		contentHepler: true,
 		apiVersion: '2021-10-21',
 		dataset: 'production',
+	},
+
+	generate: {
+		// only pass the urls to the generate function
+		// routes: routes.map(route => route.url)
+		fallback: '404.html',
+		crawler: false,
+		// routes: routes.map((route) => route.url),
+		routes() {
+			return routeGenerator()
+		},
+	},
+	sitemap: {
+		// pass the sitemap objects as is to the sitemap module
+		hostname: 'https://argentinadiary.com/',
+		// exclude: ['sitemap'],
+		trailingSlash: true,
+		routes() {
+			return sitemapGenerator()
+		},
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build

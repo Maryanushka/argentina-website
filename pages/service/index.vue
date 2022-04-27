@@ -70,9 +70,11 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
+		getNavigationFromStore() {
+			return this.$store.getters.navigation
+		},
 		sidebar() {
-			const navigation = this.$store.getters.navigation.filter((el) => el.type === 'service' && el.lang === this.$i18n.localeProperties.code)
-			return navigation
+			return this.getNavigationFromStore.filter((el) => el.type === 'service' && el.lang === this.$i18n.localeProperties.code)
 		},
 	},
 	watch: {

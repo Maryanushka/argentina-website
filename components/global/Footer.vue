@@ -3,7 +3,7 @@
 		<div class="container flex flex-wrap pt-16 pb-16 px-4">
 			<div class="w-full md:w-2/3">
 				<ul class="list mb-16 flex flex-wrap">
-					<li v-for="link in menu" :key="link.uid + link.place">
+					<li v-for="link in createFirstLvlNavigation" :key="link.uid + link.place">
 						<n-link class="text-darkBlue hover:text-blue font-bold pr-8 text-base" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 					</li>
 				</ul>
@@ -54,25 +54,28 @@ export default {
 		getNavigationFromStore() {
 			return this.$store.getters.navigation
 		},
-	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.createFirstLvlNavigation(this.getNavigationFromStore)
-		},
-		getNavigationFromStore() {
-			this.createFirstLvlNavigation(this.getNavigationFromStore)
+		createFirstLvlNavigation() {
+			return this.getNavigationFromStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.createFirstLvlNavigation(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		createFirstLvlNavigation(navigation) {
-			this.menu = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
-		},
-	},
+	// watch: {
+	// 	$route(newValue, oldValue) {
+	// 		this.createFirstLvlNavigation(this.getNavigationFromStore)
+	// 	},
+	// 	// getNavigationFromStore() {
+	// 	// 	this.createFirstLvlNavigation(this.getNavigationFromStore)
+	// 	// },
+	// },
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.createFirstLvlNavigation(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	createFirstLvlNavigation(navigation) {
+	// 		this.menu = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
+	// 	},
+	// },
 }
 </script>
 <style lang="scss">

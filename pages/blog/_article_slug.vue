@@ -80,8 +80,9 @@ export default {
 		normalizedLocale() {
 			return this.$i18n.localeProperties.code === 'ua' ? '/' : '/ru/'
 		},
+
 		getCategories() {
-			const pagesWithTags = this.$store.getters.navigation.filter((el) => el.tags !== null)
+			const pagesWithTags = this.getNavigationFromStore.filter((el) => el.tags !== null)
 
 			let flattenTagArray = []
 			pagesWithTags.forEach((el) => {
@@ -92,23 +93,26 @@ export default {
 			const uniqueTags = new Set(flattenTagArray)
 			return uniqueTags
 		},
+		getParentTitle() {
+			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+		},
 	},
 	watch: {
 		$route(newValue, oldValue) {
 			this.$fetch()
-			this.getParentTitle(this.getNavigationFromStore)
+			// this.getParentTitle(this.getNavigationFromStore)
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.getParentTitle(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		getParentTitle(navigation) {
-			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
-	},
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	getParentTitle(navigation) {
+	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+	// 	},
+	// },
 }
 </script>
 <style lang="scss" scoped>

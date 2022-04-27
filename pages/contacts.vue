@@ -41,7 +41,7 @@
 										<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'telegram']" />
 										<span class="ml-2">+54 11 6750-2877</span>
 									</a>
-									<a class="text-yellow hover:text-blue flex items-center my-1" href="https://api.whatsapp.com/send?phone=+541167502877" target="_blank">
+									<a class="text-yellow hover:text-blue flex items-center my-1" href="https://api.whatsapp.com/send/?phone=541167502877" target="_blank">
 										<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'whatsapp']" />
 										<span class="ml-2">+54 11 6750-2877</span>
 									</a>
@@ -109,25 +109,28 @@ export default {
 		normalizedParentUid() {
 			return this.localePath('contacts').split('/').slice(1, -1).pop()
 		},
-	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-		},
-		getNavigationFromStore(oldValue, newValue) {
-			this.getParentTitle(this.getNavigationFromStore)
+		getParentTitle() {
+			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	mounted() {
-		if (this.getNavigationFromStore) {
-			this.getParentTitle(this.getNavigationFromStore)
-		}
-	},
-	methods: {
-		getParentTitle(navigation) {
-			this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-		},
-	},
+	// watch: {
+	// 	$route(newValue, oldValue) {
+	// 		this.$fetch()
+	// 	},
+	// 	getNavigationFromStore(oldValue, newValue) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	},
+	// },
+	// mounted() {
+	// 	if (this.getNavigationFromStore) {
+	// 		this.getParentTitle(this.getNavigationFromStore)
+	// 	}
+	// },
+	// methods: {
+	// 	getParentTitle(navigation) {
+	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
+	// 	},
+	// },
 }
 </script>
 <style lang="scss" scoped>

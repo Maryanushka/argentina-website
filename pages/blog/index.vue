@@ -12,16 +12,9 @@
 						{{ $t('pages.blog.categories') }}
 					</h4>
 					<ul>
-						<!-- <li key="all" @click="filterArticles('all')">
-							<n-link :to="`${normalizedLocale}${normalizedParentUid}/?filter=all`" :class="{ 'text-darkBlue': active_filter == 'all' }" class="flex items-center text-blue hover:text-darkBlue py-2 font-medium text-lg">
-								<font-awesome-icon class="h-3 w-3 mr-3" :icon="['fa', 'angle-right']" />
-								{{ $t('pages.blog.tags.' + 'all') }}
-							</n-link>
-						</li> -->
 						<li v-for="tag in getCategories" :key="tag" @click="filterArticles(tag)">
 							<n-link :to="`${normalizedLocale}${normalizedParentUid}/?filter=${tag}`" :class="{ 'text-darkBlue': active_filter == tag }" class="flex items-center text-blue hover:text-darkBlue py-2 font-medium text-lg">
 								<font-awesome-icon class="h-3 w-3 mr-3" :icon="['fa', 'angle-right']" />
-								<!-- {{ tag }} -->
 								{{ $t('pages.blog.tags.' + tag) }}
 							</n-link>
 						</li>
@@ -122,9 +115,11 @@ export default {
 		endIndex() {
 			return this.page * this.articlesPerPage
 		},
-
+		navigation() {
+			return this.$store.getters.navigation
+		},
 		getCategories() {
-			const pagesWithTags = this.$store.getters.navigation.filter((el) => el.tags !== null)
+			const pagesWithTags = this.navigation.filter((el) => el.tags !== null)
 
 			let flattenTagArray = []
 			pagesWithTags.forEach((el) => {
