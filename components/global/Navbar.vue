@@ -35,7 +35,7 @@
 				<LangSwitcher v-if="mobile < 768" />
 				<nav class="flex justify-end md:items-center items-start w-full relative" :class="{ navigation_opened: isNavigationOpened && mobile < 768 }">
 					<ul v-if="getNavigation" class="flex md:justify-items-end md:items-center md:flex-row flex-col">
-						<li v-for="(link, i) in getNavigation" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }">
+						<li v-for="(link, i) in getNavigation" :key="link.uid" class="relative py-4 flex flex-wrap" :class="{ active_second_l: activeSecondLvl && activeSecondPlace === link.place }" @click="openMenu">
 							<n-link class="md:text-white text-darkBlue hover:text-yellow font-bold px-6 mx-1" :to="`${normalizedLocale}${link.uid}/`">{{ link.title }}</n-link>
 							<font-awesome-icon v-if="i !== getNavigation - 1 && i !== getNavigation - 2" class="text-darkBlue hover:text-yellow md:hidden h-4 w-4 transition-all transform" :icon="['fa', 'chevron-right']" :class="{ 'rotate-90': activeSecondLvl && activeSecondPlace === link.place }" @click="openSecondLvl(link.place)" />
 							<!-- second lvl argentina -->
@@ -133,47 +133,12 @@ export default {
 			return this.getNavigationFormStore.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
 		},
 	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-			// this.setLocalStorage(this.getNavigationFormStore)
-			// this.getNavigation(this.getNavigationFormStore)
-			// this.getArgentinaLinks(this.getNavigationFormStore)
-			// this.getMigrationLinks(this.getNavigationFormStore)
-			// this.getTourismLinks(this.getNavigationFormStore)
-			// this.getServicesLinks(this.getNavigationFormStore)
-		},
-	},
 	mounted() {
 		this.mobile = window.innerWidth
 		window.addEventListener('scroll', this.updateScroll)
 		window.addEventListener('resize', this.resize)
-		// console.log(this.getNavigationFormStore)
-		// if (this.getNavigationFormStore) {
-		// 	// this.setLocalStorage(this.getNavigationFormStore)
-		// 	this.getNavigation(this.getNavigationFormStore)
-		// 	this.getArgentinaLinks(this.getNavigationFormStore)
-		// 	this.getMigrationLinks(this.getNavigationFormStore)
-		// 	this.getTourismLinks(this.getNavigationFormStore)
-		// 	this.getServicesLinks(this.getNavigationFormStore)
-		// }
 	},
 	methods: {
-		// getNavigation(navigation) {
-		// 	this.navigationList.first_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === this.pageType).sort((a, b) => a.place - b.place)
-		// },
-		// getArgentinaLinks(navigation) {
-		// 	this.navigationList.argentina_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'argentina')
-		// },
-		// getMigrationLinks(navigation) {
-		// 	this.navigationList.migration_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'migration')
-		// },
-		// getTourismLinks(navigation) {
-		// 	this.navigationList.tourism_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'tourism')
-		// },
-		// getServicesLinks(navigation) {
-		// 	this.navigationList.services_lvl = navigation.filter((el) => el.lang === this.$i18n.localeProperties.code && el.type === 'service')
-		// },
 		infoOpened() {
 			this.isContactBlockOpened = !this.isContactBlockOpened
 		},
@@ -334,7 +299,7 @@ export default {
 		}
 		.info {
 			position: fixed;
-			width: 65vw;
+			width: 80vw;
 			right: 0;
 			background-color: theme('colors.white');
 			flex-direction: column;

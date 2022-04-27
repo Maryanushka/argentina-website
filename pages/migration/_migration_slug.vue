@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: parentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'migration', linklabel: getParentTitle }" />
 			<SanityContent class="content pt-20" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -21,7 +21,6 @@ export default {
 	name: 'MigrationSlug',
 	data: () => ({
 		data: {},
-		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -78,21 +77,5 @@ export default {
 			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	// watch: {
-	// 	$route(newValue, oldValue) {
-	// 		this.$fetch()
-	// 		this.getParentTitle(this.getNavigationFromStore)
-	// 	},
-	// },
-	// mounted() {
-	// 	if (this.getNavigationFromStore) {
-	// 		this.getParentTitle(this.getNavigationFromStore)
-	// 	}
-	// },
-	// methods: {
-	// 	getParentTitle(navigation) {
-	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-	// 	},
-	// },
 }
 </script>

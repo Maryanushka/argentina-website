@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'service', linklabel: parentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'service', linklabel: getParentTitle }" />
 			<SanityContent class="content py-20" :blocks="data.content" :serializers="serializers" />
 			<PagePreviewGrid v-if="data.relatedServices" :pages="data.relatedServices" :parentuid="normalizedParentUid" />
 		</template>
@@ -20,7 +20,6 @@ export default {
 	name: 'ServiceSlug',
 	data: () => ({
 		data: {},
-		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -76,15 +75,5 @@ export default {
 			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	// mounted() {
-	// 	if (this.getNavigationFromStore) {
-	// 		this.getParentTitle(this.getNavigationFromStore)
-	// 	}
-	// },
-	// methods: {
-	// 	getParentTitle(navigation) {
-	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-	// 	},
-	// },
 }
 </script>

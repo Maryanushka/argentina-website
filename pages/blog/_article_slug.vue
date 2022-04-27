@@ -4,7 +4,7 @@
 			<Error />
 		</template>
 		<template v-if="!$fetchState.pending && data.title">
-			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'blog', linklabel: parentTitle }" />
+			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'blog', linklabel: getParentTitle }" />
 			<div class="container flex flex-wrap py-20">
 				<SanityContent class="content md:w-3/4 w-full md:order-1 order-2" :blocks="data.content" :serializers="serializers" />
 				<aside class="tags md:w-1/4 w-full flex flex-col md:pl-12 md:order-2 order-1">
@@ -97,22 +97,6 @@ export default {
 			return this.getNavigationFromStore.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
 		},
 	},
-	watch: {
-		$route(newValue, oldValue) {
-			this.$fetch()
-			// this.getParentTitle(this.getNavigationFromStore)
-		},
-	},
-	// mounted() {
-	// 	if (this.getNavigationFromStore) {
-	// 		this.getParentTitle(this.getNavigationFromStore)
-	// 	}
-	// },
-	// methods: {
-	// 	getParentTitle(navigation) {
-	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-	// 	},
-	// },
 }
 </script>
 <style lang="scss" scoped>

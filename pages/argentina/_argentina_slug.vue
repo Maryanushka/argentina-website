@@ -21,7 +21,6 @@ export default {
 	name: 'ArgeninaSlug',
 	data: () => ({
 		data: {},
-		parentTitle: '',
 		serializers: {
 			types: {
 				imageText: ImageRichText,
@@ -82,19 +81,6 @@ export default {
 		$route(newValue, oldValue) {
 			this.$fetch()
 		},
-		// getNavigationFromStore(oldValue, newValue) {
-		// 	this.getParentTitle(this.getNavigationFromStore)
-		// },
 	},
-	// mounted() {
-	// 	if (this.getNavigationFromStore) {
-	// 		this.getParentTitle(this.getNavigationFromStore)
-	// 	}
-	// },
-	// methods: {
-	// 	getParentTitle(navigation) {
-	// 		this.parentTitle = navigation.filter((el) => el.uid === this.normalizedParentUid && el.type === 'page')[0].title
-	// 	},
-	// },
 }
 </script>
