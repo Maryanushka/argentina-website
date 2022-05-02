@@ -5,7 +5,7 @@
 			<div v-if="data.poster" class="image w-full">
 				<ImageItem :image="data.poster" h="400" class="w-full object-cover mb-4 flex h-full max-h-80" />
 			</div>
-			<div class="content w-full mt-4 p-6 bg-blue bg-opacity-5 border-blue border-solid border-r-4">
+			<div class="content w-full mt-4 p-6 bg-blue bg-opacity-5 border-blue border-solid border-r-4 mb-12">
 				<SanityContent :blocks="data.text" />
 				<a v-if="data.buttonLink !== undefined" :href="data.buttonLink.href" class="button mt-12 px-8 py-4 hover:bg-blue hover:text-white inline-flex text-lg font-semibold bg-yellow text-darkBlue">{{ data.buttonLink.name }}</a>
 			</div>
