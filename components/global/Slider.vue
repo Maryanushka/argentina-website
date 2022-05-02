@@ -3,7 +3,7 @@
 		<template v-if="type === 'sliderImage'">
 			<VueSlickCarousel v-bind="options">
 				<div v-for="slide in list" :key="slide._key">
-					<picture class="object-cover object-center z-0 relative block box-border">
+					<picture class="object-cover object-center">
 						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" width="560" height="780" />
 						<img v-if="slide.imageItem[0].type === 'desktop'" class="lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" width="1920" height="1024" />
 					</picture>
@@ -11,10 +11,10 @@
 			</VueSlickCarousel>
 		</template>
 		<template v-else>
-			<VueSlickCarousel v-bind="options">
-				<div v-for="slide in list" :key="slide._key" class="slide md:mb-0 mb-24">
-					<div class="container">
-						<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
+			<div class="container">
+				<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
+				<VueSlickCarousel v-bind="options">
+					<div v-for="slide in list" :key="slide._key" class="slide md:mb-0 mb-24">
 						<div class="video_container w-full md:h-96 h-56 relative">
 							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" width="1200" height="500" />
 							<div class="overlay z-10 absolute bg-black w-full h-full inset-0 bg-opacity-50 block"></div>
@@ -23,8 +23,8 @@
 							</a>
 						</div>
 					</div>
-				</div>
-			</VueSlickCarousel>
+				</VueSlickCarousel>
+			</div>
 		</template>
 	</section>
 </template>
@@ -84,6 +84,11 @@ export default {
 	.play {
 		transform: translate(-50%, -50%);
 		z-index: 10;
+	}
+	picture {
+		z-index: -1;
+		position: relative;
+		display: block;
 	}
 }
 </style>
