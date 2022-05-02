@@ -2,13 +2,11 @@
 	<section class="slider w-full" :class="{ ' py-20 md:pt-28 md:pb-32 bg-darkBlue relative top_skew bottom_skew': type !== 'sliderImage' }">
 		<template v-if="type === 'sliderImage'">
 			<VueSlickCarousel v-bind="options">
-				<div v-for="slide in list" :key="slide._key" class="slide">
-					<!-- <div class="content"> -->
-					<picture class="object-cover object-center">
+				<div v-for="slide in list" :key="slide._key">
+					<picture class="object-cover object-center z-0 relative block box-border">
 						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" width="560" height="780" />
 						<img v-if="slide.imageItem[0].type === 'desktop'" class="lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" width="1920" height="1024" />
 					</picture>
-					<!-- </div> -->
 				</div>
 			</VueSlickCarousel>
 		</template>
@@ -62,10 +60,10 @@ export default {
 			dotsClass: 'slick-dots',
 			autoplay: true,
 			arrows: false,
-			fade: true,
-			edgeFriction: 0.35,
+			// fade: true,
+			// edgeFriction: 0.35,
 			infinite: false,
-			speed: 500,
+			// speed: 500,
 			slidesToShow: 1,
 			slidesToScroll: 1,
 		},
