@@ -3,7 +3,7 @@
 		<div class="container flex flex-col md:flex-row flex-wrap px-4">
 			<h2 v-if="title !== ''" class="title text-3xl font-bold mb-24 relative text-darkBlue text-center md:text-left w-full">{{ title }}</h2>
 			<div v-if="poster" class="image md:w-1/3 w-full">
-				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" />
+				<ImageItem :image="poster" class="w-full h-full object-cover mb-4 flex" w="600" h="400" />
 			</div>
 			<div class="content md:w-2/3 md:pl-8 w-full">
 				<SanityContent :blocks="text" class="rich_text" />

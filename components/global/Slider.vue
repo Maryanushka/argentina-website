@@ -5,8 +5,8 @@
 				<div v-for="slide in list" :key="slide._key" class="slide">
 					<!-- <div class="content"> -->
 					<picture class="object-cover object-center">
-						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" />
-						<img v-if="slide.imageItem[0].type === 'desktop'" class="lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" />
+						<source v-if="slide.imageItem[1].type === 'mobile'" media="(max-width: 768px)" :srcset="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[1].image.slice(6, -4)}.jpg`" width="560" height="780" />
+						<img v-if="slide.imageItem[0].type === 'desktop'" class="lazyload" :src="`https://cdn.sanity.io/images/17qu8ckk/production/${slide.imageItem[0].image.slice(6, -4)}.jpg`" width="1920" height="1024" />
 					</picture>
 					<!-- </div> -->
 				</div>
@@ -18,7 +18,7 @@
 					<div class="container">
 						<h2 class="title w-full text-3xl font-bold mb-24 relative text-white text-center md:text-left">{{ title }}</h2>
 						<div class="video_container w-full md:h-96 h-56 relative">
-							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" />
+							<img class="w-full h-full object-cover z-0 relative" :src="`https://i.ytimg.com/vi/${imagePreview(slide.youtube)}/maxresdefault.jpg`" width="1200" height="500" />
 							<div class="overlay z-10 absolute bg-black w-full h-full inset-0 bg-opacity-50 block"></div>
 							<a class="text-yellow play w-16 h-16 absolute top-2/4 left-2/4 z-20 hover:text-blue" @click="openModal({ isEnabled: true, data: slide.youtube })">
 								<font-awesome-icon class="text-6xl w-16 h-16" :icon="['fas', 'play-circle']" />

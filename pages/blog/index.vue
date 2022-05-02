@@ -22,7 +22,7 @@
 				</aside>
 				<section class="grid md:w-3/4 w-full">
 					<article v-for="blogCard in filteredArticles" :key="blogCard._id" class="blog_card flex flex-col mb-8">
-						<ImageItem :image="blogCard.poster" w="1000" />
+						<ImageItem :image="blogCard.poster" w="1000" h="500" />
 						<h3 class="title text-blue text-xl font-bold my-4">
 							{{ blogCard.title }}
 						</h3>
@@ -58,7 +58,7 @@ export default {
 	data: () => ({
 		data: {},
 		page: 1,
-		articlesPerPage: 2,
+		articlesPerPage: 4,
 		active_filter: '',
 		filteredArticles: [],
 		serializers: {
@@ -158,8 +158,8 @@ export default {
 		},
 		paginatedArticles(arr) {
 			this.filteredArticles = arr.slice(this.startIndex, this.endIndex)
-			if (arr.length > 1) {
-				this.data.pageNumber = Math.floor(arr.length / this.articlesPerPage)
+			if (arr.length > this.endIndex) {
+				this.data.pageNumber = Math.ceil(arr.length / this.articlesPerPage)
 				return
 			}
 			this.data.pageNumber = 1
@@ -183,3 +183,8 @@ export default {
 	},
 }
 </script>
+<style lang="scss" scoped>
+.grid {
+	min-height: 20rem;
+}
+</style>

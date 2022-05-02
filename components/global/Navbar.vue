@@ -91,14 +91,6 @@ export default {
 		pageType: 'page',
 		activeSecondLvl: false,
 		activeSecondPlace: 0,
-		navigationList: {
-			first_lvl: [],
-			argentina_lvl: [],
-			migration_lvl: [],
-			tourism_lvl: [],
-			services_lvl: [],
-		},
-		// getNavigation: [],
 	}),
 	async fetch() {
 		await this.$sanity
