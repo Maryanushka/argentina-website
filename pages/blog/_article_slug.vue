@@ -6,8 +6,8 @@
 		<template v-if="!$fetchState.pending && data.title">
 			<Intro :title="data.title" :poster="data.poster" :crumbs="{ enabled: true, linkname: 'blog', linklabel: getParentTitle }" />
 			<div class="container flex flex-wrap py-20">
-				<SanityContent class="content md:w-3/4 w-full md:order-1 order-2" :blocks="data.content" :serializers="serializers" />
-				<aside class="tags md:w-1/4 w-full flex flex-col md:pl-12 md:order-2 order-1">
+				<SanityContent class="content md:w-3/4 w-full md:order-1 order-2 px-3" :blocks="data.content" :serializers="serializers" />
+				<aside class="tags md:w-1/4 w-full flex flex-col md:pl-12 md:order-2 order-1 px-3">
 					<h4 class="titletext-lg font-semibold py-3 border-gray-200 border border-t-0 border-l-0 border-r-0 border-solid flex w-full relative mb-4">Categories</h4>
 					<ul>
 						<li v-for="tag in getCategories" :key="tag">

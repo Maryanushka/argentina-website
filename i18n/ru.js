@@ -21,7 +21,7 @@ export default {
 			button: 'Отправить',
 			address: 'Адресс',
 			open_hours: 'Время работы',
-			form_title: 'Ми допоможемо',
+			form_title: 'Мы поможем',
 			socialMediaTitle: 'Мы в социальных сетях',
 			successMessage: 'Спасибо за сообщение! Мы уже звоним',
 			errorMessage: 'Ой что-то пошло не так! Пожалуйста попробуйсте снова',

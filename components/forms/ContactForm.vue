@@ -1,5 +1,5 @@
 <template>
-	<div class="contact_form w-full">
+	<div class="contact_form w-full px-4">
 		<h4 class="font-semibold mt-6 mb-8 text-xl text-blue">{{ $t('pages.contact.form_title') }}</h4>
 		<form ref="contact_form" class="flex flex-col" autocomplete="off" @submit.prevent="Submit()">
 			<div v-if="message.isActive">
@@ -84,6 +84,11 @@ export default {
 			margin: 1.5rem 0;
 			position: relative;
 		}
+	}
+}
+.contact_page {
+	.contact_form {
+		padding: 0;
 	}
 }
 @media (max-width: 800px) {

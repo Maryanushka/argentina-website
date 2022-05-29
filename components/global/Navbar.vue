@@ -258,6 +258,16 @@ export default {
 		}
 	}
 }
+@media (min-width: 1024px) and (max-width: 1280px) {
+	.header {
+		.logo {
+			height: 4rem;
+			a {
+				height: auto;
+			}
+		}
+	}
+}
 @media (min-width: 768px) and (max-width: 1280px) {
 	.header {
 		.mobile {
@@ -287,7 +297,7 @@ export default {
 		.lang {
 			position: fixed;
 			top: 1rem;
-			right: 3rem;
+			right: 4rem;
 		}
 		.info {
 			position: fixed;
@@ -400,6 +410,17 @@ export default {
 			&.navigation_opened {
 				left: 0;
 			}
+		}
+	}
+}
+@media (max-width: 400px) {
+	.header {
+		.lang {
+			right: 3rem;
+		}
+		.logo {
+			top: 10px;
+			height: 2.5rem;
 		}
 	}
 }
