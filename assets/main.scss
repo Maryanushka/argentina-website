@@ -104,7 +104,7 @@ section {
 
 .top_skew {
 	&::before {
-		top: -1px;
+		top: 0;
 		left: 0;
 		clip-path: polygon(0 0, 100% 0, 97% 100%, 0% 100%);
 	}
@@ -130,7 +130,7 @@ section {
 		background-color: #fff;
 	}
 	&::after {
-		bottom: -1px;
+		bottom: 0;
 		right: 0;
 		clip-path: polygon(3% 0, 100% 0, 100% 100%, 0% 100%);
 	}

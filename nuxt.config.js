@@ -273,9 +273,9 @@ export default {
 
 	fontawesome: {
 		icons: {
-			solid: ['faAngleRight', 'faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart', 'faGlobeAmericas', 'faSun', 'faMapMarkerAlt', 'faBaby', 'faUserShield'],
+			solid: ['faAngleRight', 'faPhone', 'faEnvelope', 'faLongArrowAltRight', 'faArrowRight', 'faArrowLeft', 'faThumbsUp', 'faLock', 'faUsers', 'faBars', 'faTimes', 'faChevronRight', 'faEllipsisV', 'faPlayCircle', 'faPlay', 'faHandHoldingMedical', 'faPassport', 'faSmile', 'faCoins', 'faHeart', 'faGlobeAmericas', 'faSun', 'faMapMarkerAlt', 'faBaby', 'faUserShield', 'faMountain', 'faHouse', 'faAddressCard', 'faCalculator', 'faFileSignature', 'faLanguage'],
 			regular: ['faClock', 'faEnvelope', 'faPlayCircle'],
-			brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faGratipay', 'faTelegram', 'faWhatsapp'],
+			brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faGratipay', 'faTelegram', 'faWhatsapp', 'faBtc'],
 		},
 	},
 
