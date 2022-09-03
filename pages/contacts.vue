@@ -26,7 +26,7 @@
 								<p>Buenos Aires, Tigre, Nordelta Las Glorietas, 150</p>
 							</div>
 						</div>
-						<div class="w-full flex md:flex-row flex-col justify-center md:items-start items-center md:my-0 my-12">
+						<!-- <div class="w-full flex md:flex-row flex-col justify-center md:items-start items-center md:my-0 my-12">
 							<div class="icon w-20 h-20 bg-yellow text-darkBlue rounded-full flex justify-center items-center">
 								<font-awesome-icon class="w-8 h-8 text-lg" :icon="['fa', 'map-marker-alt']" />
 							</div>
@@ -47,7 +47,7 @@
 									</a>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="w-full flex md:flex-row flex-col justify-center md:items-start items-center md:my-0 my-12">
 							<div class="icon w-20 h-20 bg-yellow text-darkBlue rounded-full flex justify-center items-center">
 								<font-awesome-icon class="w-8 h-8 text-lg" :icon="['fa', 'map-marker-alt']" />

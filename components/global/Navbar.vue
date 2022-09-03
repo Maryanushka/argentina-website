@@ -19,16 +19,16 @@
 						<span class="xl:text-darkBlue md:text-white text-darkBlue ml-2 font-light text-sm">Пн–Сб: 7:00–19:00</span>
 					</span>
 					<div class="phones xl:my-9 md:my-4 md:ml-12 my-2 w-full md:w-auto flex">
-						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="tel:+54 11 6750-2877">
-							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fa', 'phone']" />
+						<!-- <a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="tel:+54 11 6750-2877"> -->
+							<!-- <font-awesome-icon class="w-5 h-5 text-lg" :icon="['fa', 'phone']" /> -->
 							<!-- <span class="xl:text-darkBlue xl:hover:text-blue hover:text-yellow md:text-white text-darkBlue ml-2 font-light text-sm">+54 11 6750-2877</span> -->
-						</a>
+						<!-- </a> -->
 						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://t.me/Viktor_arg" target="_blank">
 							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'telegram']" />
 						</a>
-						<a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://api.whatsapp.com/send/?phone=541167502877" target="_blank">
+						<!-- <a class="mx-2 xl:text-blue md:text-yellow text-blue hover:text-darkBlue" href="https://api.whatsapp.com/send/?phone=541167502877" target="_blank">
 							<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'whatsapp']" />
-						</a>
+						</a> -->
 					</div>
 					<LangSwitcher v-if="mobile > 768" />
 				</div>
