@@ -26,28 +26,6 @@
 								<p>Buenos Aires, Tigre, Nordelta Las Glorietas, 150</p>
 							</div>
 						</div>
-						<!-- <div class="w-full flex md:flex-row flex-col justify-center md:items-start items-center md:my-0 my-12">
-							<div class="icon w-20 h-20 bg-yellow text-darkBlue rounded-full flex justify-center items-center">
-								<font-awesome-icon class="w-8 h-8 text-lg" :icon="['fa', 'map-marker-alt']" />
-							</div>
-							<div class="text text-white md:w-2/3 md:ml-8 md:mt-0 mt-8">
-								<h5 class="md:text-xl text-2xl md:mb-4 mb-6 font-bold md:text-left text-center">{{ $t('pages.contact.number_pl') }}</h5>
-								<div class="phones w-full flex flex-col">
-									<a class="text-yellow hover:text-blue flex items-center my-1" href="tel:+54 11 6750-2877">
-										<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fa', 'phone']" />
-										<span class="ml-2">+54 11 6750-2877</span>
-									</a>
-									<a class="text-yellow hover:text-blue flex items-center my-1" href="https://t.me/Viktor_arg" target="_blank">
-										<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'telegram']" />
-										<span class="ml-2">+54 11 6750-2877</span>
-									</a>
-									<a class="text-yellow hover:text-blue flex items-center my-1" href="https://api.whatsapp.com/send/?phone=541167502877" target="_blank">
-										<font-awesome-icon class="w-5 h-5 text-lg" :icon="['fab', 'whatsapp']" />
-										<span class="ml-2">+54 11 6750-2877</span>
-									</a>
-								</div>
-							</div>
-						</div> -->
 						<div class="w-full flex md:flex-row flex-col justify-center md:items-start items-center md:my-0 my-12">
 							<div class="icon w-20 h-20 bg-yellow text-darkBlue rounded-full flex justify-center items-center">
 								<font-awesome-icon class="w-8 h-8 text-lg" :icon="['fa', 'map-marker-alt']" />
